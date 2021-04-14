@@ -1,4 +1,4 @@
-![Our logo](branding.png)
+![Our logo](./branding/13bullet_logo.png)
 # 13ullet's Team Page
 
 ## Team Members
