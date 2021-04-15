@@ -11,7 +11,7 @@ I'm a third year Math-CS major. My role in this project is the backend.
 [Brandon Chaing](https://bchaing.github.io/sp21-cse110-lab1/)
 
 #### Zhongqian Li
-[Zhongqian Li](https://zhl024.github.io/Lab1/)
+Third year Math-CS student. Persistence / co-lead. [Zhongqian Li](https://zhl024.github.io/Lab1/)
 
 #### Ivy Chan
 I'm a third year computer engineering major with a business minor. I'll be primarily working on the UI for this project. I also like [sharks](https://ivychxn.github.io/110lab1/).
