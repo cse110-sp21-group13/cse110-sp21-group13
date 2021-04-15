@@ -19,4 +19,4 @@
 4. If an issue arises with a team leader, discuss it with the TA.
 
 
-#### <div align="center"> X _________ </div>
+#### <div align="center"> _________ SIGN HERE </div>
