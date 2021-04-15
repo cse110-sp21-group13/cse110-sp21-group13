@@ -15,5 +15,9 @@
 #### Ivy Chan
 I'm a third year computer engineering major with a business minor. I'll be primarily working on the UI for this project. I also like [sharks](https://ivychxn.github.io/110lab1/).
 
+#### Lars Vlahakis
+Third year CE major with many analog interests.
+[Lars Vlahakis](https://lvlahaki.github.io/GitHubPages/)
+
 ## Team Values
 Patience - Understanding - Accountability
