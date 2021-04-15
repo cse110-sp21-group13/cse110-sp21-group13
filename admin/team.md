@@ -19,5 +19,8 @@ I'm a third year computer engineering major with a business minor. I'll be prima
 Third year CE major with many analog interests.
 [Lars Vlahakis](https://lvlahaki.github.io/GitHubPages/)
 
+#### Ryan Keegan
+Second year student pursuing a major in CS and a minor in business. Persistence/co-lead [Ryan Keegan](https://rkeegsd.github.io/cse110-lab1/)
+
 ## Team Values
 Patience - Understanding - Accountability
