@@ -1,5 +1,4 @@
 # Group Contract
-The following lists the agreements for Team 13 (13ullet) that discussed on 4/14/21.
 
 ## Group 13's Rules of Conduct
 1. Don’t take on work you are unsure of completing on time.
@@ -19,19 +18,5 @@ The following lists the agreements for Team 13 (13ullet) that discussed on 4/14/
 3. Team leads will mediate a discussion, or discuss it with the person directly depending on context.
 4. If an issue arises with a team leader, discuss it with the TA.
 
-## Team Members and Roles
-### Frontend
-- **UI:** Ivy Chan
-- **UX:** Cameron Nazemi
-- **UX:** Lars Vlahakis
-- **QE:** Brandon Chaing
 
-### Backend
-- **Persistence:** Zhongqian Li
-- **Persistence:** Ryan Keegan
-- **Backend:** Ethan Reiter
-- **Backend:** Everett Craw
-- **QE:** Banglun Wu
-
-## Scheduled Meetings
-Wednesdays 4-5pm PST
+<div align="center"> X _________ </div>
