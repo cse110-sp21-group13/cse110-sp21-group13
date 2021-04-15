@@ -5,6 +5,7 @@
 
 #### Ethan Reiter
 [Ethan Reiter](https://dino-inc.github.io/CSE110Lab1/)
+I'm a third year Math-CS major. My role in this project is the backend.
 
 #### Brandon Chaing
 [Brandon Chaing](https://bchaing.github.io/sp21-cse110-lab1/)
