@@ -22,5 +22,8 @@ Third year CE major with many analog interests.
 #### Ryan Keegan
 Second year student pursuing a major in CS and a minor in business. Persistence/co-lead [Ryan Keegan](https://rkeegsd.github.io/cse110-lab1/)
 
+#### Banglun Wu
+[Banglun Wu](https://b2wu.github.io/cse110/)
+
 ## Team Values
 Patience - Understanding - Accountability
