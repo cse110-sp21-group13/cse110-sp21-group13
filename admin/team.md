@@ -8,7 +8,7 @@
 I'm a third year Math-CS major. My role in this project is the backend.
 
 #### Brandon Chaing
-[Brandon Chaing](https://bchaing.github.io/sp21-cse110-lab1/)
+Second year CE major. My role in this project is frontend QE. [Brandon Chaing](https://bchaing.github.io/sp21-cse110-lab1/)
 
 #### Zhongqian Li
 Third year Math-CS student. Persistence / co-lead. [Zhongqian Li](https://zhl024.github.io/Lab1/)
