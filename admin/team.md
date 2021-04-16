@@ -30,5 +30,9 @@ Second year student pursuing a major in CS and a minor in business. Persistence/
 Second year CE major with an interest in embedded systems. Backend
 [Everett Craw](https://cleverever.github.io/GitHub-Pages/)
 
+#### Cameron Nazemi
+Fourth year CS major with an interest in computer vision. Frontend UX
+[Cameron Nazemi](https://cnazemi.github.io/CSE110Lab1/)
+
 ## Team Values
 Patience - Understanding - Accountability
