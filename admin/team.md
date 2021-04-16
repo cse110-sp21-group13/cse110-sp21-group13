@@ -26,5 +26,9 @@ Second year student pursuing a major in CS and a minor in business. Persistence/
 #### Banglun Wu
 [Banglun Wu](https://b2wu.github.io/cse110/)
 
+#### Everett Craw
+Second year CE major with an interest in embedded systems. Backend
+[Everett Craw](https://cleverever.github.io/GitHub-Pages/)
+
 ## Team Values
 Patience - Understanding - Accountability
