@@ -1,8 +1,8 @@
-Name: Rachael
-Age: 20
-Gender: Female
-Major: Social Science
-Tech fluency: Average
+Name: Rachael <br />
+Age: 20 <br />
+Gender: Female <br />
+Major: Social Science <br />
+Tech fluency: Average <br />
 
 “I get 3 hours of sleep every day” - Rachael
 
@@ -17,10 +17,10 @@ Challenges and Goals:
 
 
 
-Name: Dolores
-Age: 76
-Gender: Female 
-Tech fluency: Below average
+Name: Dolores <br />
+Age: 76 <br />
+Gender: Female <br />
+Tech fluency: Below average <br />
 
 “I may be retired and blind, but my life is busier than ever” - Dolores
 
@@ -35,10 +35,10 @@ She heard about the bullet journal philosophy from one of her friends at a local
 
 
 
-Name: Dave
-Age: 27
-Gender: Chose not to respond
-Tech fluency: Slightly above average
+Name: Dave <br />
+Age: 27 <br />
+Gender: Chose not to respond <br />
+Tech fluency: Slightly above average <br />
 
 “Idk man, it’s just so much on my mind rn idk how to keep track of everything without them” - Dave, texting Benji
 
