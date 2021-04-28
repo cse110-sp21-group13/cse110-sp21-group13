@@ -15,7 +15,8 @@ Challenges and Goals:
 ![](PersonaRachael.png)
 
 
-
+<br />
+<br />
 
 Name: Dolores <br />
 Age: 76 <br />
@@ -32,7 +33,8 @@ She heard about the bullet journal philosophy from one of her friends at a local
 
 ![](PersonaDolores.png)
 
-
+<br />
+<br />
 
 
 Name: Dave <br />
