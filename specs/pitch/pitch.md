@@ -91,26 +91,26 @@ We decided to create a guided bullet journal that facilitates the bullet journal
 
 ## Daily Log
 
-![Daily Wireframe](../interface/wireframes/daily_log.png)
+![Daily Wireframe](../interface/highfidelity/daily_log_hifi.png)
 
 The backbone of the journal, the daily log serves as the home of the most granular bulleted thoughts input by the user. It contains events, tasks, and notes, and organizes them according to signifiers. The bullet displayed represents the type of entry, and it can be modified to signify the state of the bullet, such as completion or migrated to the next day. The bullets in entries will be sorted into types and headers will categorize them (using signifiers as categories). Tentatively 100 characters, variable constant. 
 
 
 ## Monthly Log
 
-![Monthly Wireframe](../interface/wireframes/monthly.png)
+![Monthly Wireframe](../interface/highfidelity/monthly_hifi.png)
 
 Contains a calendar linking to the daily logs for the month, though any days that have not yet occurred do not link, as daily logs do not exist until their day comes. It also contains the monthly log entry to the right of the calendar. It functions akin to the daily log except it is for the entire month.
 
 ## Future Log
 
-![Future Log](../interface/wireframes/future_log.png)
+![Future Log](../interface/highfidelity/future_log_hifi.png)
 
 A monthly log that can be written for months in the future. Has the restriction of three bullet points per future month. When the month occurs, the user is prompted to migrate the bullets into the now current month.
 
 ## Navbar
 
-![Navbar](../interfaces/../interface/wireframes/homepage%20-%20menu%20open.png)
+![Navbar](../interfaces/../interface/highfidelity/homepage_menu_open_hifi.png)
 
 This screen is where the index is found to easily navigate to specific types of log in the journal, as well as the settings and logout button.
 
