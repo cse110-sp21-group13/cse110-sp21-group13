@@ -1,4 +1,4 @@
-# Meeting Note for 04/14/2021
+# Meeting Note for 04/28/2021
 ### Type of Meeting: Brainstorming
 ### Attendance: No absence
 ### time: 4pm-6pm(Pacific)
