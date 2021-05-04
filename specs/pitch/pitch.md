@@ -1,6 +1,6 @@
 # Statement of Purpose
 
-Our purpose in this pitch is to establish the concept of a bullet journal. (placeholder statement)
+Our purpose in creating this project is simple: create a strict, minimalist bullet journal with no frills. It should augment and improve the lives of those who use it, ultimately allowing them to become more productive and more focused than before. We strive to provide the easiest possible journal access - necessarily, our users' data will be stored on the cloud, hidden away and backed up no matter the calamity. Should the need arise, our bullet journal will be there, ready to record the most important moments of our users' lives.
 
 # Problem
 
