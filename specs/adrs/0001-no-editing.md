@@ -1,74 +1,41 @@
-# [short title of solved problem and solution]
+# Edits of bullet content after addition is not allowed, only crossing out
 
-* Status: [proposed | rejected | accepted | deprecated | … | superseded by [ADR-0005](0005-example.md)] <!-- optional -->
-* Deciders: [list everyone involved in the decision] <!-- optional -->
-* Date: [YYYY-MM-DD when the decision was last updated] <!-- optional -->
+* Status: Accepted 
+* Deciders: Entire Team
+* Date: 2021-05-03
 
-Technical Story: [description | ticket/issue URL] <!-- optional -->
 
 ## Context and Problem Statement
 
-[Describe the context and problem statement, e.g., in free form using two to three sentences. You may want to articulate the problem in form of a question.]
+What would the creator of bullet journaling think of a journal that can wipe entries away completely, leaving not a trace of their existence? Preposterous, he might claim. Physical journals, written in pen, establish permanence and stability within the journal itself, allowing at most crossing out of irrelevant entries.
 
-## Decision Drivers <!-- optional -->
+## Decision Drivers 
 
-* [driver 1, e.g., a force, facing concern, …]
-* [driver 2, e.g., a force, facing concern, …]
-* … <!-- numbers of drivers can vary -->
+* Editing the bullets afterwards allows users to retroactively change their mind on notes that should be spontaneous
+* Our application aims to emulate paper within reason, and editing something away entirely seems to go against the core of a journal
+* Users would assume a digital application would allow editing of entry content
+* Knowledge that anything a user puts into a journal is permanent will make them thing critically about what they wish to log
+* Editing is another, admittedly trivial, feature to implement
 
 ## Considered Options
 
-* [option 1]
-* [option 2]
-* [option 3]
-* … <!-- numbers of options can vary -->
+* Allow unrestricted editing
+* Prevent all editing entirely
+* Put a grace period on edits that expires after a certain amount of time
+* Allow only crossing out of irrelevant entries
 
 ## Decision Outcome
 
-Chosen option: "[option 1]", because [justification. e.g., only option, which meets k.o. criterion decision driver | which resolves force force | … | comes out best (see below)].
+Chosen option: "Allow only crossing out of irrelevant entries", because users who use our application will want a strict, true to bujo approach, while still being able to retain some agency in what is crossed out or not.
 
-### Positive Consequences <!-- optional -->
+### Positive Consequences
 
-* [e.g., improvement of quality attribute satisfaction, follow-up decisions required, …]
-* …
+* Conforms to our philosophy of following the original Bullet Journal ideas
+* Simplifies the backend slightly
+* Users will consider every entry they put into the journal with care
+* Journals will retain an indelible record of what you have done every day
 
-### Negative Consequences <!-- optional -->
+### Negative Consequences 
 
-* [e.g., compromising quality attribute, follow-up decisions required, …]
-* …
-
-## Pros and Cons of the Options <!-- optional -->
-
-### [option 1]
-
-[example | description | pointer to more information | …] <!-- optional -->
-
-* Good, because [argument a]
-* Good, because [argument b]
-* Bad, because [argument c]
-* … <!-- numbers of pros and cons can vary -->
-
-### [option 2]
-
-[example | description | pointer to more information | …] <!-- optional -->
-
-* Good, because [argument a]
-* Good, because [argument b]
-* Bad, because [argument c]
-* … <!-- numbers of pros and cons can vary -->
-
-### [option 3]
-
-[example | description | pointer to more information | …] <!-- optional -->
-
-* Good, because [argument a]
-* Good, because [argument b]
-* Bad, because [argument c]
-* … <!-- numbers of pros and cons can vary -->
-
-## Links <!-- optional -->
-
-* [Link type] [Link to ADR] <!-- example: Refined by [ADR-0005](0005-example.md) -->
-* … <!-- numbers of links can vary -->
-
-<!-- markdownlint-disable-file MD013 -->
+* Users will expect editing to exist in a digital application
+* Typos will simply have to be lived with, or crossed out and rewritten
