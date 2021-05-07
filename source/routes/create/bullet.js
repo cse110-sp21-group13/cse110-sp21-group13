@@ -24,7 +24,7 @@ module.exports = {
             })
             .then((response) => {
                 console.log(response);
-                res.send('success');
+                res.send(response);
             })
             .catch((err) => {
                 console.log(err);
