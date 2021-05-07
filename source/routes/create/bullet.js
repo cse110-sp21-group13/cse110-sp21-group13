@@ -2,6 +2,7 @@ const PouchDB = require('pouchdb');
 PouchDB.plugin(require('pouchdb-find'));
 const db = new PouchDB('bullet-journal');
 
+// Send in data and it gets send to the database
 module.exports = {
     '/create/bullet': {
         methods: ['post'],
@@ -16,7 +17,6 @@ module.exports = {
             })
             .then((result) => {console.log(result)})
             .catch((err) => {console.log(err)});
-
             res.send('success');
         }
     }
