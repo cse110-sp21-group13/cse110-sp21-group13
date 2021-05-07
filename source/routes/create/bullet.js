@@ -7,7 +7,7 @@ module.exports = {
     '/create/bullet': {
         methods: ['post'],
         fn: function(req, res, next) {
-            // Check if every field exists, if not, create it (maybe reject it)
+            // Check if every field exists, if not, throw error
             let requiredFields = ["user", "type", "signifier", "bulletType", "content", "date"];
             requiredFields.forEach((jsonField, index)=>{
                 if(!req.body[jsonField]){
