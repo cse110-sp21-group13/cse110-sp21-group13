@@ -1,74 +1,38 @@
-# [short title of solved problem and solution]
+# Using PouchDB for database
 
-* Status: [proposed | rejected | accepted | deprecated | … | superseded by [ADR-0005](0005-example.md)] <!-- optional -->
-* Deciders: [list everyone involved in the decision] <!-- optional -->
-* Date: [YYYY-MM-DD when the decision was last updated] <!-- optional -->
-
-Technical Story: [description | ticket/issue URL] <!-- optional -->
+* Status: Accepted
+* Deciders: Backend Team
+* Date: 05/06/2021 
 
 ## Context and Problem Statement
 
-[Describe the context and problem statement, e.g., in free form using two to three sentences. You may want to articulate the problem in form of a question.]
+Storage of a database is tricky and there are a great deal of options, but we need the ease of potentially converting the database in a later sprint and pouchdb allows this to happen very easily.
 
-## Decision Drivers <!-- optional -->
+## Decision Drivers 
 
-* [driver 1, e.g., a force, facing concern, …]
-* [driver 2, e.g., a force, facing concern, …]
-* … <!-- numbers of drivers can vary -->
+* Sanat suggested the database
+* Use is very simple
+* Any database needs to seamlessly support remote or local database use
+* The alternative is MongoDb, which is less simple (though likely more powerful as a result)
 
 ## Considered Options
 
-* [option 1]
-* [option 2]
-* [option 3]
-* … <!-- numbers of options can vary -->
+* MongoDb
+* PouchDb
 
 ## Decision Outcome
 
-Chosen option: "[option 1]", because [justification. e.g., only option, which meets k.o. criterion decision driver | which resolves force force | … | comes out best (see below)].
+Chosen option: PouchDb, because of the ease of switching to remote and Sanat's suggestion to use it.
 
-### Positive Consequences <!-- optional -->
+### Positive Consequences 
 
-* [e.g., improvement of quality attribute satisfaction, follow-up decisions required, …]
-* …
+* Ease of switching to remote
+* Document structure is simply JSON files
+* Easy to understand and implement
+* Built asynchronously, so potential conflicts can be resolved
 
 ### Negative Consequences <!-- optional -->
 
-* [e.g., compromising quality attribute, follow-up decisions required, …]
-* …
-
-## Pros and Cons of the Options <!-- optional -->
-
-### [option 1]
-
-[example | description | pointer to more information | …] <!-- optional -->
-
-* Good, because [argument a]
-* Good, because [argument b]
-* Bad, because [argument c]
-* … <!-- numbers of pros and cons can vary -->
-
-### [option 2]
-
-[example | description | pointer to more information | …] <!-- optional -->
-
-* Good, because [argument a]
-* Good, because [argument b]
-* Bad, because [argument c]
-* … <!-- numbers of pros and cons can vary -->
-
-### [option 3]
-
-[example | description | pointer to more information | …] <!-- optional -->
-
-* Good, because [argument a]
-* Good, because [argument b]
-* Bad, because [argument c]
-* … <!-- numbers of pros and cons can vary -->
-
-## Links <!-- optional -->
-
-* [Link type] [Link to ADR] <!-- example: Refined by [ADR-0005](0005-example.md) -->
-* … <!-- numbers of links can vary -->
-
-<!-- markdownlint-disable-file MD013 -->
+* No experience with pouchdb on the team
+* Documents are the smallest structure, no table structure
+* Revisions of all documents are kept up to a limit
