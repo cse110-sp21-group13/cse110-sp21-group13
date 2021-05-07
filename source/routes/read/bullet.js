@@ -2,7 +2,7 @@ const PouchDB = require('pouchdb');
 PouchDB.plugin(require('pouchdb-find'));
 const db = new PouchDB('bullet-journal');
 
-// Send in a valid document ID and get back the response document
+// Send in a valid json containing just the id and get back the document's json
 module.exports = {
     '/read/bullet': {
         methods: ['get'],
