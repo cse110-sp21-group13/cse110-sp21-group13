@@ -9,7 +9,10 @@ module.exports = {
         fn: function(req, res, next) {
             db.get(req.body.id)
             .then((response) => {res.send(response);})
-            .catch((err) => {console.log(err)});
+            .catch((err) => {
+                console.log(err);
+                res.send("error");
+            });
         }
     }
 }

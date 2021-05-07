@@ -16,7 +16,10 @@ module.exports = {
                 date: req.body.date
             })
             .then((result) => {console.log(result)})
-            .catch((err) => {console.log(err)});
+            .catch((err) => {
+                console.log(err);
+                res.send("error");
+            });
             res.send('success');
         }
     }
