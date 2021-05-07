@@ -7,7 +7,6 @@ module.exports = {
     '/read/bullet': {
         methods: ['get'],
         fn: function(req, res, next) {
-            console.log(req.body.id);
             db.get(req.body.id)
             .then((response) => {res.send(response);})
             .catch((err) => {console.log(err)});
