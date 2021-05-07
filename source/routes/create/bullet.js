@@ -22,8 +22,8 @@ module.exports = {
                 content: req.body.content,
                 date: req.body.date
             })
-            .then((result) => {
-                console.log(result);
+            .then((response) => {
+                console.log(response);
                 res.send('success');
             })
             .catch((err) => {
