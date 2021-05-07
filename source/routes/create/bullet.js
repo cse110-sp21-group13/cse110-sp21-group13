@@ -7,7 +7,12 @@ module.exports = {
         methods: ['post'],
         fn: function(req, res, next) {
             db.post({
-                signifier 
+                user: req.body.user,
+                type: req.body.type,
+                signifier: req.body.signifier,
+                bulletType: req.body.bulletType,
+                content: req.body.content,
+                date: req.body.date
             })
             .then((result) => {console.log(result)})
             .catch((err) => {console.log(err)});
