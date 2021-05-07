@@ -11,7 +11,6 @@ module.exports = {
             let requiredFields = ["user", "type", "signifier", "bulletType", "content", "date"];
             requiredFields.forEach((jsonField, index)=>{
                 if(!req.body[jsonField]){
-                    console.log("Missing field "+jsonField+", rejecting request.");
                     throw new Error('MISSING FIELD');
                 }
             });
