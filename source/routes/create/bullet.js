@@ -8,18 +8,24 @@ module.exports = {
         methods: ['post'],
         fn: function(req, res, next) {
             // Check if every field exists, if not, throw error
-            let requiredFields = ["user", "type", "signifier", "bulletType", "content", "date"];
+            let requiredFields = ["user", "docType", "signifier", "bulletType", "content", "date"];
             requiredFields.forEach((jsonField, index)=>{
                 if(!req.body[jsonField]){
                     throw new Error('MISSING FIELD');
                 }
             });
             db.post({
+                // Stores the user associated with the bullet
                 user: req.body.user,
-                type: req.body.type,
+                // Stores the type of document, in this case guaranteed bullet
+                docType: "bullet",
+                // Stores the signifier (!, ? etc.)
                 signifier: req.body.signifier,
+                // Stores the type of bullet (task, event, note)
                 bulletType: req.body.bulletType,
+                // Stores the main content of the bullet
                 content: req.body.content,
+                // Stores the date the bullet was created
                 date: req.body.date
             })
             .then((response) => {
