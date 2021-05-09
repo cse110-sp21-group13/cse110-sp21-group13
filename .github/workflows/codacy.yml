@@ -11,7 +11,7 @@ jobs:
       - name: Run codacy-coverage-reporter
         uses: codacy/codacy-coverage-reporter-action@v1
         with:
-          project-token: ${{ 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 }}
+          project-token: ${ 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 }
           # or
           # api-token: ${{ secrets.CODACY_API_TOKEN }}
           coverage-reports: cobertura.xml
