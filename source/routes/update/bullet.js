@@ -6,7 +6,7 @@ const db = new PouchDB('db');
 // Request json must be in the form:
 // {"id": "documentID", "updateField": {"customFieldToUpdate": "customDataToUpdate"}}
 module.exports = {
-    '/update/bullet': {
+    "/update/bullet": {
         methods: ['post'],
         fn: function(req, res, next) {
             if(!req.body.updateField){
