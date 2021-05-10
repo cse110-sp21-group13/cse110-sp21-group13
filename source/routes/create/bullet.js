@@ -8,12 +8,13 @@ module.exports = {
         methods: ['post'],
         fn: function(req, res, next) {
             // Check if every field exists, if not, throw error
-            let requiredFields = ["user", "signifier", "bulletType", "content", "date"];
+            let requiredFields = ["parentDocId", "user", "signifier", "bulletType", "content", "date"];
             requiredFields.forEach((jsonField, index)=>{
                 if(!req.body[jsonField]){
                     throw new Error('MISSING FIELD');
                 }
             });
+
             db.post({
                 // Stores the user associated with the bullet
                 user: req.body.user,
@@ -29,6 +30,15 @@ module.exports = {
                 date: req.body.date
             })
             .then((response) => {
+                // Get parent document (monthly/daily) from provided parent ID
+                db.get(req.body.parentDocId)
+                .then((response) => {
+                    response.bullets.push(response.id)
+                })
+                .catch((err) => {
+                    console.log(err);
+                    res.send("error");
+                });
                 console.log(response);
                 res.send(response);
             })
@@ -36,6 +46,9 @@ module.exports = {
                 console.log(err);
                 res.send("error");
             });
+
+        }
+
         }
     }
 }

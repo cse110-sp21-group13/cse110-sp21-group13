@@ -15,8 +15,7 @@ module.exports = {
             db.get(req.body.id)
             .then((response) => {
                 // Create a new JSON object with all original document values
-                let originalFields = ["_id", "_rev","user", "type", "signifier",
-                                     "bulletType", "content", "date"];
+                let originalFields = ["_id", "_rev","parentDocId", "user", "signifier", "bulletType", "content", "date"];
                 let jsonDoc = {};
                 originalFields.forEach((jsonField, index)=>{
                     jsonDoc[jsonField] = response[jsonField];
