@@ -1,6 +1,6 @@
 const PouchDB = require('pouchdb');
-PouchDB.plugin(require('pouchdb-find'));
-const db = new PouchDB('db');
+PouchDB.plugin(require("pouchdb-find"));
+const db = new PouchDB("db");
 
 // Send in json form of the bullet and it gets sent to the database
 module.exports = {
@@ -11,7 +11,7 @@ module.exports = {
             let requiredFields = ["parentDocId", "user", "signifier", "bulletType", "content", "date"];
             requiredFields.forEach((jsonField, index)=>{
                 if(!req.body[jsonField]){
-                    throw new Error('MISSING FIELD');
+                    throw new Error("MISSING FIELD");
                 }
             });
 
