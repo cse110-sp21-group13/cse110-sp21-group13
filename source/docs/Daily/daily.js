@@ -9,6 +9,19 @@ for (i = 0; i < myNodelist.length; i++) {
   myNodelist[i].appendChild(span);
 }
 
+// Date Title
+var month_name = function(dt){
+    mlist = [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ];
+      return mlist[dt];
+    };
+
+n =  new Date();
+n.toLocaleString('default', { month: 'short' })
+y = n.getFullYear();
+m = n.getMonth();
+d = n.getDate();
+document.getElementById("date").innerHTML = month_name(m) + " " + d + ", " + y;
+
 // Click on a close button to hide the current list item
 var close = document.getElementsByClassName("close");
 var i;

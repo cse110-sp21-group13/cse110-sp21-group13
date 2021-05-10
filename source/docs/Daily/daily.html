@@ -13,10 +13,11 @@
         <main>
             
             <div id="myDIV" class="header">
-                <h2>May 7, 2021 <span onclick="editDaily()" class="editBtn">Edit</span></h2>
+                <span onclick="editDaily()" class="editBtn">Edit</span>
+                <h2 id = "date">May 7, 2021 </h2>
                 
-                <input type="text" id="myInput" placeholder="Enter something">
-                <span onclick="newElement()" class="addBtn">Add</span>
+                <input type="text" id="myInput" placeholder="Enter something" hidden = true>
+                <span onclick="newElement()" class="addBtn" hidden = true>Add </span>
               </div>
               <ul id="myUL">
                 
