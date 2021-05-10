@@ -7,7 +7,6 @@
     "doc": "docs"
   },
   "dependencies": {
-    "eslint": "^7.26.0",
     "express": "^4.17.1",
     "express-routescan": "^0.2.1",
     "express-session": "^1.17.1",
@@ -18,5 +17,9 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "eslint": "^7.26.0",
+    "eslint-config-google": "^0.14.0"
+  }
 }
