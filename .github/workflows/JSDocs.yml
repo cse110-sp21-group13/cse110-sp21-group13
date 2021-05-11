@@ -10,7 +10,7 @@ jobs:
         - name: Build
           uses: andstor/jsdoc-action@v1
           with:
-            source_dir: ./cse110-sp21-group13/source
+            source_dir: ./source
             recurse: true
-            output_dir: ./cse110-sp21-group13/admin
+            output_dir: ./admin/jsdocs
            
