@@ -8,10 +8,10 @@ module.exports = {
     methods: ['post'],
     fn: function(req, res, next) {
       // Check if every field exists, if not, throw error
-      let requiredFields = ["username", "password"];
+      const requiredFields = ['username', 'password'];
 
       requiredFields.forEach((jsonField, index)=>{
-        if(!req.body[jsonField]){
+        if (!req.body[jsonField]) {
           throw new Error('MISSING FIELD');
         }
       });
@@ -21,15 +21,15 @@ module.exports = {
         // TODO: ensure username is unqiue
         username: req.body.username,
         // Stores the type of document, in this case guaranteed user
-        docType: "user",
+        docType: 'user',
         // Stores the password
         // TODO: hash the password
-        password: req.body.password
+        password: req.body.password,
       }).then((response) => {
         res.send(response);
       }).catch((err) => {
-        res.send("error");
+        res.send('error');
       });
-    }
-  }
-} 
+    },
+  },
+};

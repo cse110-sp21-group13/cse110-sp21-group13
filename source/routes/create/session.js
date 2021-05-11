@@ -6,20 +6,20 @@ module.exports = {
     middleware: [passport.authenticate('login', {
       successRedirect: 'session/success',
       failureRedirect: 'session/fail',
-      failureFlash: false
+      failureFlash: false,
     })],
-    fn: function(req, res, next) {}
+    fn: function(req, res, next) {},
   },
   '/create/session/success': {
     methods: ['get'],
     fn: function(req, res, next) {
-      res.json({ result: 'Success' });
-    }
+      res.json({result: 'Success'});
+    },
   },
   '/create/session/fail': {
     methods: ['get'],
     fn: function(req, res, next) {
       next(new Error('Incorrect credentials'));
-    }
-  }
+    },
+  },
 };
