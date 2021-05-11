@@ -1,6 +1,6 @@
 const PouchDB = require('pouchdb');
 PouchDB.plugin(require('pouchdb-find'));
-const db = new PouchDB('daily');
+const db = new PouchDB('db');
 
 /*
 Send in json form of the bullet and it gets sent to the database
@@ -10,18 +10,7 @@ The daily entry db will be of form:
     "user": "dave",
     "date": "2021-05-09",
     "monthKey": "05-09",
-    "bullets": [
-        {
-            "signifier": "...",
-            "bullet": "...",
-            "content": "..."
-        },
-        {
-            "signifier": "...",
-            "bullet": "...",
-            "content": "..."
-        }
-    ]
+    "bullets": ["bullet-id1", "bullet-id2", ...]
 }
 */
 module.exports = {
