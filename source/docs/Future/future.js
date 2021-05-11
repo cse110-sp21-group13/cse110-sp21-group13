@@ -27,8 +27,7 @@ list.addEventListener('click', function(ev) {
 
 /**
  * Create a new list item when clicking on the 'Add' button
- * @param {none}
- * @returns {none}
+ * @override
  */
 function newElement() {
   const li = document.createElement('li');
@@ -58,8 +57,7 @@ function newElement() {
 
 /**
  * Edit future log when pressed
- * @param {none}
- * @returns {none}
+ * @override
  */
 function editFuture() {
   const button = document.getElementsByClassName('editBtn')[0].textContent;
