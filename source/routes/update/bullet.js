@@ -1,6 +1,6 @@
-const PouchDB = require('pouchdb');
+const PouchDB = require("pouchdb");
 PouchDB.plugin(require("pouchdb-find"));
-const db = new PouchDB('db');
+const db = new PouchDB("db");
 
 // Update a bullet's data
 // Request json must be in the form:
