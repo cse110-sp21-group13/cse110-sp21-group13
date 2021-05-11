@@ -32,12 +32,17 @@ module.exports = {
             .then((response) => {
                 // Get parent document (monthly/daily) from provided parent ID
                 db.get(req.body.parentDocId)
-                .then((response) => {
-                    response.bullets.push(response.id)
+                .then((parentResponse) => {
+                    parentResponse.bullets.push(response.id)
+                    // Update the modified parent
+                    db.put(parentResponse)
+                    .then(() => {})
+                    .catch((err) => {
+                        console.log(err);
+                    });
                 })
                 .catch((err) => {
                     console.log(err);
-                    res.send("error");
                 });
                 console.log(response);
                 res.send(response);
@@ -49,6 +54,5 @@ module.exports = {
 
         }
 
-        }
     }
 }
