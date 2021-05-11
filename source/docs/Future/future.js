@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 // Create a 'close' button and append it to each list item
 const myNodelist = document.getElementsByTagName('LI');
 for (let i = 0; i < myNodelist.length; i++) {
