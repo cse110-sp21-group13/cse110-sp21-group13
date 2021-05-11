@@ -14,23 +14,16 @@ module.exports = {
             }
             db.get(req.body.id)
             .then((response) => {
-                // Create a new JSON object with all original document values
-                let originalFields = ["_id", "_rev","parentDocId", "user", "signifier", "bulletType", "content", "date"];
-                let jsonDoc = {};
-                originalFields.forEach((jsonField, index)=>{
-                    jsonDoc[jsonField] = response[jsonField];
-                });
-                console.log(jsonDoc);
-
-                // Replace fields based on fields in updateField
-                console.log(req.body.updateField);
+                // Replace fields of the response document
                 for(const updatedField in req.body.updateField){
-                    jsonDoc[updatedField] = req.body.updateField[updatedField];
+                    if(updatedField in response){
+                        response[updatedField] = req.body.updateField[updatedField]
+                    }else{
+                        throw new Error("INVALID FIELD SPECIFIED")
+                    }
                 }
-                console.log(jsonDoc);
-                
                 // Put newly updated document into the databse
-                db.put(jsonDoc)
+                db.put(response)
                 .then(() => {
                     res.send("success")
                 })
