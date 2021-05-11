@@ -12,5 +12,4 @@ jobs:
           with:
             source_dir: ./source
             recurse: true
-            output_dir: ./admin/jsdocs
            
