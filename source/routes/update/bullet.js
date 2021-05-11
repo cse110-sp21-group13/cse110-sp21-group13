@@ -6,7 +6,7 @@ const authenticate = require(_base + 'middleware/authenticate');
 // Update a bullet's data
 // Request json must be in the form:
 // {
-// "id": "documentID",
+// "_id": "documentID",
 // "updateField": {"customFieldToUpdate": "customDataToUpdate"}
 // }
 module.exports = {
@@ -17,7 +17,7 @@ module.exports = {
       if (!req.body.updateField) {
         throw new Error('MISSING UPDATE DATA');
       }
-      db.get(req.body.id)
+      db.get(req.body._id)
           .then((response) => {
             // Replace fields of the response document
             for (const updatedField in req.body.updateField) {

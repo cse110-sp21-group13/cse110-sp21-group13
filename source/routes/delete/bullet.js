@@ -5,12 +5,16 @@ const authenticate = require(_base + 'middleware/authenticate');
 
 // Send in a valid json containing just the id and it will be expunged from the
 // database
+// Request json must be in the form:
+// {
+// "_id": "the ID of the document to retrieve",
+// }
 module.exports = {
   '/delete/bullet': {
     methods: ['delete'],
     middleware: [authenticate],
     fn: function(req, res, next) {
-      db.get(req.body.id)
+      db.get(req.body._id)
           .then((response) => {
             db.remove(response._id, response._rev);
             res.send('success');

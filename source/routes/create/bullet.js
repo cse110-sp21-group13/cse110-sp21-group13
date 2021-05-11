@@ -4,6 +4,15 @@ const db = new PouchDB('db');
 const authenticate = require(_base + 'middleware/authenticate');
 
 // Send in json form of the bullet and it gets sent to the database
+// Request json must be in the form:
+// {
+// "parentDocId": "the ID of the parent document",
+// "user": "the ID of the user who created the bullet",
+// "signifier": "the signifier of the bullet",
+// "bulletType": "denotes task, event, note"
+// "content":  "the content of the bullet"
+// "date": "the date of the bullet creation"
+// }
 module.exports = {
   '/create/bullet': {
     methods: ['post'],
