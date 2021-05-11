@@ -1,11 +1,13 @@
 const PouchDB = require('pouchdb');
 PouchDB.plugin(require('pouchdb-find'));
 const db = new PouchDB('db');
+const authenticate = require(_base + 'middleware/authenticate');
 
 // Send in json form of the bullet and it gets sent to the database
 module.exports = {
   '/create/bullet': {
     methods: ['post'],
+    middleware: [authenticate],
     fn: function(req, res, next) {
       // Check if every field exists, if not, throw error
       const requiredFields = ['parentDocId', 'user', 'signifier', 'bulletType',
