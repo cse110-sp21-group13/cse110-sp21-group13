@@ -9,7 +9,7 @@ The daily entry db will be of form:
 {
     "user": "dave",
     "date": "2021-05-09",
-    "monthKey": "05-09",
+    "monthKey": "month_id",
     "bullets": ["bullet-id1", "bullet-id2", ...]
 }
 */
@@ -35,7 +35,20 @@ module.exports = {
                 monthKey: req.body.monthKey
             })
             .then((response) => {
-                console.log(response);
+                db.get(req.body.monthKey)
+                .then((monthResponse) => {
+                    //console.log(response.id);
+                    monthResponse.dailys.push(response.id);
+                    // Update the modified parent
+                    db.put(monthResponse)
+                    .then(() => {})
+                    .catch((err) => {
+                        console.log(err + " second");
+                    });
+                })
+                .catch((err) => {
+                    console.log(err + " first ");
+                })
                 res.send(response);
             })
             .catch((err) => {
