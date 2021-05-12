@@ -17,31 +17,35 @@ module.exports = {
     '/read/daily': {
         methods: ['get'],
         fn: function (req, res, next) {
+            let tempArr = [];
+            var tempResponse;
             //get Daily entry documnet by id
             db.get(req.body._id)
-            .then((response) => {
+            .then(response => {
+                let curr = 0;
                 //get into the bullets array inside daily entry
                 response.bullets.forEach((bullet, index, array) => {
-                    let lastBulletId = response.bullets[response.bullets.length - 1];
                     //get bullet document by id
                     db.get(bullet)
                     .then((bulletResponse) => {
-                        //Replace bullet id by bullet Json object
-                        array[index] = bulletResponse;
-                        //If reach the final bullet, send out the updated response
-                        if (lastBulletId == bulletResponse._id) {
-                            res.send(response);
-                        }
+                        tempArr.push(bulletResponse);
                     })
                     .catch((err) => {
                         console.log(err);
-                        res.send("error caused by cannot find bullet document");
+                    })
+                    .finally(()=>{
+                        curr++;
+                        console.log(curr + " >= " + array.length);
+                        if (curr >= array.length) {
+                            response.bullets=tempArr;
+                            res.send(response);
+                            return;
+                        }
                     });
                 });
             })
             .catch((err) => {
                 console.log(err);
-                res.send("error caused by cannot find daily document by ID");
             });
         }
     }
