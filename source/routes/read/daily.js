@@ -1,77 +1,48 @@
 const PouchDB = require('pouchdb');
 PouchDB.plugin(require('pouchdb-find'));
 const db = new PouchDB('db');
-
-// Send in a valid json containing just the id and get back the document's json
+/* *
+read daily will send response with form 
+{
+    "user": "dave",
+    "date": "2021-05-09",
+    "monthKey": "05-09",
+    "bullets": [
+        {bullet1 json objectt},
+        {bullet2 json object}
+    ]
+}
+*/
 module.exports = {
     '/read/daily': {
         methods: ['get'],
         fn: function (req, res, next) {
-            var tempBullets =[];
-            db.get(req.body.id)
-                .then((response) => {
-                    //let i = 0;
-                    //var tempBullets = [];
-                    //var i;
-                    //for(var i = 0; i < response.bullets.length; i++){
-                    response.bullets.forEach((bullet,index,array) => {
-                        
-                        let lastBulletId = response.bullets[response.bullets.length - 1];
-                        //let id = response.bullets[i];
-                        let id = array[index];
-                        console.log(index + " index of bullet ");
-                        db.get(bullet)
-                            .then((bulletResponse) => {
-                                //replace id in "bullets" with the json object of that bullet
-                                //response.bullets[i] = bulletResponse;
-                            
-                                tempBullets.push(bulletResponse);
-                                console.log(tempBullets);
-                                //bullet=bulletResponse;
-                                array[array.indexOf(bullet)]=bulletResponse;
-                                
-                                console.log(lastBulletId + " equal to " + bulletResponse._id + " 1 ");
-                                if (lastBulletId == bulletResponse._id) {
-                                    //res.send(tempResponse);
-                                    res.send(response);
-                                }
-                            
-                            })
-                            .catch((err) => {
-                                if(err){
-                                    //tempResponse.bullets.splice(i, 1);
-                                    array.splice(index,1);
-                                    //index--;
-                                    db.put(response)
-                                    .then(() => {})
-                                    .catch((err) => {
-                                        console.log(err);
-                                        console.log(3);
-                                    });
-                                    console.log(response.bullets);
-                                    //i--;
-                                    //console.log(i);
-                                    console.log(response.bullets.length + " array length ");
-                                    console.log(tempBullets);
-                                    console.log("second time");
-                                    console.log(lastBulletId + " equal to " + bullet + " 2 ");
-                                    if(bullet == lastBulletId){
-                                        //res.send(tempResponse);
-                                       // response.bullets = tempBullets;
-                                        res.send(response);
-                                    }
-                                }
-                                console.log(err);
-                                console.log("2");
-                            });
+            //get Daily entry documnet by id
+            db.get(req.body._id)
+            .then((response) => {
+                //get into the bullets array inside daily entry
+                response.bullets.forEach((bullet, index, array) => {
+                    let lastBulletId = response.bullets[response.bullets.length - 1];
+                    //get bullet document by id
+                    db.get(bullet)
+                    .then((bulletResponse) => {
+                        //Replace bullet id by bullet Json object
+                        array[index] = bulletResponse;
+                        //If reach the final bullet, send out the updated response
+                        if (lastBulletId == bulletResponse._id) {
+                            res.send(response);
+                        }
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                        res.send("error caused by cannot find bullet document");
                     });
-                
-                    //console.log(response.bullets);
-                })
-                .catch((err) => {
-                    console.log(err);
-                    res.send("error");
                 });
+            })
+            .catch((err) => {
+                console.log(err);
+                res.send("error caused by cannot find daily document by ID");
+            });
         }
     }
 }

@@ -2,46 +2,51 @@ const PouchDB = require('pouchdb');
 PouchDB.plugin(require('pouchdb-find'));
 const db = new PouchDB('db');
 
-// Update a bullet's data
-// Request json must be in the form:
-// {"id": "documentID", "updateField": {"customFieldToUpdate": "customDataToUpdate"}}
+ /* *
+ Update a daily entry's data
+ Request json must be in the form:
+ {
+    "_id": "documentID", 
+    "updateField": {
+        "customFieldToUpdate": "customDataToUpdate",
+        
+    }
+}
+*/
 module.exports = {
     '/update/daily': {
         methods: ['post'],
         fn: function(req, res, next) {
+            //If the update request does not in form specified above, throw error
             if(!req.body.updateField){
                 throw new Error("MISSING UPDATE DATA");
             }
-            db.get(req.body.id)
+            //get which daily doc the request want to update.
+            db.get(req.body._id)
             .then((response) => {
-                // Create a new JSON object with all original document values
-                let originalFields = ["_id", "_rev", "user", "date","monthKey", "bullets"];
-                let jsonDoc = {};
-                originalFields.forEach((jsonField, index)=>{
-                    jsonDoc[jsonField] = response[jsonField];
-                });
-                console.log(jsonDoc);
-
-                // Replace fields based on fields in updateField
-                console.log(req.body.updateField);
+                //update every specified field.
                 for(const updatedField in req.body.updateField){
-                    jsonDoc[updatedField] = req.body.updateField[updatedField];
+                    if(updatedField in response){
+                        response[updatedField] = req.body.updateField[updatedField];
+                    }
+                    else{
+                        throw new Error("INVALID FIELD SPECIFIED");
+                    }
                 };
-                console.log(jsonDoc);
-                
                 // Put newly updated document into the databse
-                db.put(jsonDoc)
+                db.put(response)
                 .then(() => {
-                    res.send("success")
+                    res.send("update success")
                 })
                 .catch((err) => {
                     console.log(err);
-                    res.send("error");
+                    res.send("error caused by cannot update DB");
                 });
+                
             })
             .catch((err) => {
                 console.log(err);
-                res.send("error");
+                res.send("error caused by cannot find daily entry by id");
             });
         }
     }

@@ -2,17 +2,31 @@ const PouchDB = require('pouchdb');
 PouchDB.plugin(require('pouchdb-find'));
 const db = new PouchDB('db');
 
-// Send in a valid json containing just the id and it will be expunged from the database
+/* *
+Delete daily entry json object and all bullet documents in that daily entry.
+*/
 module.exports = {
     '/delete/daily': {
         methods: ['delete'],
         fn: function(req, res, next) {
-
-            db.get(req.body.id)
-
+            //get daily entry by id
+            db.get(req.body._id)
             .then((response) => {
+                //access all bullet documents' id
+                response.bullets.forEach((bullet, index) => {
+                    db.get(bullet)
+                    .then(function(doc){
+                        //delete bullet document
+                        return db.remove(doc._id, doc._rev);
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                        res.send("error caused by cannot get bullet Json by id");
+                    });
+                })
+                //delete daily entry
                 db.remove(response._id, response._rev);
-                res.send("success");
+                res.send("delete success");
             })
             .catch((err) => {
                 console.log(err);
