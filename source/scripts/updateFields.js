@@ -8,7 +8,7 @@ const db = new PouchDB('db');
  * the operation.
  * @param {*} req The request that contains the data to update the
  * field.
- * 
+ *
  * Valid update fields passed in the body are of the form:
  * "updateField":{"key1": "value1", "key2": "value2"}
  */
