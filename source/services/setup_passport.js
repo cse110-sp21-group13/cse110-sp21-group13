@@ -21,7 +21,7 @@ passport.use('login', new LocalStrategy(function(username, password, done) {
   // TODO: implement password hashing
   db.find({
     selector: {
-      username: username,
+      _id: username,
     },
     sort: ['_id'],
     limit: 1,
@@ -33,5 +33,7 @@ passport.use('login', new LocalStrategy(function(username, password, done) {
         return done(null, false, {message: 'Invalid username or password'});
       };
     });
-  }).catch((err) => {});
+  }).catch((err) => {
+    return done(null, false, {message: 'Invalid username or password'});
+  });
 }));

@@ -21,11 +21,10 @@ module.exports = {
         db.post({
           // Stores the username
           // TODO: ensure username is unqiue
-          username: req.body.username,
+          _id: req.body.username,
           // Stores the type of document, in this case guaranteed user
           docType: 'user',
-          // Stores the password
-          // TODO: hash the password
+          // Stores the hashed password
           password: hash,
         }).then((response) => {
           res.send(response);
