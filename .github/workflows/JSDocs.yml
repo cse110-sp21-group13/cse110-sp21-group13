@@ -7,6 +7,9 @@ jobs:
         - name: Checkout code
           uses: actions/checkout@v2
           
+        - name: install modules
+          run: npm install -g jsdoc
+          
         - name: Build
           uses: andstor/jsdoc-action@v1
           with:
