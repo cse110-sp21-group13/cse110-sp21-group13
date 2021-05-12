@@ -8,7 +8,8 @@ const authenticate = require(_base + 'middleware/authenticate');
 // {
 // "username": "the username of the user to retrieve",
 // }
-// TODO: Remove? All we're returning is the username which is also the index queried to get the info
+// TODO: Remove? All we're returning is the username which is also the
+// index queried to get the info
 module.exports = {
   '/read/user': {
     methods: ['get'],
@@ -16,9 +17,11 @@ module.exports = {
     fn: function(req, res, next) {
       db.get(req.body.username)
           .then((response) => {
-            response.username = response._id;  // Response body should use 'username' not '_id'
+            // Response body should use 'username' not '_id'
+            response.username = response._id;
             delete response._id;
-            delete response.password;  // Scrub password even though it's hashed
+            // Scrub password even though it's hashed
+            delete response.password;
             res.send(response);
           })
           .catch((err) => {

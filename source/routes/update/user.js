@@ -19,26 +19,27 @@ module.exports = {
         throw new Error('MISSING UPDATE DATA');
       }
       db.get(req.body.username)
-        .then((response) => {
-          bcrypt.hash(req.body.updateField.password, _saltRounds, function(err, hash) {
-            if(err) {
-              console.log(err);
-              res.send('error');
-            }
-            // Replace fields of the response document
-            response['_id'] = req.body.username;
-            response['password'] = hash;
-            // Put newly updated document into the databse
-            db.put(response)
-                .then(() => {
-                  res.send('success');
-                })
-                .catch((err) => {
-                  console.log(err);
-                  res.send('error');
+          .then((response) => {
+            bcrypt.hash(req.body.updateField.password, _saltRounds,
+                function(err, hash) {
+                  if (err) {
+                    console.log(err);
+                    res.send('error');
+                  }
+                  // Replace fields of the response document
+                  response['_id'] = req.body.username;
+                  response['password'] = hash;
+                  // Put newly updated document into the databse
+                  db.put(response)
+                      .then(() => {
+                        res.send('success');
+                      })
+                      .catch((err) => {
+                        console.log(err);
+                        res.send('error');
+                      });
                 });
-          })
-        });
+          });
     },
   },
 };
