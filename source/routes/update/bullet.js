@@ -1,8 +1,6 @@
 const PouchDB = require('pouchdb');
 PouchDB.plugin(require('pouchdb-find'));
 const db = new PouchDB('db');
-const authenticate = require(_base + 'middleware/authenticate');
-
 // Update a bullet's data
 // Request json must be in the form:
 // {
@@ -12,7 +10,6 @@ const authenticate = require(_base + 'middleware/authenticate');
 module.exports = {
   '/update/bullet': {
     methods: ['post'],
-    middleware: [authenticate],
     fn: function(req, res, next) {
       if (!req.body.updateField) {
         throw new Error('MISSING UPDATE DATA');
