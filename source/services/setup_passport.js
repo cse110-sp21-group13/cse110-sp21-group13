@@ -3,6 +3,7 @@ const LocalStrategy = require('passport-local').Strategy;
 const PouchDB = require('pouchdb');
 PouchDB.plugin(require('pouchdb-find'));
 const db = new PouchDB('db');
+const bcrypt = require('bcrypt');
 
 module.exports = function() {
   passport.serializeUser(function(user, done) {
@@ -21,14 +22,16 @@ passport.use('login', new LocalStrategy(function(username, password, done) {
   db.find({
     selector: {
       username: username,
-      password: password,
     },
     sort: ['_id'],
     limit: 1,
   }).then((result) => {
-    return done(null, result.docs[0]);
-  }).catch((err) => {
-    return done(null, false,
-        {message: 'Invalid username or password'});
-  });
+    bcrypt.compare(password, result.docs[0].password).then(function(isMatch) {
+      if (isMatch) {
+        return done(null, result.docs[0]);
+      } else {
+        return done(null, false, {message: 'Invalid username or password'});
+      };
+    });
+  }).catch((err) => {});
 }));

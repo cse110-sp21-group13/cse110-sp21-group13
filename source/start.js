@@ -23,6 +23,7 @@ global._base = __dirname + '/';
 global._env = app.get('env');
 global._isDev = _env === 'development';
 global._isProd = _env === 'production';
+global._saltRounds = 4; // Used for bcrypt
 
 console.info = function(message) {
   console.log('[INFO] ' + message);
