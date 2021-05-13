@@ -21,6 +21,9 @@ module.exports = {
             //get Daily entry documnet by id
             db.get(req.body._id)
             .then(response => {
+                if(response.bullets.length == 0){
+                    res.send(response);
+                }
                 let curr = 0;
                 //get into the bullets array inside daily entry
                 response.bullets.forEach((bullet, index, array) => {
