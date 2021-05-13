@@ -36,7 +36,7 @@ module.exports = {
                 // Put newly updated document into the databse
                 db.put(response)
                 .then(() => {
-                    res.send("update success")
+                    res.send("success")
                 })
                 .catch((err) => {
                     console.log(err);
