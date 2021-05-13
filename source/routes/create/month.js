@@ -1,6 +1,6 @@
 const PouchDB = require('pouchdb');
 PouchDB.plugin(require('pouchdb-find'));
-const db = new PouchDB('db');
+const db = new PouchDB("db");
 
 /*
 Send in json form of the month page and it gets sent to the database
