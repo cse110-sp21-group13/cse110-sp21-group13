@@ -33,11 +33,10 @@ module.exports = {
                         tempArr.push(bulletResponse);
                     })
                     .catch((err) => {
-                        console.log(err);
+                        res.send("err");
                     })
                     .finally(()=>{
                         curr++; 
-                        console.log(curr + " >= " + array.length);
                         if (curr >= array.length) {
                             response.bullets=tempArr;
                             res.send(response);
@@ -47,7 +46,7 @@ module.exports = {
                 });
             })
             .catch((err) => {
-                console.log(err);
+                res.send("err");
             });
         }
     }
