@@ -1,14 +1,11 @@
 name: JSDocs
-on: ["push", "pull_request"]
+on: [push, pull_request]
 jobs: 
   deploy:
     runs-on: ubuntu-latest
     steps:
         - name: Checkout code
           uses: actions/checkout@v2
-          
-        - name: install modules
-          run: npm install -g jsdoc
           
         - name: Build
           uses: andstor/jsdoc-action@v1
