@@ -45,7 +45,7 @@ module.exports = {
                             monthKey: response.month,
                             docType: "dailyJournal"
                         },
-                        fields: ['date', '_id']
+                        fields: ["date", '_id']
                     })
                     .then((result) => {
                         response.dailys = result;
