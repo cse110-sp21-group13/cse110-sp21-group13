@@ -32,10 +32,10 @@ module.exports = {
                 date: req.body.date,
                 // Stores the docType of the daily entry
                 docType: req.body.docType,
-                // Stores the bullets in an array
-                bullets: req.body.bullets,
                 //store a corresponding monthly-key
-                monthKey: req.body.monthKey
+                monthKey: req.body.monthKey,
+                // Stores the bullets in an array
+                bullets: req.body.bullet
             })
             .then((response) => {
                 res.send(response);
