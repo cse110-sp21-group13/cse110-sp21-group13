@@ -28,9 +28,9 @@ module.exports = {
                     fields: ['user']
                 }
             }).then((result) => {
-                console.log(result)
-            }).catch((error) => {
-                console.log(error)
+                console.log(result);
+            }).catch((err) => {
+                res.send("error");
             });
 
             //get month page by id
@@ -62,7 +62,7 @@ module.exports = {
                         tempArr.push(bulletResponse);
                     })
                     .catch((err) => {
-                        console.log(err);
+                        res.send("error");
                     })
                     .finally(() => {
                         //send out bullets and all daily journal entries
