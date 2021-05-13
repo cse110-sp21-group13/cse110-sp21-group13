@@ -1,4 +1,4 @@
-const PouchDB = require('pouchdb');
+const PouchDB = require("pouchdb");
 PouchDB.plugin(require('pouchdb-find'));
 const db = new PouchDB('db');
 
