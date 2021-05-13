@@ -20,7 +20,6 @@ module.exports = {
       bcrypt.hash(req.body.password, _saltRounds, function(err, hash) {
         db.post({
           // Stores the username
-          // TODO: ensure username is unqiue
           _id: req.body.username,
           // Stores the type of document, in this case guaranteed user
           docType: 'user',

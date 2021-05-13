@@ -18,7 +18,6 @@ module.exports = function() {
 passport.use('login', new LocalStrategy(function(username, password, done) {
   // Get user from db using select query, use first result and
   // store with session id
-  // TODO: implement password hashing
   db.find({
     selector: {
       _id: username,
