@@ -7,7 +7,7 @@ Delete month page json object and all bullet documents in that month page.
 */
 module.exports = {
     '/delete/month': {
-        methods: ['delete'],
+        methods: ["delete"],
         fn: function(req, res, next) {
             //get month page by id
             db.get(req.body._id)
