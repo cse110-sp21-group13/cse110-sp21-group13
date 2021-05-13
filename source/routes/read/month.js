@@ -17,7 +17,7 @@ read month will send response with form
 */
 module.exports = {
     "/read/month": {
-        methods: ['get'],
+        methods: ["get"],
         fn: function (req, res, next) {
 
             let tempArr = [];
