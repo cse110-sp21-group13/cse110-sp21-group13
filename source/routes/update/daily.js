@@ -36,17 +36,17 @@ module.exports = {
                 // Put newly updated document into the databse
                 db.put(response)
                 .then(() => {
-                    res.send("update success")
+                    res.send("success")
                 })
                 .catch((err) => {
                     console.log(err);
-                    res.send("error caused by cannot update DB");
+                    res.send("error");
                 });
                 
             })
             .catch((err) => {
                 console.log(err);
-                res.send("error caused by cannot find daily entry by id");
+                res.send("error");
             });
         }
     }
