@@ -20,7 +20,7 @@ module.exports = {
             let requiredFields = ["user", "month", "bullets"];
             requiredFields.forEach((jsonField, index)=>{
                 if(!req.body[jsonField]){
-                    throw new Error('MISSING FIELD');
+                    throw new Error("MISSING FIELD");
                 }
             });
             db.post({
