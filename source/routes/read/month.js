@@ -16,7 +16,7 @@ read month will send response with form
 }
 */
 module.exports = {
-    '/read/month': {
+    "/read/month": {
         methods: ['get'],
         fn: function (req, res, next) {
 
