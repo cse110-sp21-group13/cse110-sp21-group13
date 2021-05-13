@@ -33,7 +33,7 @@ module.exports = {
                         tempArr.push(bulletResponse);
                     })
                     .catch((err) => {
-                        res.send("err");
+                        res.send("error");
                     })
                     .finally(()=>{
                         curr++; 
@@ -46,7 +46,7 @@ module.exports = {
                 });
             })
             .catch((err) => {
-                res.send("err");
+                res.send("error");
             });
         }
     }
