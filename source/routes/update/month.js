@@ -40,13 +40,13 @@ module.exports = {
                 })
                 .catch((err) => {
                     console.log(err);
-                    res.send("error caused by cannot update DB");
+                    res.send("error");
                 });
                 
             })
             .catch((err) => {
                 console.log(err);
-                res.send("error: cannot find month doc");
+                res.send("error");
             });
         }
     }
