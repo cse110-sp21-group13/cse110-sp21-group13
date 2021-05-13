@@ -6,7 +6,7 @@ const db = new PouchDB('db');
 Delete month page json object and all bullet documents in that month page.
 */
 module.exports = {
-    '/delete/month': {
+    "/delete/month": {
         methods: ["delete"],
         fn: function(req, res, next) {
             //get month page by id
