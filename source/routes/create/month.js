@@ -14,7 +14,7 @@ The month page will be of form:
 */
 module.exports = {
     '/create/month': {
-        methods: ['post'],
+        methods: ["post"],
         fn: function(req, res, next) {
             // Check if every field exists, if not, throw error
             let requiredFields = ["user", "month", "bullets"];
