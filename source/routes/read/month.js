@@ -1,5 +1,5 @@
 const PouchDB = require('pouchdb');
-PouchDB.plugin(require('pouchdb-find'));
+PouchDB.plugin(require("pouchdb-find"));
 const db = new PouchDB('db');
 /* *
 read month will send response with form 
