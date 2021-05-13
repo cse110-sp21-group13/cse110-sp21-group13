@@ -25,7 +25,7 @@ module.exports = {
             //create index for query
             db.createIndex({
                 index: {
-                    fields: ['user']
+                    fields: ["user"]
                 }
             }).then((result) => {
                 console.log(result);
