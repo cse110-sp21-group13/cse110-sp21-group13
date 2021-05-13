@@ -21,7 +21,7 @@ module.exports = {
                     })
                     .catch((err) => {
                         console.log(err);
-                        res.send("error caused by cannot get bullet Json by id");
+                        res.send("error");
                     });
                 })
                 //delete daily entry
