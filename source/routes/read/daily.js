@@ -18,7 +18,6 @@ module.exports = {
         methods: ['get'],
         fn: function (req, res, next) {
             let tempArr = [];
-            var tempResponse;
             //get Daily entry documnet by id
             db.get(req.body._id)
             .then(response => {
@@ -34,7 +33,7 @@ module.exports = {
                         console.log(err);
                     })
                     .finally(()=>{
-                        curr++;
+                        curr++; 
                         console.log(curr + " >= " + array.length);
                         if (curr >= array.length) {
                             response.bullets=tempArr;

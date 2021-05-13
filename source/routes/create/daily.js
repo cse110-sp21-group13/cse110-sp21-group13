@@ -9,7 +9,8 @@ The daily entry db will be of form:
 {
     "user": "dave",
     "date": "2021-05-09",
-    "monthKey": "05-09",
+    "docType": "dailyJournal",
+    "monthKey": "May",
     "bullets": ["bullet-id1", "bullet-id2", ...]
 }
 */
@@ -18,7 +19,7 @@ module.exports = {
         methods: ['post'],
         fn: function(req, res, next) {
             // Check if every field exists, if not, throw error
-            let requiredFields = ["user", "date", "monthKey", "bullets"];
+            let requiredFields = ["user", "date", "docType", "monthKey", "bullets"];
             requiredFields.forEach((jsonField, index)=>{
                 if(!req.body[jsonField]){
                     throw new Error('MISSING FIELD');
@@ -29,26 +30,14 @@ module.exports = {
                 user: req.body.user,
                 // Stores the date the daily entry was created
                 date: req.body.date,
+                // Stores the docType of the daily entry
+                docType: req.body.docType,
                 // Stores the bullets in an array
                 bullets: req.body.bullets,
                 //store a corresponding monthly-key
                 monthKey: req.body.monthKey
             })
             .then((response) => {
-                db.get(req.body.monthKey)
-                .then((monthResponse) => {
-                    //console.log(response.id);
-                    monthResponse.dailys.push(response.id);
-                    // Update the modified parent
-                    db.put(monthResponse)
-                    .then(() => {})
-                    .catch((err) => {
-                        console.log(err + " second");
-                    });
-                })
-                .catch((err) => {
-                    console.log(err + " first ");
-                })
                 res.send(response);
             })
             .catch((err) => {
