@@ -5,11 +5,13 @@ const db = new PouchDB('db');
 read month will send response with form 
 {
     "user": "dave",
-    "date": "2021-05-09",
-    "daillys":["daily_id"]
+    "month": "May",
     "bullets": [
         {bullet1 json objectt},
         {bullet2 json object}
+    ],
+    "daillys":[
+        {"date": "...", "daily": "..."}
     ]
 }
 */
@@ -17,33 +19,78 @@ module.exports = {
     '/read/month': {
         methods: ['get'],
         fn: function (req, res, next) {
-            //get month page documnet by id
+
+            let tempArr = [];
+
+            //create index for query
+            db.createIndex({
+                index: {
+                    fields: ['user']
+                }
+            }).then((result) => {
+                console.log(result)
+            }).catch((error) => {
+                console.log(error)
+            });
+
+            //get month page by id
             db.get(req.body._id)
             .then((response) => {
+                //handle edge case: nothing inside the bullets
+                if(response.bullets.length == 0){
+                    //grab all daily journal entries in that month
+                    db.find({
+                        selector: {
+                            user: response.user,
+                            monthKey: response.month,
+                            docType: "dailyJournal"
+                        },
+                        fields: ['date', '_id']
+                    })
+                    .then((result) => {
+                        response.dailys = result;
+                        res.send(response);
+                    })
+                }
+
+                let curr = 0;
+                //get inside the bullets array
                 response.bullets.forEach((bullet, index, array) => {
-                    let lastBulletId = response.bullets[response.bullets.length - 1];
                     //get bullet document by id
                     db.get(bullet)
                     .then((bulletResponse) => {
-                        //Replace bullet id by bullet Json object
-                        updateResponse.bullets[index] = bulletResponse;
-                        //If reach the final bullet, send out the updated response
-                        if (lastBulletId == bulletResponse._id) {
-                            res.send(updateResponse);
-                        }
+                        tempArr.push(bulletResponse);
                     })
                     .catch((err) => {
                         console.log(err);
-                        res.send("error caused by cannot find bullet document");
+                    })
+                    .finally(() => {
+                        //send out bullets and all daily journal entries
+                        curr++;
+                        if (curr >= array.length) {
+                            response.bullets = tempArr;
+                            db.find({
+                                selector: {
+                                    user: response.user,
+                                    monthKey: response.month,
+                                    docType: "dailyJournal"
+                                },
+                                fields: ['date', '_id']
+                            })
+                            .then((result) => {
+                                response.dailys = result;
+                                //send out the response
+                                res.send(response);
+                            })
+                            return;
+                        }
                     });
                 });
-                //res.send(updateResponse);
             })
             .catch((err) => {
                 console.log(err);
-                res.send("error caused by cannot find daily document by ID");
+                res.send("error: cannot find month doc");
             });
         }
     }
 }
-

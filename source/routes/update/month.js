@@ -46,7 +46,7 @@ module.exports = {
             })
             .catch((err) => {
                 console.log(err);
-                res.send("error caused by cannot find daily entry by id");
+                res.send("error: cannot find month doc");
             });
         }
     }
