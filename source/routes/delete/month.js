@@ -26,7 +26,7 @@ module.exports = {
                 })
                 //delete month page
                 db.remove(response._id, response._rev);
-                res.send("delete success");
+                res.send("success");
             })
             .catch((err) => {
                 console.log(err);
