@@ -49,13 +49,17 @@ module.exports = {
                       .then(() => {})
                       .catch((err) => {
                         console.log(err);
+                        res.send('error');
+                      })
+                      .then(() => {
+                        console.log(response);
+                        res.send(response);
                       });
                 })
                 .catch((err) => {
                   console.log(err);
+                  res.send('error');
                 });
-            console.log(response);
-            res.send(response);
           })
           .catch((err) => {
             console.log(err);
