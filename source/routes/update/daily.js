@@ -14,7 +14,7 @@ const db = new PouchDB("db");
 }
 */
 module.exports = {
-    '/update/daily': {
+    "/update/daily": {
         methods: ['post'],
         fn: function(req, res, next) {
             //If the update request does not in form specified above, throw error
