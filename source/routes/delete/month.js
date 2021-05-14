@@ -1,6 +1,6 @@
 const PouchDB = require("pouchdb");
 PouchDB.plugin(require('pouchdb-find'));
-const db = new PouchDB('db');
+const db = new PouchDB("db");
 
 /* *
 Delete month page json object and all bullet documents in that month page.
