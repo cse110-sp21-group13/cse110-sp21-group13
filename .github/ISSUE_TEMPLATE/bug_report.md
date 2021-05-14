@@ -1,8 +1,17 @@
 ---
+name: Bug report
+about: Bug in CI/CD Pipeline or Testing
+title: "[BUG/QE]"
+labels: bug, qe
+assignees: ''
+
+---
+
+---
 name: Backend Bug
 about: Bug on Backend
 title: "[BUG/BE]"
-labels: backend, bug
+labels: bug, backend
 assignees: ''
 
 ---
