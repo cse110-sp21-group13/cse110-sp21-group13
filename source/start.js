@@ -3,6 +3,7 @@ const routescan = require('express-routescan');
 const session = require('express-session');
 const bodyParser = require('body-parser');
 const path = require('path');
+const passport = require('passport');
 const app = express();
 
 app.use(bodyParser.json());
@@ -13,6 +14,8 @@ app.use(session({
   saveUninitialized: true,
   cookie: {secure: false, maxAge: Number(100000000)},
 }));
+app.use(passport.initialize());
+app.use(passport.session());
 
 // Globals
 
@@ -20,6 +23,7 @@ global._base = __dirname + '/';
 global._env = app.get('env');
 global._isDev = _env === 'development';
 global._isProd = _env === 'production';
+global._saltRounds = 4; // Used for bcrypt
 
 console.info = function(message) {
   console.log('[INFO] ' + message);
@@ -32,6 +36,10 @@ console.debug = function(message) {
 console.critical = function(message) {
   console.log('[CRITICAL] ' + message);
 };
+
+const setUpPassport = require(_base + 'services/setup_passport');
+
+setUpPassport();
 
 routescan(app, {
   ignoreInvalid: true,
