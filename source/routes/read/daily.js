@@ -1,6 +1,6 @@
 const PouchDB = require('pouchdb');
 PouchDB.plugin(require('pouchdb-find'));
-const db = new PouchDB('db');
+const db = new PouchDB("db");
 /* *
 read daily will send response with form 
 {
