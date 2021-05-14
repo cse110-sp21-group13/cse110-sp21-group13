@@ -20,7 +20,7 @@ module.exports = {
         fn: function(req, res, next) {
             // Check if every field exists, if not, throw error
             let requiredFields = ["user", "date", "docType", "monthKey", "bullets"];
-            requiredFields.forEach((jsonField, index)=>{
+            requiredFields.forEach((jsonField, index) =>{
                 if(!req.body[jsonField]){
                     throw new Error("MISSING FIELD");
                 }
