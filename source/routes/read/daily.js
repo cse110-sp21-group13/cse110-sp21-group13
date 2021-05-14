@@ -20,7 +20,7 @@ module.exports = {
             let tempArr = [];
             //get Daily entry documnet by id
             db.get(req.body._id)
-            .then(response => {
+            .then((response) => {
                 if(response.bullets.length == 0){
                     res.send(response);
                 }
