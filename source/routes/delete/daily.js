@@ -7,7 +7,7 @@ Delete daily entry json object and all bullet documents in that daily entry.
 */
 module.exports = {
     '/delete/daily': {
-        methods: ['delete'],
+        methods: ["delete"],
         fn: function(req, res, next) {
             //get daily entry by id
             db.get(req.body._id)
