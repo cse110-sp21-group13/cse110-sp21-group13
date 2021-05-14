@@ -14,7 +14,7 @@ read daily will send response with form
 }
 */
 module.exports = {
-    '/read/daily': {
+    "/read/daily": {
         methods: ['get'],
         fn: function (req, res, next) {
             let tempArr = [];
