@@ -16,7 +16,7 @@ The daily entry db will be of form:
 */
 module.exports = {
     '/create/daily': {
-        methods: ['post'],
+        methods: ["post"],
         fn: function(req, res, next) {
             // Check if every field exists, if not, throw error
             let requiredFields = ["user", "date", "docType", "monthKey", "bullets"];
