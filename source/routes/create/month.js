@@ -1,6 +1,7 @@
 const PouchDB = require('pouchdb');
 PouchDB.plugin(require('pouchdb-find'));
 const db = new PouchDB('db');
+const authenticate = require(_base + 'middleware/authenticate');
 
 /*
 Send in json form of the month page and it gets sent to the database
@@ -15,6 +16,7 @@ The month page will be of form:
 module.exports = {
   '/create/month': {
     methods: ['post'],
+    middleware: [authenticate],
     fn: function(req, res, next) {
       // Check if every field exists, if not, throw error
       const requiredFields = ['user', 'month', 'bullets'];

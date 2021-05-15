@@ -2,11 +2,13 @@ const PouchDB = require('pouchdb');
 PouchDB.plugin(require('pouchdb-find'));
 const db = new PouchDB('db');
 const bcrypt = require('bcrypt');
+const authenticate = require(_base + 'middleware/authenticate');
 
 // Send in json form of the user and it gets sent to the database
 module.exports = {
   '/create/user': {
     methods: ['post'],
+    middleware: [authenticate],
     fn: function(req, res, next) {
       // Check if every field exists, if not, throw error
       const requiredFields = ['username', 'password'];
