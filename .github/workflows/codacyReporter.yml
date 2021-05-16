@@ -1,0 +1,17 @@
+name: codacy-coverage-reporter
+
+on: [push, pull_request]
+
+jobs:
+  codacy-coverage-reporter:
+    runs-on: ubuntu-latest
+    name: codacy-coverage-reporter
+    steps:
+      - uses: actions/checkout@master
+      - name: Run codacy-coverage-reporter
+        uses: codacy/codacy-coverage-reporter-action@v1
+        with:
+          project-token: e04fbce992e34cc1b6787dd0aa0a0242
+          # or
+          # api-token: ${{ secrets.CODACY_API_TOKEN }}
+          coverage-reports: cobertura.xml
