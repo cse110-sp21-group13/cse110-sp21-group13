@@ -35,7 +35,7 @@ module.exports = {
         // store a corresponding monthly-key
         monthKey: req.body.monthKey,
         // Stores the bullets in an array
-        bullets: req.body.bullet,
+        bullets: req.body.bullets,
       })
           .then((response) => {
             res.send(response);
