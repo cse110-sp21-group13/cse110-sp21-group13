@@ -1,0 +1,19 @@
+name: JSDocs
+on: [push, pull_request]
+jobs: 
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+        - name: Checkout code
+          uses: actions/checkout@v2
+          
+        - name: Build
+          uses: andstor/jsdoc-action@v1
+          with:
+            source_dir: ./source
+            recurse: true
+            output_dir: ./source/jsdocs
+        - name: list
+          working-directory: ./source/jsdocs
+          run: ls
+            
