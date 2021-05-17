@@ -19,7 +19,7 @@ module.exports = {
     middleware: [authenticate],
     fn: function(req, res, next) {
       // Check if every field exists, if not, throw error
-      const requiredFields = ['user', 'month', 'bullets'];
+      const requiredFields = ['month', 'bullets'];
       requiredFields.forEach((jsonField, index) =>{
         if (!req.body[jsonField]) {
           throw new Error('MISSING FIELD');
@@ -27,7 +27,7 @@ module.exports = {
       });
       db.post({
         // Stores the user associated with the month page
-        user: req.body.user,
+        user: req.user._id,
         // Stores the month the month page was created
         month: req.body.month,
         // Stores the bullets id in an array
