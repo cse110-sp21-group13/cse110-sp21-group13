@@ -4,6 +4,7 @@
         <title>13ullet</title>
         <meta charset="UTF-8"/>
         <link rel="shortcut icon" href="favicon.ico"/>
+        <link rel="stylesheet" type="text/css" href="assets/css/index.css"/>
     </head>
     <body>
         <header>
@@ -27,7 +28,16 @@
             <h1>Welcome to your new journal!</h1>
             <h2>Reduce paper waste</h2>
             <h2>Stay productive online</h2>
-            <button type="button">get started</button>
+            <button type="button" id="getstarted">get started</button>
+            <form id="loginform">
+                <label for="Name">Name</label>
+                <input type="text" id="Name" name="Name">
+                <label for="Password">Password</label>
+                <input type="password" id="Password" name="Password">
+                <button type=submit id="loginbutton">log in</button>
+                <button type=button>sign up</button>
+            </form>
         </main>
+        <script src="assets/js/login.js"></script>
     </body>
 </html>
