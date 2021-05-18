@@ -1,6 +1,7 @@
 const PouchDB = require('pouchdb');
 PouchDB.plugin(require('pouchdb-find'));
 const db = new PouchDB('db');
+const authenticate = require(_base + 'middleware/authenticate');
 
 /* *
  Update a daily entry's data
@@ -16,6 +17,7 @@ const db = new PouchDB('db');
 module.exports = {
   '/update/daily': {
     methods: ['post'],
+    middleware: [authenticate],
     fn: function(req, res, next) {
       // If the update request does not in form specified above, throw error
       if (!req.body.updateField) {

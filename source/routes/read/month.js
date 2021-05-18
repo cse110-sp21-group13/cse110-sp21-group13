@@ -1,6 +1,8 @@
 const PouchDB = require('pouchdb');
 PouchDB.plugin(require('pouchdb-find'));
 const db = new PouchDB('db');
+const authenticate = require(_base + 'middleware/authenticate');
+
 /* *
 read month will send response with form
 {
@@ -18,6 +20,7 @@ read month will send response with form
 module.exports = {
   '/read/month': {
     methods: ['get'],
+    middleware: [authenticate],
     fn: function(req, res, next) {
       const tempArr = [];
 

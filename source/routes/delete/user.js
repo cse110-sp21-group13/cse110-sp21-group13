@@ -14,7 +14,7 @@ module.exports = {
     methods: ['delete'],
     middleware: [authenticate],
     fn: function(req, res, next) {
-      db.get(req.body.username)
+      db.get(req.user._id)
           .then((response) => {
             db.remove(response._id, response._rev);
             res.send('success');

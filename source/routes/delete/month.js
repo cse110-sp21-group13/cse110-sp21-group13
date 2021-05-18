@@ -1,6 +1,7 @@
 const PouchDB = require('pouchdb');
 PouchDB.plugin(require('pouchdb-find'));
 const db = new PouchDB('db');
+const authenticate = require(_base + 'middleware/authenticate');
 
 /* *
 Delete month page json object and all bullet documents in that month page.
@@ -8,6 +9,7 @@ Delete month page json object and all bullet documents in that month page.
 module.exports = {
   '/delete/month': {
     methods: ['delete'],
+    middleware: [authenticate],
     fn: function(req, res, next) {
       // get month page by id
       db.get(req.body._id)

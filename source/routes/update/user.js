@@ -18,7 +18,7 @@ module.exports = {
       if (!req.body.updateField) {
         throw new Error('MISSING UPDATE DATA');
       }
-      db.get(req.body.username)
+      db.get(req.user._id)
           .then((response) => {
             bcrypt.hash(req.body.updateField.password, _saltRounds,
                 function(err, hash) {
@@ -27,7 +27,7 @@ module.exports = {
                     res.send('error');
                   }
                   // Replace fields of the response document
-                  response['_id'] = req.body.username;
+                  response['_id'] = req.user._id;
                   response['password'] = hash;
                   // Put newly updated document into the databse
                   db.put(response)

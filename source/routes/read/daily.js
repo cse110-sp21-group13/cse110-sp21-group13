@@ -1,6 +1,8 @@
 const PouchDB = require('pouchdb');
 PouchDB.plugin(require('pouchdb-find'));
 const db = new PouchDB('db');
+const authenticate = require(_base + 'middleware/authenticate');
+
 /* *
 read daily will send response with form
 {
@@ -16,6 +18,7 @@ read daily will send response with form
 module.exports = {
   '/read/daily': {
     methods: ['get'],
+    middleware: [authenticate],
     fn: function(req, res, next) {
       const tempArr = [];
       // get Daily entry documnet by id

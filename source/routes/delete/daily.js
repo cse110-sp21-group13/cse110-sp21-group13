@@ -1,6 +1,7 @@
 const PouchDB = require('pouchdb');
 PouchDB.plugin(require('pouchdb-find'));
 const db = new PouchDB('db');
+const authenticate = require(_base + 'middleware/authenticate');
 
 /* *
 Delete daily entry json object and all bullet documents in that daily entry.
@@ -8,6 +9,7 @@ Delete daily entry json object and all bullet documents in that daily entry.
 module.exports = {
   '/delete/daily': {
     methods: ['delete'],
+    middleware: [authenticate],
     fn: function(req, res, next) {
       // get daily entry by id
       db.get(req.body._id)
