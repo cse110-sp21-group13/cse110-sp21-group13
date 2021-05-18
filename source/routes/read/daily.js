@@ -10,7 +10,7 @@ read daily will send response with form
     "date": "2021-05-09",
     "monthKey": "05-09",
     "bullets": [
-        {bullet1 json objectt},
+        {bullet1 json object},
         {bullet2 json object}
     ]
 }
@@ -22,18 +22,32 @@ module.exports = {
     fn: function(req, res, next) {
       const tempArr = [];
       // get Daily entry documnet by id
-      db.get(req.body._id)
+      db.find({
+        selector: {
+          _id: req.body._id,
+          user: req.user._id,
+          docType: 'daily'
+        },
+        limit: 1,
+      })
           .then((response) => {
-            if (response.bullets.length == 0) {
-              res.send(response);
+            if (response.docs[0].bullets.length == 0) {
+              res.send(response.docs[0]);
             }
             let curr = 0;
             // get into the bullets array inside daily entry
-            response.bullets.forEach((bullet, index, array) => {
+            response.docs[0].bullets.forEach((bullet, index, array) => {
               // get bullet document by id
-              db.get(bullet)
+              db.find({
+                selector: {
+                  _id: bullet,
+                  user: req.user._id,
+                  docType: 'bullet'
+                },
+                limit: 1,
+              })
                   .then((bulletResponse) => {
-                    tempArr.push(bulletResponse);
+                    tempArr.push(bulletResponse.docs[0]);
                   })
                   .catch((err) => {
                     res.send('error');
@@ -41,8 +55,8 @@ module.exports = {
                   .finally(()=>{
                     curr++;
                     if (curr >= array.length) {
-                      response.bullets=tempArr;
-                      res.send(response);
+                      response.docs[0].bullets=tempArr;
+                      res.send(response.docs[0]);
                       return;
                     }
                   });

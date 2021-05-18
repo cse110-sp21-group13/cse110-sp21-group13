@@ -8,7 +8,6 @@ Send in json form of the month page and it gets sent to the database
 
 The month page will be of form:
 {
-    "user": "dave",
     "month": "May",
     "bullets": ["bullet-id1", "bullet-id2", ...]
 }
@@ -32,6 +31,8 @@ module.exports = {
         month: req.body.month,
         // Stores the bullets id in an array
         bullets: req.body.bullets,
+        // Stores docType
+        docType: 'month'
       })
           .then((response) => {
             console.log(response);

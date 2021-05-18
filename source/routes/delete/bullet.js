@@ -14,9 +14,16 @@ module.exports = {
     methods: ['delete'],
     middleware: [authenticate],
     fn: function(req, res, next) {
-      db.get(req.body._id)
+      db.find({
+        selector: {
+          _id: req.body._id,
+          user: req.user._id,
+          docType: 'bullet'
+        },
+        limit: 1,
+      })
           .then((response) => {
-            db.remove(response._id, response._rev);
+            db.remove(response.docs[0]._id, response.docs[0]._rev);  // TODO: what happens if we try to read assuming multiple revisions?
             res.send('success');
           })
           .catch((err) => {

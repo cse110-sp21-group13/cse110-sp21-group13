@@ -13,14 +13,19 @@ module.exports = {
     methods: ['get'],
     middleware: [authenticate],
     fn: function(req, res, next) {
-      db.get(req.body._id)
-          .then((response) => {
-            res.send(response);
-          })
-          .catch((err) => {
-            console.log(err);
-            res.send('error');
-          });
+      db.find({
+        selector: {
+          _id: req.body._id,
+          user: req.user._id,
+          docType: 'bullet'
+        },
+        limit: 1,
+      }).then((response) => {
+        res.send(response.docs[0]); // Return if we have a match
+      }).catch((err) => {
+        console.log(err);
+        res.send('error');
+      });
     },
   },
 };
