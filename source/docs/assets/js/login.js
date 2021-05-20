@@ -1,77 +1,77 @@
-let startButton = document.getElementById('getstarted');
-let loginForm = document.getElementById('loginform');
+const startButton = document.getElementById('getstarted');
+const loginForm = document.getElementById('loginform');
 
 startButton.addEventListener('click', ()=>{
-    let welcome = document.getElementById('welcome');
-    welcome.style.display = "none";
-    loginForm.style.display = "inherit";
+  const welcome = document.getElementById('welcome');
+  welcome.style.display = 'none';
+  loginForm.style.display = 'inherit';
 });
 
 loginForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-    let formData = {
-        "username" : document.getElementById('username').value,
-        "password" : document.getElementById('password').value
+  e.preventDefault();
+  const formData = {
+    'username': document.getElementById('username').value,
+    'password': document.getElementById('password').value,
+  };
+  fetch('../create/session', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(formData),
+  })
+  .then((response) => response.json())
+  .then((data) => {
+    if (data.error == 'Incorrect credentials') {
+      const errorElem = document.getElementById('errormsg');
+      errorElem.innerText = 'incorrect username or password';
     }
-    fetch('../create/session', {
-        method: 'POST',
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(formData)
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.error == "Incorrect credentials"){
-            let errorElem = document.getElementById('errormsg');
-            errorElem.innerText = "incorrect username or password";
-        }
-        else {
-            window.location.replace('daily.html');
-        }
-    });
+    else {
+      window.location.replace('daily.html');
+    }
+  });
 });
 
-let signup = document.getElementById('signup');
+const signup = document.getElementById('signup');
 signup.addEventListener('click', (e) => {
-    e.preventDefault();
-    let formData = {
-        "username" : document.getElementById('username').value,
-        "password" : document.getElementById('password').value
+  e.preventDefault();
+  const formData = {
+    'username': document.getElementById('username').value,
+    'password': document.getElementById('password').value,
+  };
+  fetch('../create/user', {
+    method: 'POST',
+    headers: {
+     'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(formData),
+  })
+  .then((response) => response.json())
+  .then((data) => {
+    if (data.error == 'MISSING FIELD'){
+      const errorElem = document.getElementById('errormsg');
+      errorElem.innerText = 'please enter a username and a password';
     }
-    fetch('../create/user', {
+    /* FIXIT: Implement error catching for user already created
+    else if (data.error == ""){
+      let errorElem = document.getElementById('errormsg');
+      errorElem.innerText = "username taken";
+    }
+    */
+    else {
+      fetch('../create/session', {
         method: 'POST',
         headers: {
-            "Content-Type": "application/json"
+          'Content-Type': 'application/json',
         },
-        body: JSON.stringify(formData)
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.error == "MISSING FIELD"){
-            let errorElem = document.getElementById('errormsg');
-            errorElem.innerText = "please enter a username and a password";
+        body: JSON.stringify(formData),
+      })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.error == undefined) {
+          window.location.replace('daily.html');
         }
-        /*FIXIT: Implement error catching for user already created
-        else if (data.error == ""){
-            let errorElem = document.getElementById('errormsg');
-            errorElem.innerText = "username taken";
-        }
-        */
-        else {
-            fetch('../create/session', {
-                method: 'POST',
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(formData)
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.error == undefined){
-                    window.location.replace('daily.html');
-                }
-            });
-        }
-    });
+      });
+    }
+  });
 });
