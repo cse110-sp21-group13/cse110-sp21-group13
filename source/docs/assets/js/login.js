@@ -29,7 +29,7 @@ loginForm.addEventListener('submit', (e) => {
           window.location.replace('daily.html');
         }
       });
-  });
+});
 
 const signup = document.getElementById('signup');
 signup.addEventListener('click', (e) => {
@@ -41,7 +41,7 @@ signup.addEventListener('click', (e) => {
   fetch('../create/user', {
     method: 'POST',
     headers: {
-     'Content-Type': 'application/json',
+      'Content-Type': 'application/json',
     },
     body: JSON.stringify(formData),
   })
@@ -53,7 +53,7 @@ signup.addEventListener('click', (e) => {
         errorElem.innerText = "username taken";
         }
         */
-        if (data.error == 'MISSING FIELD'){
+        if (data.error == 'MISSING FIELD') {
           const errorElem = document.getElementById('errormsg');
           errorElem.innerText = 'please enter a username and a password';
         } else {
