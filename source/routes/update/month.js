@@ -2,6 +2,7 @@ const PouchDB = require('pouchdb');
 PouchDB.plugin(require('pouchdb-find'));
 const db = new PouchDB('db');
 const authenticate = require(_base + 'middleware/authenticate');
+const genericUpdater = require(_base + 'scripts/update_fields');
 
 /* *
  Update a month page's data
@@ -19,35 +20,7 @@ module.exports = {
     methods: ['post'],
     middleware: [authenticate],
     fn: function(req, res, next) {
-      // If the update request does not in form specified above, throw error
-      if (!req.body.updateField) {
-        throw new Error('MISSING UPDATE DATA');
-      }
-      // get which month doc the request want to update.
-      db.get(req.body._id)
-          .then((response) => {
-            // update every specified field.
-            for (const updatedField in req.body.updateField) {
-              if (updatedField in response) {
-                response[updatedField] = req.body.updateField[updatedField];
-              } else {
-                throw new Error('INVALID FIELD SPECIFIED');
-              }
-            };
-            // Put newly updated document into the databse
-            db.put(response)
-                .then(() => {
-                  res.send('success');
-                })
-                .catch((err) => {
-                  console.log(err);
-                  res.send('error');
-                });
-          })
-          .catch((err) => {
-            console.log(err);
-            res.send('error');
-          });
+      genericUpdater.updateFields(res, req);
     },
   },
 };
