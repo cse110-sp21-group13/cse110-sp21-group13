@@ -15,7 +15,7 @@ module.exports = {
     methods: ['get'],
     middleware: [authenticate],
     fn: function(req, res, next) {
-      db.get(req.user.body.username)
+      db.get(req.body.username)
           .then((response) => {
             // Response body should use 'username' not '_id'
             response.username = response._id;
