@@ -20,17 +20,16 @@ loginForm.addEventListener('submit', (e) => {
     },
     body: JSON.stringify(formData),
   })
-  .then((response) => response.json())
-  .then((data) => {
-    if (data.error == 'Incorrect credentials') {
-      const errorElem = document.getElementById('errormsg');
-      errorElem.innerText = 'incorrect username or password';
-    }
-    else {
-      window.location.replace('daily.html');
-    }
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.error == 'Incorrect credentials') {
+          const errorElem = document.getElementById('errormsg');
+          errorElem.innerText = 'incorrect username or password';
+        } else {
+          window.location.replace('daily.html');
+        }
+      });
   });
-});
 
 const signup = document.getElementById('signup');
 signup.addEventListener('click', (e) => {
@@ -46,32 +45,31 @@ signup.addEventListener('click', (e) => {
     },
     body: JSON.stringify(formData),
   })
-  .then((response) => response.json())
-  .then((data) => {
-    if (data.error == 'MISSING FIELD'){
-      const errorElem = document.getElementById('errormsg');
-      errorElem.innerText = 'please enter a username and a password';
-    }
-    /* FIXIT: Implement error catching for user already created
-    else if (data.error == ""){
-      let errorElem = document.getElementById('errormsg');
-      errorElem.innerText = "username taken";
-    }
-    */
-    else {
-      fetch('../create/session', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      })
       .then((response) => response.json())
       .then((data) => {
-        if (data.error == undefined) {
-          window.location.replace('daily.html');
+        /* FIXIT: Implement error catching for user already created
+        else if (data.error == ""){
+        let errorElem = document.getElementById('errormsg');
+        errorElem.innerText = "username taken";
+        }
+        */
+        if (data.error == 'MISSING FIELD'){
+          const errorElem = document.getElementById('errormsg');
+          errorElem.innerText = 'please enter a username and a password';
+        } else {
+          fetch('../create/session', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formData),
+          })
+              .then((response) => response.json())
+              .then((data) => {
+                if (data.error == undefined) {
+                  window.location.replace('daily.html');
+                }
+              });
         }
       });
-    }
-  });
 });
