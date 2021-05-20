@@ -13,7 +13,6 @@ loginForm.addEventListener('submit', (e) => {
         "username" : document.getElementById('username').value,
         "password" : document.getElementById('password').value
     }
-    console.log(formData);
     fetch('../create/session', {
         method: 'POST',
         headers: {
@@ -21,14 +20,58 @@ loginForm.addEventListener('submit', (e) => {
         },
         body: JSON.stringify(formData)
     })
-    .then(response => {
-        success = response.url.match(/session[^]+/)[0].substring(8);
-        if(success == "success") {
-            window.location.replace('daily.html');
-        }
-        else {
+    .then(response => response.json())
+    .then(data => {
+        if (data.error == "Incorrect credentials"){
             let errorElem = document.getElementById('errormsg');
             errorElem.innerText = "incorrect username or password";
+        }
+        else {
+            window.location.replace('daily.html');
+        }
+    });
+});
+
+let signup = document.getElementById('signup');
+signup.addEventListener('click', (e) => {
+    e.preventDefault();
+    let formData = {
+        "username" : document.getElementById('username').value,
+        "password" : document.getElementById('password').value
+    }
+    fetch('../create/user', {
+        method: 'POST',
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(formData)
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.error == "MISSING FIELD"){
+            let errorElem = document.getElementById('errormsg');
+            errorElem.innerText = "please enter a username and a password";
+        }
+        /*FIXIT: Implement error catching for user already created
+        else if (data.error == ""){
+            let errorElem = document.getElementById('errormsg');
+            errorElem.innerText = "username taken";
+        }
+        */
+        else {
+            fetch('../create/session', {
+                method: 'POST',
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(formData)
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.error == undefined){
+                    window.location.replace('daily.html');
+                }
+            });
         }
     });
 });
