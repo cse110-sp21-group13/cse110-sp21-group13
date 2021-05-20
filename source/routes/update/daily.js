@@ -1,6 +1,5 @@
 const PouchDB = require('pouchdb');
 PouchDB.plugin(require('pouchdb-find'));
-const db = new PouchDB('db');
 const authenticate = require(_base + 'middleware/authenticate');
 const genericUpdater = require(_base + 'scripts/update_fields');
 
