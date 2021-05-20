@@ -4,12 +4,17 @@ const db = new PouchDB('db');
 const authenticate = require(_base + 'middleware/authenticate');
 const genericUpdater = require(_base + 'scripts/update_fields');
 
-// Update a bullet's data
-// Request json must be in the form:
-// {
-// "_id": "documentID",
-// "updateField": {"customFieldToUpdate": "customDataToUpdate"}
-// }
+/* *
+ Update a bullet entry's data
+ Request json must be in the form:
+ {
+    "_id": "documentID",
+    "updateField": {
+        "customFieldToUpdate": "customDataToUpdate",
+
+    }
+}
+*/
 module.exports = {
   '/update/bullet': {
     methods: ['post'],
