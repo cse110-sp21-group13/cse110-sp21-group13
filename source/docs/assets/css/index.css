@@ -7,11 +7,11 @@ main > img {
 }
 
 main {
-    display: grid;
-    grid-auto-flow: column;
-    grid-auto-columns: 50%;
-    grid-template-rows: 100vh;
     align-items: center;
+    display: grid;
+    grid-auto-columns: 50%;
+    grid-auto-flow: column;
+    grid-template-rows: 100vh;
 }
 
 .left {
@@ -24,15 +24,15 @@ main {
 }
 
 #username, #password {
-    width: 90%;
-    height: 48px;
-    font-size: 48px;
-    border-radius: 15px;
-    margin-bottom: 10px;
     background-color: #E8E8E8;
     border-color: #AFAFAF;
-    padding-left: 8px;
+    border-radius: 15px;
+    font-size: 48px;
+    height: 48px;
+    margin-bottom: 10px;
     padding-bottom: 8px;
+    padding-left: 8px;
+    width: 90%;
 }
 
 form > label {
@@ -40,17 +40,17 @@ form > label {
 }
 
 form > button {
+    border-radius: 10px;
     font-size: 28px;
     height: 50px;
     width: 150px;
-    border-radius: 10px;
 }
 
 #getstarted {
-    font-size: 48px;
-    width: 550px;
-    height: 100px;
     border-radius: 50px;
+    font-size: 48px;
+    height: 100px;
+    width: 550px;
 }
 
 h1 {
