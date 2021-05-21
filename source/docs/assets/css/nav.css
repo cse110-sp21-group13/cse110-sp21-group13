@@ -1,0 +1,52 @@
+body {
+    margin: 0;
+}
+
+#topbar {
+    width: 100%;
+    height: 100px;
+    position: relative;
+    background: #7C7CB4;
+    z-index: 1;
+}
+
+header img {
+    display: inline-block;
+}
+
+#hamburger {
+    padding: 35px 15px;
+}
+
+#logo {
+    padding: 14px;
+}
+
+#bullet {
+    padding: 20px 0;
+}
+
+nav {
+    display: none;
+    float: left;
+    position: absolute;
+    top: 0;
+    background-color: #8E8ECD;
+    height: 100%;
+}
+
+nav a {
+    position: relative;
+    top: 100px;
+    box-sizing: border-box;
+    display: block;
+    width: 500px;
+    border-bottom: 1px solid white;
+    color: white;
+    text-decoration: none;
+}
+
+nav button {
+    position: absolute;
+    bottom: 10px;
+}
