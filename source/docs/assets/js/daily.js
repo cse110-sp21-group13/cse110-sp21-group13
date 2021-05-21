@@ -1,24 +1,28 @@
-// Create a "close" button and append it to each list item
 var myNodelist = document.getElementsByTagName("LI");
 var bulletType = document.getElementById("bullet-type");
-var signifier = document.getElementById("signifier");
 
 var i;
 for (i = 0; i < myNodelist.length; i++) {
-  let span = document.createElement("bulletTypeSpan");
-  let txt = document.createTextNode(bulletType.value + " ");
-  span.className = "close";
-  span.appendChild(txt);
-  myNodelist[i].prepend(span);
+  let bulletTypeSpan = document.createElement("bulletTypeSpan");
+  let bulletTypeTxt = document.createTextNode(bulletType.value + " ");
+  bulletTypeSpan.className = "bullet-Type";
+  bulletTypeSpan.appendChild(bulletTypeTxt);
+  myNodelist[i].prepend(bulletTypeSpan);
 }
 
+var signifier = document.getElementById("signifier");
 var x;
 for (x = 0; x < myNodelist.length; x++) {
-  let span = document.createElement("SPAN");
-  let txt = document.createTextNode(bulletType.value + " ");
-  span.className = "close";
-  span.appendChild(txt);
-  myNodelist[x].prepend(span);
+  let signifierSpan = document.createElement("signifierSpan");
+  let signifierTxt = document.createTextNode(signifier.value + " ");
+  signifierSpan.className = "signifier";
+  if (signifier != "") {
+    signifierSpan.appendChild(signifierTxt);
+    myNodelist[x].prepend(signifierSpan);
+  } else {
+    signifierSpan.appendChild(signifierTxt);
+    myNodelist[x].prepend(signifierSpan);
+  }
 }
 
 // Date Title
@@ -60,21 +64,30 @@ function newElement() {
   var bulletType = document.getElementById("bullet-type").value;
   var signifier = document.getElementById("signifier").value;
   var date = document.getElementById("date").innerHTML;
-  newBulletDocument = {
-    //user: ,
-    signifier: signifier,
-    bulletType: bulletType,
-    content: inputValue,
-    date: date
-  }
-/*
-  fetch('../create/bullet', {
-    method:'POST',
-    headers: {
-      ''
-    }
-  })*/
 
+  fetch('../read/user', {
+    method: 'GET',
+  }).then((response) => {response.JSON()})
+  .then((data) => {
+    newBulletDocument = {
+      user: data.username,
+      signifier: signifier,
+      bulletType: bulletType,
+      content: inputValue,
+      date: date
+    }
+  })
+  .then(() => {
+    fetch('../create/bullet', {
+      method:'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(newBulletDocument),
+    })
+    .catch(() => {window.alert("")});
+  });
+  
   var t = document.createTextNode(inputValue);
   li.appendChild(t);
   if (inputValue === '') {
@@ -84,17 +97,21 @@ function newElement() {
   }
   document.getElementById("myInput").value = "";
 
-  var span = document.createElement("SPAN");
-  var txt = document.createTextNode(bulletType + " ");
-  span.className = "close";
-  span.appendChild(txt);
-  li.prepend(span);
+  var bulletTypeSpan = document.createElement("bulletTypeSpan");
+  var bulletTypeTxt = document.createTextNode(bulletType + " ");
+  bulletTypeSpan.className = "bulletTypeSpan";
+  bulletTypeSpan.appendChild(bulletTypeTxt);
+  li.prepend(bulletTypeSpan);
 
-  for (i = 0; i < close.length; i++) {
-    close[i].onclick = function() {
-      var div = this.parentElement;
-      div.style.display = "none";
-    }
+  let signifierSpan = document.createElement("signifierSpan");
+  let signifierTxt = document.createTextNode(signifier + " ");
+  signifierSpan.className = "signifier";
+  if (signifier != "") {
+    signifierSpan.appendChild(signifierTxt);
+    li.prepend(signifierSpan);
+  } else {
+    signifierSpan.appendChild(signifierTxt);
+    li.prepend(signifierSpan);
   }
 }
 
