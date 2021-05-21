@@ -2,51 +2,89 @@ body {
     margin: 0;
 }
 
-#topbar {
-    width: 100%;
+.topbar {
+    background: #7C7CB4;
     height: 100px;
     position: relative;
-    background: #7C7CB4;
+    width: 100%;
     z-index: 1;
 }
 
-header img {
-    display: inline-block;
-}
-
 #hamburger {
-    padding: 35px 15px;
+    display: none;
 }
 
-#logo {
+.topbar label {
+    border-radius: 3px;
+    cursor: pointer;
+    float: left;
+    margin: 23px 12px 0 12px;
+    padding: 12px 8px 8px 8px;
+}
+
+.topbar label:hover {
+    background: #8E8ECD;;
+}
+
+#barlogo {
+    display: inline-block;
     padding: 14px;
 }
 
-#bullet {
+#bartitle {
+    display: inline-block;
     padding: 20px 0;
 }
 
-nav {
+.topbar h2 {
+    display: inline-block;
+    position: absolute;
+    right: 50px;
+    top: 10px;
+}
+
+#hamitems {
     display: none;
+}
+
+nav input:checked ~ #hamitems{
+    background-color: #8E8ECD;
+    display: block;
     float: left;
+    height: 100%;
     position: absolute;
     top: 0;
-    background-color: #8E8ECD;
-    height: 100%;
 }
 
 nav a {
-    position: relative;
-    top: 100px;
+    border-bottom: 1px solid white;
     box-sizing: border-box;
     display: block;
-    width: 500px;
-    border-bottom: 1px solid white;
-    color: white;
+    font-size: 36px;
+    padding: 10px;
+    position: relative;
     text-decoration: none;
+    top: 100px;
+    width: 400px;
+}
+
+nav a:hover{
+    background-color:#ADADE2;
 }
 
 nav button {
+    background-color:#ADADE2;
+    border: none;
+    border-top: 1px solid white;
+    bottom: 0px;
+    font-size: 18px;
+    height: 60px;
     position: absolute;
-    bottom: 10px;
+    width: 400px;
+}
+
+/* Universal font things*/
+.topbar h2, nav a, button {
+    color: white;
+    font-family: sans-serif;
 }
