@@ -22,11 +22,15 @@ loginForm.addEventListener('submit', (e) => {
   })
       .then((response) => response.json())
       .then((data) => {
-        if (data.error == 'Incorrect credentials') {
+        if (data.error == undefined) {
+          console.log(data);
+          window.location.replace('daily.html');
+        } else if (data.error == 'Incorrect credentials') {
           const errorElem = document.getElementById('errormsg');
           errorElem.innerText = 'incorrect username or password';
         } else {
-          window.location.replace('daily.html');
+          const errorElem = document.getElementById('errormsg');
+          errorElem.innerText = 'error occured. please try again later.';
         }
       });
 });
@@ -47,16 +51,7 @@ signup.addEventListener('click', (e) => {
   })
       .then((response) => response.json())
       .then((data) => {
-        /* FIXIT: Implement error catching for user already created
-        else if (data.error == ""){
-        let errorElem = document.getElementById('errormsg');
-        errorElem.innerText = "username taken";
-        }
-        */
-        if (data.error == 'MISSING FIELD') {
-          const errorElem = document.getElementById('errormsg');
-          errorElem.innerText = 'please enter a username and a password';
-        } else {
+        if (data.error == undefined){
           fetch('../create/session', {
             method: 'POST',
             headers: {
@@ -70,6 +65,13 @@ signup.addEventListener('click', (e) => {
                   window.location.replace('daily.html');
                 }
               });
+        } else if (data.error == 'MISSING FIELD') {
+          const errorElem = document.getElementById('errormsg');
+          errorElem.innerText = 'please enter a username and a password';
+        } else {
+          const errorElem = document.getElementById('errormsg');
+          errorElem.innerText = 'error occured. please try again later.';
         }
+        /* TODO: Implement error catching for user already created */
       });
 });

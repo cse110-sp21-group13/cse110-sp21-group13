@@ -1,3 +1,7 @@
+* {
+    box-sizing: border-box;
+}
+
 main > img {
     width: 25vw;
 }
@@ -9,7 +13,7 @@ main > img {
 main {
     align-items: center;
     display: grid;
-    grid-auto-columns: 50%;
+    grid-template-columns: 1fr 1fr;
     grid-auto-flow: column;
     grid-template-rows: 90vh;
 }
@@ -17,22 +21,27 @@ main {
 .left {
     grid-column-start: 1;
     justify-self: center;
+    padding: 10px;
 }
 
 .right {
     grid-column-start: 2;
+    max-width: 600px;
+    min-width: 400px;
+    padding: 10px;
 }
 
 #username, #password {
     background-color: #E8E8E8;
     border-color: #AFAFAF;
-    border-radius: 15px;
+    border-radius: 8px;
     border-width: 1px;
+    display: block;
     font-size: 18px;
     height: 1.5em;
-    margin: 0 8vw 10px 0;
-    padding: 0 0 8px 8px;
-    width: 40vw;
+    margin-bottom: 10px;
+    padding-left: 6px;
+    width: 15em;
 }
 
 form > label {
@@ -41,8 +50,10 @@ form > label {
 
 form > button {
     border-radius: 10px;
+    display: inline-block;
     font-size: 20px;
     height: 2em;
+    margin-right: 10px;
     width: 6em;
 }
 
