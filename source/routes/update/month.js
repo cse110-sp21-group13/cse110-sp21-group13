@@ -28,7 +28,7 @@ module.exports = {
         selector: {
           _id: req.body._id,
           user: req.user._id,
-          docType: 'month'
+          docType: 'month',
         },
         limit: 1,
       })
@@ -36,7 +36,8 @@ module.exports = {
             // update every specified field.
             for (const updatedField in req.body.updateField) {
               if (updatedField in response.docs[0]) {
-                response.docs[0][updatedField] = req.body.updateField[updatedField];
+                response.docs[0][updatedField] =
+                  req.body.updateField[updatedField];
               } else {
                 throw new Error('INVALID FIELD SPECIFIED');
               }

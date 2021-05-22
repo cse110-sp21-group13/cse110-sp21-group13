@@ -26,7 +26,7 @@ module.exports = {
         selector: {
           date: req.body.date,
           user: req.user._id,
-          docType: 'daily'
+          docType: 'daily',
         },
         limit: 1,
       })
@@ -42,7 +42,7 @@ module.exports = {
                 selector: {
                   _id: bullet,
                   user: req.user._id,
-                  docType: 'bullet'
+                  docType: 'bullet',
                 },
                 limit: 1,
               })

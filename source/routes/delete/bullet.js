@@ -18,12 +18,13 @@ module.exports = {
         selector: {
           _id: req.body._id,
           user: req.user._id,
-          docType: 'bullet'
+          docType: 'bullet',
         },
         limit: 1,
       })
           .then((response) => {
-            db.remove(response.docs[0]._id, response.docs[0]._rev);  // TODO: what happens if we try to read assuming multiple revisions?
+            // TODO: what happens if we try to read assuming multiple revisions?
+            db.remove(response.docs[0]._id, response.docs[0]._rev);
             res.send('success');
           })
           .catch((err) => {

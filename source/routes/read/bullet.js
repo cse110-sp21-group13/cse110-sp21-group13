@@ -17,7 +17,7 @@ module.exports = {
         selector: {
           _id: req.body._id,
           user: req.user._id,
-          docType: 'bullet'
+          docType: 'bullet',
         },
         limit: 1,
       }).then((response) => {

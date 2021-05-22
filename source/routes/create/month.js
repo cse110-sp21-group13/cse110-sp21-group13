@@ -32,7 +32,7 @@ module.exports = {
         // Stores the bullets id in an array
         bullets: req.body.bullets,
         // Stores docType
-        docType: 'month'
+        docType: 'month',
       })
           .then((response) => {
             console.log(response);

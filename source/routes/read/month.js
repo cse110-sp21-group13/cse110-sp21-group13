@@ -27,7 +27,7 @@ module.exports = {
       // create index for query
       db.createIndex({
         index: {
-          fields: ['user']
+          fields: ['user'],
         },
       }).then((result) => {
         console.log(result);
@@ -40,7 +40,7 @@ module.exports = {
         selector: {
           date: req.body.date,
           user: req.user._id,
-          docType: 'month'
+          docType: 'month',
         },
         limit: 1,
       })
@@ -52,14 +52,14 @@ module.exports = {
                 selector: {
                   user: req.user._id,
                   monthKey: response.docs[0].month,
-                  docType: 'daily'
+                  docType: 'daily',
                 },
                 fields: ['date', '_id'],
               })
-              .then((result) => {
-                response.dailys = result.docs;
-                res.send(response);
-              });
+                  .then((result) => {
+                    response.dailys = result.docs;
+                    res.send(response);
+                  });
             }
 
             let curr = 0;
@@ -69,7 +69,7 @@ module.exports = {
               db.find({
                 selector: {
                   _id: bullet,
-                  user: req.user._id
+                  user: req.user._id,
                 },
                 limit: 1,
               })
