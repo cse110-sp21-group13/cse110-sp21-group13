@@ -23,7 +23,6 @@ loginForm.addEventListener('submit', (e) => {
       .then((response) => response.json())
       .then((data) => {
         if (data.error == undefined) {
-          console.log(data);
           window.location.replace('daily.html');
         } else if (data.error == 'Incorrect credentials') {
           const errorElem = document.getElementById('errormsg');
