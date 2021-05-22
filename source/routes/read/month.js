@@ -38,7 +38,7 @@ module.exports = {
       // get month page by id
       db.find({
         selector: {
-          _id: req.body._id,
+          date: req.body.date,
           user: req.user._id,
           docType: 'month'
         },
