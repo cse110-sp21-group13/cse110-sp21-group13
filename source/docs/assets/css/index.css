@@ -1,5 +1,5 @@
 main > img {
-    width: 500px;
+    width: 25vw;
 }
 
 #loginform {
@@ -11,7 +11,7 @@ main {
     display: grid;
     grid-auto-columns: 50%;
     grid-auto-flow: column;
-    grid-template-rows: 100vh;
+    grid-template-rows: 90vh;
 }
 
 .left {
@@ -27,38 +27,47 @@ main {
     background-color: #E8E8E8;
     border-color: #AFAFAF;
     border-radius: 15px;
-    font-size: 48px;
-    height: 48px;
-    margin-bottom: 10px;
-    padding-bottom: 8px;
-    padding-left: 8px;
-    width: 90%;
+    border-width: 1px;
+    font-size: 18px;
+    height: 1.5em;
+    margin: 0 8vw 10px 0;
+    padding: 0 0 8px 8px;
+    width: 40vw;
 }
 
 form > label {
-    font-size: 48px;
+    font-size: 20px;
 }
 
 form > button {
     border-radius: 10px;
-    font-size: 28px;
-    height: 50px;
-    width: 150px;
+    font-size: 20px;
+    height: 2em;
+    width: 6em;
 }
 
 #getstarted {
     border-radius: 50px;
-    font-size: 48px;
-    height: 100px;
-    width: 550px;
+    font-size: 24px;
+    height: 2em;
+    width: 10em;
+}
+
+button {
+    background-image: linear-gradient(to right, #FECCFF, #BFC3FF);
+    color: #2C2474;
+    font-weight: bold;
 }
 
 h1 {
-    font-size: 96px;
+    color: #2C2474;
+    font-size: 60px;
+    font-weight: bold;
 }
 
 h2 {
-    font-size: 48px;
+    color: #7C7CB4;
+    font-size: 30px;
 }
 
 h1, h2, button, label, #errormsg {
@@ -66,5 +75,7 @@ h1, h2, button, label, #errormsg {
 }
 
 #errormsg {
-    padding-top: 15px;
+    font-size: 16px;
+    margin-top: 1em;
+    position: absolute;
 }
