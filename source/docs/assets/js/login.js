@@ -50,7 +50,7 @@ signup.addEventListener('click', (e) => {
   })
       .then((response) => response.json())
       .then((data) => {
-        if (data.error == undefined){
+        if (data.error == undefined) {
           fetch('../create/session', {
             method: 'POST',
             headers: {
