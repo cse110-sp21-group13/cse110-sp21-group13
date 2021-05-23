@@ -23,7 +23,6 @@ module.exports = {
         limit: 1,
       })
           .then((response) => {
-            // TODO: what happens if we try to read assuming multiple revisions?
             db.remove(response.docs[0]._id, response.docs[0]._rev);
             res.send('success');
           })

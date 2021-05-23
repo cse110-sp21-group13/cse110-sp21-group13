@@ -19,7 +19,8 @@ function updateFields(res, req) {
         // and set them to the new value in the update field
         for (const updatedField in req.documents[0].body.updateField) {
           if (updatedField in response) {
-            response[updatedField] = req.documents[0].body.updateField[updatedField];
+            response[updatedField] =
+              req.documents[0].body.updateField[updatedField];
           } else {
             // Throw an error if this fails; will error if a field that
             // does not exist attempts to be updated
