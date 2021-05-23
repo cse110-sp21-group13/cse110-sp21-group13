@@ -40,74 +40,141 @@
     <h1>13ullet</h1>
 </header>
 <body>
-<div class="left">
-    <h2>May</h2>
-    (tap on a day to view daily log!)
+    <div class="left">
+        <h2 id="calendar-title">May</h2>
+        (tap on a day to view daily log!)
 
-    <!-- add javacript loop later so we don't need all the indiv grid items -->
-    <div class="grid-container">
-    <div class="grid-item"><center>Sunday</center></div>
-    <div class="grid-item"><center>Monday</center></div>
-    <div class="grid-item"><center>Tuesday</center></div>
-    <div class="grid-item"><center>Wednesday</center></div>
-    <div class="grid-item"><center>Thursday</center></div>
-    <div class="grid-item"><center>Friday</center></div>
-    <div class="grid-item"><center>Saturday</center></div>
-    <div class="grid-item"> </div>
-    <div class="grid-item"> </div>
-    <div class="grid-item"> </div>
-    <div class="grid-item"> </div>
-    <div class="grid-item"> </div>
-    <div class="grid-item"> </div>
-    <div class="grid-item"><a href="https://plsgimme.money/giveaway">1</a></div>
-    <div class="grid-item">2</div>
-    <div class="grid-item">3</div>
-    <div class="grid-item">4</div>
-    <div class="grid-item">5</div>
-    <div class="grid-item">6</div>
-    <div class="grid-item">7</div>
-    <div class="grid-item">8</div>
-    <div class="grid-item">9</div>
-    <div class="grid-item">10</div>
-    <div class="grid-item">11</div>
-    <div class="grid-item">12</div>
-    <div class="grid-item">13</div>
-    <div class="grid-item">14</div>
-    <div class="grid-item">15</div>
-    <div class="grid-item">16</div>
-    <div class="grid-item">17</div>
-    <div class="grid-item">18</div>
-    <div class="grid-item">19</div>
-    <div class="grid-item">20</div>
-    <div class="grid-item">21</div>
-    <div class="grid-item">22</div>
-    <div class="grid-item">23</div>
-    <div class="grid-item">24</div>
-    <div class="grid-item">25</div>
-    <div class="grid-item">26</div>
-    <div class="grid-item">27</div>
-    <div class="grid-item">28</div>
-    <div class="grid-item">29</div>
-    <div class="grid-item">30</div>
-    <div class="grid-item">31</div>
-    <div class="grid-item"> </div>
-    <div class="grid-item"> </div>
-    <div class="grid-item"> </div>
-    <div class="grid-item"> </div>
-    <div class="grid-item"> </div>
+        <!-- add javacript loop later so we don't need all the indiv grid items -->
+        <div class="grid-container" id="calendar">
+            <div class="grid-item"><center>Sunday</center></div>
+            <div class="grid-item"><center>Monday</center></div>
+            <div class="grid-item"><center>Tuesday</center></div>
+            <div class="grid-item"><center>Wednesday</center></div>
+            <div class="grid-item"><center>Thursday</center></div>
+            <div class="grid-item"><center>Friday</center></div>
+            <div class="grid-item"><center>Saturday</center></div>
+        </div>
+
+        <button id="back"><-</button>
+        <button id="forward">-></button>
     </div>
-</div>
 
-<div class="right">
-<h2>May Goals</h2>
-<input type="submit">
-    <form>
-        <label for="task">What are your goals this month?</label><br>
-        <input type="text" id="task" name="task">
-        <!-- add javacript event listener to see if more tasks will be added -->
-        <button>add more?</button>
-    </form>
-</div>
+    <div class="right">
+    <h2>May Goals</h2>
+    <input type="submit">
+        <form>
+            <label for="task">What are your goals this month?</label><br>
+            <input type="text" id="task" name="task">
+            <!-- add javacript event listener to see if more tasks will be added -->
+            <button>add more?</button>
+        </form>
+    </div>
 
+    <script>
+        currDate = new Date();  // Use current month on initial page load
+        let backButton = document.getElementById("back");
+        let forwardButton = document.getElementById("forward");
+
+        // Go back a month
+        backButton.addEventListener("click", () => {
+            currDate.setMonth(currDate.getMonth()-1);  // Decrement Month
+            updateCalendar(currDate.getMonth() + 1, currDate.getFullYear(), currDate)
+        });
+
+        // Go forward a month
+        forwardButton.addEventListener("click", () => {
+            currDate.setMonth(currDate.getMonth()+1);  // Increment Month
+            updateCalendar(currDate.getMonth() + 1, currDate.getFullYear(), currDate)
+        });
+
+        // On page load listener
+        window.addEventListener("DOMContentLoaded", () => {
+            updateCalendar(currDate.getMonth() + 1, currDate.getFullYear(), currDate)
+        });
+
+        function updateCalendar(month, year, date) {
+            let currMonth = new Date(year, month - 1);
+            let daysInMonth = new Date(year, month, 0).getDate();
+            let calendar = document.getElementById("calendar");
+            let globalItr = 0;
+
+            // Remove old cells
+            let dayCells = document.getElementsByName("calendar-day");
+            let dayCellsLen = dayCells.length;
+
+            for(let i = 0; i < dayCellsLen; i++) {
+                dayCells[0].remove();
+            }
+
+            // Set month title
+            let calTitle = document.getElementById("calendar-title");
+            calTitle.textContent = date.getFullYear() + "/" + (date.getMonth() + 1);
+
+
+            let monthQuery =  {
+                "month": date.getFullYear() + "/" + (date.getMonth()+1)
+            };
+            console.log(monthQuery);
+            let monthData;
+
+            $.ajax({
+                url: "/read/month",
+                type: "GET",
+                dataType: "application/json",
+                async: false,
+                data: JSON.stringify(monthQuery),
+                success: function(retData) {
+                    monthData = retData;
+                },
+                error: function() {
+                    console.log("error");
+                }
+            })
+
+            console.log(monthData)
+
+            for(let i = 0; i < currMonth.getDay(); i++) {  // Put in empty days for month
+                let cell = document.createElement("div");
+                cell.setAttribute("class", "grid-item");
+                cell.setAttribute("name", "calendar-day");
+                calendar.appendChild(cell);
+                globalItr++;
+            }
+
+            for(let i = 1; i <= daysInMonth; i++) {  // Populate valid days
+                let cell = document.createElement("div");
+                cell.setAttribute("class", "grid-item");
+                cell.setAttribute("name", "calendar-day");
+
+                try {
+                    monthData.dailys.forEach((daily) => {
+                        if(daily.date == i) {
+                            let link = document.createElement("a");
+                            link.setAttribute("href", "/daily.html?date=" + date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + i);
+                            link.innerText = i;
+                            cell.appendChild(link);
+                        } else {
+                            cell.innerText = i;
+                        }
+                    });
+                } catch(Error) {
+                    // If month doesn't exist the monthData will be empty
+                    cell.innerText = i;
+                }
+
+                calendar.appendChild(cell);
+                globalItr++;
+            }
+
+            for(let i = 0; i < globalItr%7; i++) {  // Put in empty trailing days for month
+                let cell = document.createElement("div");
+                cell.setAttribute("class", "grid-item");
+                cell.setAttribute("name", "calendar-day");
+                calendar.appendChild(cell);
+                globalItr++;
+            }
+        }
+    </script>
+    <script type = "text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 </body>
 </html>

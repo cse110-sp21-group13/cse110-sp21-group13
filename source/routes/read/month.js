@@ -21,6 +21,15 @@ module.exports = {
     methods: ['get'],
     middleware: [authenticate],
     fn: function(req, res, next) {
+      // Check if every field exists, if not, throw error
+      const requiredFields = ['month'];
+      requiredFields.forEach((jsonField, index) => {
+        console.log(req.body);
+        if (!req.body[jsonField]) {
+          throw new Error('MISSING FIELD');
+        }
+      });
+
       const tempArr = [];
 
       // create index for query
@@ -37,16 +46,18 @@ module.exports = {
       // get month page by id
       db.find({
         selector: {
-          date: req.body.date,
+          month: req.body.month,
           user: req.user._id,
-          docType: 'month',
+          docType: 'month'
         },
         limit: 1,
       })
           .then((response) => {
             // handle edge case: nothing inside the bullets
+            console.log(response.docs)
             if (response.docs[0].bullets.length == 0) {
               // grab all daily journal entries in that month
+              console.log(response.docs[0].month)
               db.find({
                 selector: {
                   user: req.user._id,
@@ -92,7 +103,7 @@ module.exports = {
                         fields: ['date', '_id'],
                       })
                           .then((result) => {
-                            response.docs[0].dailys = result;
+                            response.dailys = result;
                             // send out the response
                             res.send(response);
                           });

@@ -23,6 +23,7 @@ module.exports = {
       db.find({
         selector: {
           date: req.body.date,
+          monthKey: req.body.monthKey,
           user: req.user._id,
           docType: 'daily',
         },
