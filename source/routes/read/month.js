@@ -6,7 +6,6 @@ const authenticate = require(_base + 'middleware/authenticate');
 /* *
 read month will send response with form
 {
-    "user": "dave",
     "month": "May",
     "bullets": [
         {bullet1 json object},

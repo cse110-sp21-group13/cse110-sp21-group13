@@ -10,7 +10,6 @@ const authenticate = require(_base + 'middleware/authenticate');
     "_id": "documentID",
     "updateField": {
         "customFieldToUpdate": "customDataToUpdate",
-
     }
 }
 */

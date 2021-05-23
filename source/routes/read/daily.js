@@ -6,9 +6,7 @@ const authenticate = require(_base + 'middleware/authenticate');
 /* *
 read daily will send response with form
 {
-    "user": "dave",
     "date": "2021-05-09",
-    "monthKey": "05-09",
     "bullets": [
         {bullet1 json object},
         {bullet2 json object}
