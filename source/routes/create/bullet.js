@@ -7,10 +7,10 @@ const authenticate = require(_base + 'middleware/authenticate');
 // Request json must be in the form:
 // {
 // "parentDocId": "the ID of the parent document",
-// "user": "the ID of the user who created the bullet",
 // "signifier": "the signifier of the bullet",
 // "bulletType": "denotes task, event, note"
 // "content":  "the content of the bullet"
+// "completed": "the completion status of the bullet"
 // "date": "the date of the bullet creation"
 // }
 module.exports = {
@@ -20,7 +20,7 @@ module.exports = {
     fn: function(req, res, next) {
       // Check if every field exists, if not, throw error
       const requiredFields = ['parentDocId', 'signifier', 'bulletType',
-        'content', 'date'];
+        'content', 'completed', 'date'];
       requiredFields.forEach((jsonField, index)=>{
         if (!req.body[jsonField]) {
           throw new Error('MISSING FIELD');
@@ -38,6 +38,8 @@ module.exports = {
         bulletType: req.body.bulletType,
         // Stores the main content of the bullet
         content: req.body.content,
+        // Stores the completion status of the bullet
+        completed: req.body.completed,
         // Stores the date the bullet was created
         date: req.body.date,
       })

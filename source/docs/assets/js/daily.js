@@ -60,6 +60,32 @@ list.addEventListener('click', function(ev) {
   if (ev.target.tagName === 'LI') {
     ev.target.classList.toggle('checked');
   }
+  let checkStatus = ev.target.className;
+  if(checkStatus == "checked"){
+    checkStatus = "true";
+  }
+  else{
+    checkStatus = "false";
+  }
+  let bulletUpdateDoc = {
+    _id: ev.target.id,
+    updateField: {completed: checkStatus}
+  }
+  $.ajax({
+    url: "/update/bullet",
+    type: "POST",
+    contentType: "application/json",
+    data: JSON.stringify(bulletUpdateDoc),
+    success: function(postData){
+      if(postData == "error"){
+        console.log("Toggle of completion failed.");
+        return;
+      }
+    },
+    error: function(xhr, status, error){
+      console.log(status + " " + error);
+    }
+  })
 }, false);
 
 async function loadCurrentDay(){
@@ -108,7 +134,7 @@ async function loadCurrentDay(){
       else{
         dailyId = getData._id;
         getData.bullets.forEach((bullet) =>{
-          appendBullet(bullet.content, bullet.bulletType, bullet.signifier);
+          appendBullet(bullet._id, bullet.content, bullet.bulletType, bullet.signifier, bullet.completed);
         });
 
       }
@@ -122,9 +148,10 @@ async function loadCurrentDay(){
 
 loadCurrentDay();
 
-function appendBullet(inputValue, bulletType, signifier){
+function appendBullet(bulletId, inputValue, bulletType, signifier, completed){
   var li = document.createElement("li");
   var t = document.createTextNode(inputValue);
+  li.id = bulletId;
   li.appendChild(t);
   if (inputValue === '') {
     alert("You must write something!");
@@ -149,6 +176,10 @@ function appendBullet(inputValue, bulletType, signifier){
     signifierSpan.appendChild(signifierTxt);
     li.prepend(signifierSpan);
   }
+  // Add a checkmark to completed bullets
+  if(completed == "true"){
+    li.classList.toggle('checked');
+  }
 }
 
 // Create a bullet from the given inputs
@@ -158,6 +189,7 @@ function createBullet(inputValue, bulletType, signifier){
     signifier: signifier,
     bulletType: bulletType,
     content: inputValue,
+    completed: "false",
     date: truncatedDate
   }
   $.ajax({
@@ -170,21 +202,25 @@ function createBullet(inputValue, bulletType, signifier){
         console.log("Creation of new bullet failed.");
         return;
       }
+      // Bullet has been created, so add it to the list
+      appendBullet(postData.id, inputValue, bulletType, signifier, "false");
     },
     error: function(xhr, status, error){
       console.log(status + " " + error);
+      return;
     }
   })
+
 }
 
 // Create a new list item when clicking on the "Add" button
-function newBulletFromInputBox() {
+async function newBulletFromInputBox() {
   // Select all the values from the bullet input
   var inputValue = document.getElementById("myInput").value;
   var bulletType = document.getElementById("bullet-type").value;
   var signifier = document.getElementById("signifier").value;
+  // Send a request to the database to create a new bullet
   createBullet(inputValue, bulletType, signifier);
-  appendBullet(inputValue, bulletType, signifier);
 }
 
 
