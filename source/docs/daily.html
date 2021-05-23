@@ -36,7 +36,7 @@
                     <div class="dropdowns">
                             <label for="signifier"></label>
                                 <select name="signifier" id="signifier" hidden = true>
-                                <option value="">None</option>
+                                <option value=" ">None</option>
                                 <option value="*">* Priority</option>
                                 <option value="!">! Inspiration</option>
                                 </select>
@@ -50,7 +50,7 @@
                     </div>
                     <div class="task">
                         <input type="text" id="myInput" placeholder="What on your mind?" hidden = true>
-                        <span onclick="newElement()" class="addBtn" hidden = true>Add </span>
+                        <span onclick="newBulletFromInputBox()" class="addBtn" hidden = true>Add </span>
                     </div>
                 </div>
             </div>
@@ -60,6 +60,7 @@
 
         </main>
         <!-- Main Script -->
-     <script src="./assets/js/daily.js" type="text/javascript"></script>
+    <script type = "text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="./assets/js/daily.js" type="text/javascript"></script>
     </body>
 </html>

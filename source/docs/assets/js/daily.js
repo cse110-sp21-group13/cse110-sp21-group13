@@ -1,5 +1,11 @@
 var myNodelist = document.getElementsByTagName("LI");
 var bulletType = document.getElementById("bullet-type");
+let dailyId;
+
+
+// Create a new date, but destroy all non-date data by slicing ISO and
+// inserting 0's.
+let truncatedDate = new Date().toISOString().slice(0,10)+'T00:00:00+00:00';
 
 var i;
 for (i = 0; i < myNodelist.length; i++) {
@@ -56,38 +62,68 @@ list.addEventListener('click', function(ev) {
   }
 }, false);
 
-// Create a new list item when clicking on the "Add" button
-function newElement() {
-  var li = document.createElement("li");
-  // Select all the values from the bullet input
-  var inputValue = document.getElementById("myInput").value;
-  var bulletType = document.getElementById("bullet-type").value;
-  var signifier = document.getElementById("signifier").value;
-  var date = document.getElementById("date").innerHTML;
+async function loadCurrentDay(){
 
-  fetch('../read/user', {
-    method: 'GET',
-  }).then((response) => {response.JSON()})
-  .then((data) => {
-    newBulletDocument = {
-      user: data.username,
-      signifier: signifier,
-      bulletType: bulletType,
-      content: inputValue,
-      date: date
+  let dailyGetDoc = {date: truncatedDate};
+  // Attempt to get a potential existing daily from the truncated date
+  // generated.
+  $.ajax({
+    url: "/read/daily",
+    type: "GET",
+    contentType: "application/json",
+    data: JSON.stringify(dailyGetDoc),
+    success: function(getData){
+      // Upon error, it is assumed there is no daily matching the date.
+      // Therefore, we must create the daily corresponding to the current date.
+      if(getData == "error"){
+        let dailyPostDoc = {
+              date: truncatedDate,
+              monthKey: n.toLocaleString('default', { month: 'short' }),
+              bullets: []
+        }
+        // Create a new daily using the above document's information, and
+        // store the new document's ID in the dailyId variable to pass to
+        // bullets during creation.
+        $.ajax({
+          url: "/create/daily",
+          type: "POST",
+          contentType: "application/json",
+          data: JSON.stringify(dailyPostDoc),
+          success: function(postData){
+            if(postData == "error"){
+              console.log("Creation of new daily failed.")
+            }
+            else{
+              dailyId = postData.id; 
+            }
+          },
+          error: function(xhr, status, error){
+            console.log(status + " " + error);
+          }
+        })
+      }
+      // If the daily log exists, we must load the entries from the json body.
+      // We must also store the existing document's id to pass to bullets
+      // during creation.
+      else{
+        dailyId = getData._id;
+        getData.bullets.forEach((bullet) =>{
+          appendBullet(bullet.content, bullet.bulletType, bullet.signifier);
+        });
+
+      }
+    },
+    error: function(xhr, status, error){
+      console.log(status + " " + error);
     }
   })
-  .then(() => {
-    fetch('../create/bullet', {
-      method:'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(newBulletDocument),
-    })
-    .catch(() => {window.alert("")});
-  });
-  
+
+}
+
+loadCurrentDay();
+
+function appendBullet(inputValue, bulletType, signifier){
+  var li = document.createElement("li");
   var t = document.createTextNode(inputValue);
   li.appendChild(t);
   if (inputValue === '') {
@@ -114,6 +150,44 @@ function newElement() {
     li.prepend(signifierSpan);
   }
 }
+
+// Create a bullet from the given inputs
+function createBullet(inputValue, bulletType, signifier){
+  let bulletPostDoc = {
+    parentDocId: dailyId,
+    signifier: signifier,
+    bulletType: bulletType,
+    content: inputValue,
+    date: truncatedDate
+  }
+  $.ajax({
+    url: "/create/bullet",
+    type: "POST",
+    contentType: "application/json",
+    data: JSON.stringify(bulletPostDoc),
+    success: function(postData){
+      if(postData == "error"){
+        console.log("Creation of new bullet failed.");
+        return;
+      }
+    },
+    error: function(xhr, status, error){
+      console.log(status + " " + error);
+    }
+  })
+}
+
+// Create a new list item when clicking on the "Add" button
+function newBulletFromInputBox() {
+  // Select all the values from the bullet input
+  var inputValue = document.getElementById("myInput").value;
+  var bulletType = document.getElementById("bullet-type").value;
+  var signifier = document.getElementById("signifier").value;
+  createBullet(inputValue, bulletType, signifier);
+  appendBullet(inputValue, bulletType, signifier);
+}
+
+
 
 // Edit daily log when pressed
 function editDaily() {
