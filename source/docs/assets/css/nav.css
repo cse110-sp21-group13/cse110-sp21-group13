@@ -2,9 +2,14 @@ body {
     margin: 0;
 }
 
+header {
+    margin: 0;
+    padding: 0;
+}
+
 .topbar {
     background: #7C7CB4;
-    height: 100px;
+    padding: 0;
     position: relative;
     width: 100%;
     z-index: 1;
@@ -15,11 +20,15 @@ body {
 }
 
 .topbar label {
-    border-radius: 3px;
+    border-radius: 4px;
     cursor: pointer;
     float: left;
-    margin: 23px 12px 0 12px;
-    padding: 12px 8px 8px 8px;
+    margin: 18px 10px 0 12px;
+    padding: 10px 6px 6px 6px;
+}
+
+.topbar label img {
+    width: 45px;
 }
 
 .topbar label:hover {
@@ -28,12 +37,13 @@ body {
 
 #barlogo {
     display: inline-block;
-    padding: 14px;
+    margin: 8px 0px 4px 14px;
+    width: 65px;
 }
 
 #bartitle {
     display: inline-block;
-    padding: 20px 0;
+    margin-bottom: 15px;
 }
 
 .topbar h2 {
@@ -60,12 +70,12 @@ nav a {
     border-bottom: 1px solid white;
     box-sizing: border-box;
     display: block;
-    font-size: 36px;
+    font-size: 28px;
     padding: 10px;
     position: relative;
     text-decoration: none;
-    top: 100px;
-    width: 400px;
+    top: 80px;
+    width: 10em;
 }
 
 nav a:hover{
@@ -80,7 +90,12 @@ nav button {
     font-size: 18px;
     height: 60px;
     position: absolute;
-    width: 400px;
+    width: 100%;
+}
+
+nav button:hover{
+    background-color:#7C7CB4;
+    cursor: pointer;    
 }
 
 /* Universal font things*/
