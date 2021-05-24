@@ -1,6 +1,12 @@
 var myNodelist = document.getElementsByTagName("LI");
 var bulletType = document.getElementById("bullet-type");
-const queryString = window.location.search
+let queryString = window.location.search
+if(queryString == ""){
+  let n = new Date();
+  console.log(n.getDay());
+  queryString = "date="+ n.getFullYear() + "-" + (n.getMonth() + 1) + "-" + (n.getDate());
+  window.location.search = queryString;
+}
 let params = new URLSearchParams(queryString);
 let dailyId;
 
