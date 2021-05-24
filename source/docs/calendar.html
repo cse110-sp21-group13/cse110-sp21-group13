@@ -111,18 +111,12 @@
             calTitle.textContent = date.getFullYear() + "/" + (date.getMonth() + 1);
 
 
-            let monthQuery =  {
-                "month": date.getFullYear() + "/" + (date.getMonth()+1)
-            };
-            console.log(monthQuery);
             let monthData;
 
             $.ajax({
-                url: "/read/month",
+                url: "/read/month/" + date.getFullYear() + "-" + (date.getMonth() + 1),
                 type: "GET",
-                dataType: "application/json",
                 async: false,
-                data: JSON.stringify(monthQuery),
                 success: function(retData) {
                     monthData = retData;
                 },
