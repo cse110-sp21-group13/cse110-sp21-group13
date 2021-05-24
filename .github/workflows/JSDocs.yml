@@ -13,13 +13,6 @@ jobs:
             source_dir: ./source
             recurse: true
             output_dir: ./source/jsdocs
-        - name: upload to main
-          working-directory: ./source
-          run: |
-            ls
-            git config --global user.name "QE"
-            git config --global user.email "b2wu@ucsd.edu"
-            git add jsdocs/
-            git commit -m 'jsodcs updatge'
-            git push origin main
-            
+        - name: list
+          working-directory: ./source/jsdocs
+          run: ls
