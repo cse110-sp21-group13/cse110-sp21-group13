@@ -1,0 +1,24 @@
+## Status
+What works:
+-	**Linting and Code Style Enforcement (ESLint)**\
+    In the CI pipeline, ESLint is installed and configured using the Google style guidelines for JavaScript. On pushes and pull requests to the repository, the “lint” job is started in the Node.js CI workflow. This job installs the modules of the project and then runs eslint on all files with JavaScript related file extensions. If there are no errors found after the command is run, the lint job exits without error and the job completes successfully. However, if style errors exist in the files, the command will exit with errors recommending fixes and fails the job.
+- **Unit testing**\
+    Unit testing has been implemented for each pull request through the use of Jest. The “test” job in the workflow begins by installing the project modules. After this step is complete, the test script is run which executes the Jest command. Each of the unit tests defined in the \_\_test\_\_ directory is run and recorded. If all tests pass, the “test” job complete successfully. If any of the tests fails, the test is logged in the workflow and the job does not pass.
+-	**Documentation generation (JSDocs)**\
+    A GitHub action implements JSDocs to automatically create human readable documentation for the source files. This workflow runs in parallel with the workflow for unit testing and linting. It starts to run on pushes and pull requests to the main branch, running on all relevant JavaScript source files. Once done, it outputs the newly created documentation files to an output folder that can be viewed.
+-	**Code Quality via Tool (Codacy)**\ 
+    In addition to linting and unit tests, the quality of the code and codebase is evaluated through an external job utilizing the Codacy service. This github workflow also run in parallel with the linting and unit test workflow. If the code base fails to pass the code quality evaluation, the GitHub workflow will fail and the status check will display the errors. If the code passes the evaluation, the status check passes without any errors.
+-	**Pull Request Reviews**\
+    After all of the automated workflow jobs are completed, each pull request must go through the process of manual review by a team member. All changes must be committed to a new  branch following the naming scheme “scratch/feature/{feature_name}”. Once the feature is complete and committed to the branch, the committer begins the pull request process by creating a pull request and assigning a different team member to the be assigned as a reviewer. Once this reviewer has approved the changes, only then can the branch be merged with the main branch.
+
+What doesn’t work
+-	**Automatic Approvals**\
+    A feature of the pipeline that is not yet implemented yet is the automation of merging a branch after the specified number of reviewers has been satisfied. This currently does not work and instead, the task of merging is done manually after a pull request has been reviewed.
+-	**Branch Protection**\
+    Protection of the main branch is not currently implemented and working. In the CI/CD pipeline, this feature would prevent the “main” branch from being inadvertently deleted or broken.  Through GitHub branch rules, team members would be prevented from directly pushing onto the main branch without approval. This would also require pull requests to pass all status checks before being able to merge. Thus, the is provides protection for the main branch against untested and nonworking code.
+-	**Prettier code formatting**\
+    Automatic code formatting through prettier is not yet working. While linting through ESlint has been implemented, automatic code formatting is not yet implemented. Prettier can be used alongside ESlint to automatically corrected the style errors found in the linting job.
+-	**Automatic issue and pull request label mirroring**\
+    Currently, when an issue is linked to a pull request the team member creating it must manually mirror the labels and project information from the issue to the pull request. The feature that has not been implemented into the pipeline is automatic mirroring of the relevant information from a linked issue to a pull request. This would ensure consistency among issues and pull requests and proper project documentation.
+-	**Automatic storyboard tags corresponding with columns**\
+    The intention for automatic storyboard tags is have labels representing each column of the storyboard that are automatically added to issues as they are dragged between different states/columns. This allows for consistent documentation and categorization of labels through the storyboarding and sprint process. This has not yet been implemented into the CI/CD pipeline and does not work.
