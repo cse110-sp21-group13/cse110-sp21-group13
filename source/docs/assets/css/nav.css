@@ -57,7 +57,11 @@ header {
     display: none;
 }
 
-nav input:checked ~ #hamitems{
+nav input[type="checkbox"] {
+    display: none;
+}
+
+#hamburger:checked ~ #hamitems {
     background-color: #8E8ECD;
     display: block;
     float: left;
@@ -66,23 +70,65 @@ nav input:checked ~ #hamitems{
     top: 0;
 }
 
-nav a {
+nav a, #setlabel {
     border-bottom: 1px solid white;
     box-sizing: border-box;
     display: block;
     font-size: 28px;
-    padding: 10px;
+    padding: .5em;
     position: relative;
     text-decoration: none;
     top: 80px;
-    width: 10em;
+    width: 11em;
 }
 
-nav a:hover{
+nav a:hover, #setlabel:hover{
     background-color:#ADADE2;
 }
 
-nav button {
+#menu {
+    background-color:#ADADE2;
+    border-bottom: 1px solid white;
+    box-sizing: border-box;
+    display: none;
+    font-size: 20px;
+    list-style-type: none;
+    margin: 0;
+    padding: .5em;
+    position: relative;
+    top: 80px;
+    width: 100%;
+}
+
+nav form {
+    border: none;
+    border-bottom: 1px solid white;
+    margin: 0;
+    width: 100%;
+}
+
+nav form legend {
+    padding-bottom: .5em;
+}
+
+#modes {
+    display: block;
+    padding-bottom: 1em;
+}
+
+#settings:checked ~ #menu {
+    display: block;
+}
+
+li button, .changepass button {
+    border-radius: 5px;
+    color: rgb(110, 110, 110);
+    font-size: 16px;
+    margin-top: 1em;
+    padding: .3em .5em;
+}
+
+#signout {
     background-color:#ADADE2;
     border: none;
     border-top: 1px solid white;
@@ -93,13 +139,37 @@ nav button {
     width: 100%;
 }
 
-nav button:hover{
+#signout:hover {
     background-color:#7C7CB4;
     cursor: pointer;    
 }
 
+.changepass {
+    background-color: #ADADE2;
+    border-radius: 10px;
+    display: none;
+    font-size: 20px;
+    left: 50%;
+    padding: 1em;
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.changepass label, .changepass input {
+    display: block;
+    margin-bottom: .5em;
+}
+
+.changepass input {
+    background: #E8E8E8;
+    border: 1px solid #AFAFAF;
+    border-radius: 5px;
+    font-size: 18px;
+}
+
 /* Universal font things*/
-.topbar h2, nav a, button {
+.topbar h2, nav a, label, nav li, button {
     color: white;
     font-family: sans-serif;
 }
