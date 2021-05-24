@@ -7,7 +7,6 @@ const authenticate = require(_base + 'middleware/authenticate');
 // Request json must be in the form:
 // {
 // "parentDocId": "the ID of the parent document",
-// "user": "the ID of the user who created the bullet",
 // "signifier": "the signifier of the bullet",
 // "bulletType": "denotes task, event, note"
 // "content":  "the content of the bullet"

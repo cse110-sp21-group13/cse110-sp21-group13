@@ -8,7 +8,6 @@ const authenticate = require(_base + 'middleware/authenticate');
 // {
 // "username": "the username of the user to retrieve",
 // }
-// TODO: Remove? All we're returning is the username which is also the
 // index queried to get the info
 module.exports = {
   '/read/user': {

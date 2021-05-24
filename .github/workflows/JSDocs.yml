@@ -16,4 +16,3 @@ jobs:
         - name: list
           working-directory: ./source/jsdocs
           run: ls
-            
