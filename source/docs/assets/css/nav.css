@@ -120,7 +120,7 @@ nav form legend {
     display: block;
 }
 
-li button, .changepass button {
+li button, .popup button {
     border-radius: 5px;
     color: rgb(110, 110, 110);
     font-size: 16px;
@@ -144,7 +144,7 @@ li button, .changepass button {
     cursor: pointer;    
 }
 
-.changepass {
+.popup {
     background-color: #ADADE2;
     border-radius: 10px;
     display: none;
@@ -169,7 +169,7 @@ li button, .changepass button {
 }
 
 /* Universal font things*/
-.topbar h2, nav a, label, nav li, button {
+h2, nav a, label, nav li, button {
     color: white;
     font-family: sans-serif;
 }
