@@ -1,3 +1,22 @@
+/* importing roboto font */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap');
+
+@font-face {
+    font-family: 'Roboto', sans-serif;
+    src: url('https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap');
+}
+
+/* make everything consistent font */
+body {
+    font-family: 'Roboto';
+}
+
+/* header for the date */
+h2 {
+  font-size: 5ch;
+  text-align: center;
+}
+
 /* Include the padding and border in an element's total width and height */
 * {
   box-sizing: border-box;
@@ -90,105 +109,113 @@ ul li.checked::before {
 /* Style the input */
 input {
   margin: 0;
-  border: 2px solid black;
-  border-radius: 10;
-  width: 75%;
+  background-color: #F3F3F3;
+  border: 1px solid #AAAAAA;
+  border-radius: 45px;
+  width: 40vw;
   padding: 10px;
   float: left;
-  font-size: 14px;
+  font-size: 1.2ch;
 }
 
 /* Style the "Add" button */
 .addBtn {
   padding: 10px;
-  width: 25%;
-  background: #d9d9d9;
-  color: #555;
+  width: 6vw;
+  background: #7C7CB4;
+  color: #FFFFFF;
   float: left;
   text-align: center;
-  font-size: 16px;
+  font-size: 0.75vw;
+  line-height: 0.7vw;
   cursor: pointer;
   transition: 0.3s;
-  border-radius: 0;
+  border-radius: 10px;
 }
 
 /* Style the "Edit" button */
 .editBtn {
     padding: 10px;
-    width: 15%;
-    background: #d9d9d9;
-    color: #555;
+    width: 6vw;
+    background: #7C7CB4;
+    color: #FFFFFF;
     float: right;
     text-align: center;
-    font-size: 16px;
+    font-size: 0.75vw;
+    line-height: 0.7vw;
     cursor: pointer;
     transition: 0.3s;
-    border-radius: 0;
-  }
+    border-radius: 10px;
+}
 
 /* Style the "Next" button */
 .nextBtn {
   padding: 10px;
-  width: 15%;
-  background: #d9d9d9;
-  color: #555;
+  width: 5vw;
+  height: 2vw;
+  background: #7C7CB4;
   float: right;
-  text-align: center;
-  font-size: 16px;
   cursor: pointer;
   transition: 0.3s;
-  border-radius: 0;
+  border-radius: 10px;
 }
 
 /* Style the "Previous" button */
 .previousBtn {
-  padding: 10px;
-  width: 24%;
-  background: #d9d9d9;
-  color: #555;
-  float: left;
-  text-align: center;
-  font-size: 16px;
-  cursor: pointer;
-  transition: 0.3s;
-  border-radius: 0;
+    padding: 10px;
+    width: 5.5vw;
+    height: 2vw;
+    background: #7C7CB4;
+    float: left;
+    cursor: pointer;
+    transition: 0.3s;
+    border-radius: 10px;
 }
 
-
 .addBtn:hover {
-  background-color: #bbb;
+  background-color: #9A9AC0;
 }
 
 .editBtn:hover {
-  background-color: #bbb;
+  background-color: #9A9AC0;
 }
 
 .nextBtn:hover {
-  background-color: #bbb;
+  background-color: #9A9AC0;
 }
 
 .previousBtn:hover {
-  background-color: #bbb;
+  background-color: #9A9AC0;
 }
 .footer {
   position: fixed;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  background-color: white;
-  color: white;
+  left: 1vw;
+  right: 1vw;
+  bottom: 1vw;
+  color: #FFFFFF;
   text-align: center;
+  font-size: 0.75vw;
+  line-height: 0.7vw;
 }
+
 #container {
   display: flex;
-  justify-content: flex-start;
+  justify-content: center;
   flex-direction: row;
 }
 .dropdowns {
-  flex: 10% 10% 20%;
+  flex: 5% 5% 2% 20%;
   width: auto;
 }
 .task {
   align-self: center;
   width: 50vw;
+}
+
+select, option {
+    font-family: 'Roboto';
+    background-color: #F3F3F3;
+    border: 1px solid #AAAAAA;
+    border-radius: 45px;
+    padding: 5px;
 }

@@ -1,11 +1,8 @@
 var myNodelist = document.getElementsByTagName("LI");
 var bulletType = document.getElementById("bullet-type");
+const queryString = window.location.search
+let params = new URLSearchParams(queryString);
 let dailyId;
-
-
-// Create a new date, but destroy all non-date data by slicing ISO and
-// inserting 0's.
-let truncatedDate = new Date().toISOString().slice(0,10)+'T00:00:00+00:00';
 
 var i;
 for (i = 0; i < myNodelist.length; i++) {
@@ -44,15 +41,6 @@ m = n.getMonth();
 d = n.getDate();
 document.getElementById("date").innerHTML = month_name(m) + " " + d + ", " + y;
 
-// Click on a close button to hide the current list item
-// var close = document.getElementsByClassName("close");
-// var i;
-// for (i = 0; i < close.length; i++) {
-//   close[i].onclick = function() {
-//     var div = this.parentElement;
-//     div.style.display = "none";
-//   }
-// }
 
 // Add a "checked" symbol when clicking on a list item
 var list = document.querySelector('ul');
@@ -89,22 +77,24 @@ list.addEventListener('click', function(ev) {
 }, false);
 
 async function loadCurrentDay(){
-
-  let dailyGetDoc = {date: truncatedDate};
+  // Date components
+  let splitDateArray = params.get("date").split("-");
+  let monthComponent = splitDateArray[0]+"-"+splitDateArray[1];
+  let dayComponent = splitDateArray[2];
+  
   // Attempt to get a potential existing daily from the truncated date
   // generated.
   $.ajax({
-    url: "/read/daily",
+    url: "/read/daily/"+monthComponent+"/"+dayComponent,
     type: "GET",
     contentType: "application/json",
-    data: JSON.stringify(dailyGetDoc),
     success: function(getData){
       // Upon error, it is assumed there is no daily matching the date.
       // Therefore, we must create the daily corresponding to the current date.
       if(getData == "error"){
         let dailyPostDoc = {
-              date: truncatedDate,
-              monthKey: n.toLocaleString('default', { month: 'short' }),
+              day: dayComponent,
+              month: monthComponent,
               bullets: []
         }
         // Create a new daily using the above document's information, and
@@ -190,7 +180,7 @@ function createBullet(inputValue, bulletType, signifier){
     bulletType: bulletType,
     content: inputValue,
     completed: "false",
-    date: truncatedDate
+    date:  document.location.search.substring(1),
   }
   $.ajax({
     url: "/create/bullet",
