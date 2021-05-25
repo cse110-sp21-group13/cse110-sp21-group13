@@ -36,6 +36,18 @@ ul li {
   background: #eee;
   font-size: 18px;
   transition: 0.2s;
+  width: 40vw;
+  margin: auto;
+  border-style: solid;
+  border-radius: 45px;
+  list-style-type: none;
+  border-color:#7C7CB4;
+  /* To avoid the border between li elements being double thick, set the
+  border separately for the top and bottom to half the height*/
+  border-top-width: 2px;
+  border-bottom-width: 2px;
+  border-left-width: 4px;
+  border-right-width: 4px;
 
   /* make the list items unselectable */
   -webkit-user-select: none;
@@ -44,9 +56,29 @@ ul li {
   user-select: none;
 }
 
+ul li ul li {
+  width: 30vw;
+}
+
+/* Style the first list element to have a normal width top border*/
+ul li:first-of-type {
+  border-top-width: 4px;
+}
+
+/* Style the last list element to have a normal width bottom border*/
+ul li:last-of-type {
+  border-bottom-width: 4px;
+}
+
+/* Style the dividers between bullet categories */
+.bulletHeader {
+  text-align: center;
+}
+
 /* Set all odd list items to a different color (zebra-stripes) */
 ul li:nth-child(odd) {
   background: #f9f9f9;
+  border-color:#a37bc9
 }
 
 /* Darker background-color on hover */
@@ -116,6 +148,7 @@ input {
   padding: 10px;
   float: left;
   font-size: 1.2ch;
+  align-self: center;
 }
 
 /* Style the "Add" button */
@@ -203,6 +236,14 @@ input {
   justify-content: center;
   flex-direction: row;
 }
+
+/* Style the input box for subbullets */
+#mySubInput {
+  width: 20vw;
+}
+
+
+
 .dropdowns {
   flex: 5% 5% 2% 20%;
   width: auto;
@@ -219,3 +260,5 @@ select, option {
     border-radius: 45px;
     padding: 5px;
 }
+
+

@@ -5,23 +5,10 @@
         <meta charset="UTF-8"/>
         <link rel="shortcut icon" href="favicon.ico"/>
         <link rel="stylesheet" href="./assets/css/daily.css">
+        
     </head>
     <body>
         <header>
-            <nav>
-                <label for="hamburger">&#9776;</label>
-                <input type="checkbox" id="hamburger"/>
-        
-                <div id="hamitems">
-                    <a href="index.html">Home</a>
-                    <a href="daily.html">Daily Log</a>
-                    <a href="calendar.html">Montly Log</a>
-                    <a href="future.html">Future Log</a>
-                    <button>sign out</button>
-                </div>
-            </nav>
-            <img src="assets/images/13bullet_logo.png" alt="a smiling black cat" width="50px">
-            <h1>13ullet</h1>
         </header>
         <main>
             <div class="footer">
@@ -41,7 +28,6 @@
                                 <option value="!">! Inspiration</option>
                                 </select>
                         <label for="bullet-type"></label>
-
                             <select name="bullet-type" id="bullet-type" hidden = true>
                             <option value="•">• Task</option>
                             <option value="-">- Note</option>
@@ -49,14 +35,40 @@
                             </select>
                     </div>
                     <div class="task">
-                        <input type="text" id="myInput" placeholder="What on your mind?" hidden = true>
+                        <input type="text" id="myInput" placeholder="What's on your mind?" hidden = true>
                         <span onclick="newBulletFromInputBox()" class="addBtn" hidden = true>Add </span>
                     </div>
                 </div>
-            </div>
-              <ul id="myUL">
+
                 
-              </ul>
+
+
+
+            </div>
+            <div id= "bulletContainer">
+              <h1 class="bulletHeader" id="priorityTitle"  hidden= true>Priority</h1>
+              <ul id="Priority" value = "!"></ul>
+              <h1 class="bulletHeader" id="bulletTitle"  hidden="true">Bullets</h1>
+              <ul id="Bullets" value = " "></ul>
+              <h1 class="bulletHeader" id = "inspirationTitle" hidden="true">Inspiration</h1>
+              <ul id="Inspiration" value = "*"></ul>
+            </div>
+
+            <!-- Sub-Bullet Creation HTML -->
+            <div id="sub-bullet-container" hidden = true>
+                <div class="dropdowns">
+                    <label for="sub-bullet-type"></label>
+                        <select name="sub-bullet-type" id="sub-bullet-type">
+                        <option value="•">• Task</option>
+                        <option value="-">- Note</option>
+                        <option value="◦">◦ Event</option>
+                        </select>
+                </div>
+                <div class="subtask">
+                    <input type="text" id="mySubInput" placeholder="What's on your mind?">
+                    <button onclick="newBulletFromParentBullet()" class="addSubBtn">Add Sub </button>
+                </div>
+            </div>
 
         </main>
         <!-- Main Script -->

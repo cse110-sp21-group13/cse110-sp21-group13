@@ -46,7 +46,7 @@ module.exports = {
                 limit: 1,
               })
                   .then((bulletResponse) => {
-                    tempArr.push(bulletResponse.docs[0]);
+                    tempArr[index] = bulletResponse.docs[0];
                   })
                   .catch((err) => {
                     res.send('error');

@@ -20,7 +20,7 @@ module.exports = {
     fn: function(req, res, next) {
       // Check if every field exists, if not, throw error
       const requiredFields = ['parentDocId', 'signifier', 'bulletType',
-        'content', 'completed', 'date'];
+        'content', 'completed', 'date', 'parentBulId'];
       requiredFields.forEach((jsonField, index)=>{
         if (!req.body[jsonField]) {
           throw new Error('MISSING FIELD');
@@ -42,6 +42,8 @@ module.exports = {
         completed: req.body.completed,
         // Stores the date the bullet was created
         date: req.body.date,
+        // Stores the id of the parent bullet for subbullets
+        parentBulId: req.body.parentBulId
       })
           .then((response) => {
             // Get parent document (monthly/daily) from provided parent ID
