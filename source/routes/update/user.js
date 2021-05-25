@@ -24,6 +24,8 @@ module.exports = {
       db.get(req.user._id)
           .then((response) => {
             // TODO: attempt to update style field first
+            if(req.body.updateField.style)
+              response['style'] = req.body.updateField.style;
             // If the user attempts to update their password, check the old password
             if(req.body.updateField.newPassword !== undefined) {
               bcrypt.compare(req.body.updateField.oldPassword, response.password).then(
@@ -53,6 +55,15 @@ module.exports = {
                   });
                 }
               });
+            } else {
+              db.put(response)
+                  .then(() => {
+                    res.send('success');
+                  })
+                  .catch((err) => {
+                    console.log(err);
+                    res.send('error');
+                  });
             }
           });
     },
