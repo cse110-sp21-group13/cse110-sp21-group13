@@ -1,13 +1,14 @@
 const PouchDB = require('pouchdb');
 PouchDB.plugin(require('pouchdb-find'));
 const db = new PouchDB('db');
+const authenticate = require(_base + 'middleware/authenticate');
+
 /* *
 read month will send response with form
 {
-    "user": "dave",
     "month": "May",
     "bullets": [
-        {bullet1 json objectt},
+        {bullet1 json object},
         {bullet2 json object}
     ],
     "daillys":[
@@ -18,6 +19,7 @@ read month will send response with form
 module.exports = {
   '/read/month': {
     methods: ['get'],
+    middleware: [authenticate],
     fn: function(req, res, next) {
       const tempArr = [];
 
@@ -33,32 +35,45 @@ module.exports = {
       });
 
       // get month page by id
-      db.get(req.body._id)
+      db.find({
+        selector: {
+          date: req.body.date,
+          user: req.user._id,
+          docType: 'month',
+        },
+        limit: 1,
+      })
           .then((response) => {
             // handle edge case: nothing inside the bullets
-            if (response.bullets.length == 0) {
+            if (response.docs[0].bullets.length == 0) {
               // grab all daily journal entries in that month
               db.find({
                 selector: {
-                  user: response.user,
-                  monthKey: response.month,
-                  docType: 'dailyJournal',
+                  user: req.user._id,
+                  monthKey: response.docs[0].month,
+                  docType: 'daily',
                 },
                 fields: ['date', '_id'],
               })
                   .then((result) => {
-                    response.dailys = result;
+                    response.dailys = result.docs;
                     res.send(response);
                   });
             }
 
             let curr = 0;
             // get inside the bullets array
-            response.bullets.forEach((bullet, index, array) => {
+            response.docs[0].bullets.forEach((bullet, index, array) => {
               // get bullet document by id
-              db.get(bullet)
+              db.find({
+                selector: {
+                  _id: bullet,
+                  user: req.user._id,
+                },
+                limit: 1,
+              })
                   .then((bulletResponse) => {
-                    tempArr.push(bulletResponse);
+                    tempArr.push(bulletResponse.docs[0]);
                   })
                   .catch((err) => {
                     res.send('error');
@@ -67,17 +82,17 @@ module.exports = {
                     // send out bullets and all daily journal entries
                     curr++;
                     if (curr >= array.length) {
-                      response.bullets = tempArr;
+                      response.docs[0].bullets = tempArr;
                       db.find({
                         selector: {
-                          user: response.user,
-                          monthKey: response.month,
-                          docType: 'dailyJournal',
+                          user: req.user._id,
+                          monthKey: response.docs[0].month,
+                          docType: 'daily',
                         },
                         fields: ['date', '_id'],
                       })
                           .then((result) => {
-                            response.dailys = result;
+                            response.docs[0].dailys = result;
                             // send out the response
                             res.send(response);
                           });
