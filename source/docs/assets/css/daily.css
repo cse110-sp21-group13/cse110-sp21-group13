@@ -54,10 +54,12 @@ ul li {
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+  overflow-wrap: break-word;
 }
 
 ul li ul li {
   width: 30vw;
+  overflow-wrap: break-word;
 }
 
 /* Style the first list element to have a normal width top border*/
@@ -91,6 +93,16 @@ ul li.checked {
   background: #888;
   color: #fff;
   text-decoration: line-through;
+}
+
+/* Preventing the subbullets from turning white with a checked parent bullet */
+ul li.checked ul li {
+  color:black;
+  text-decoration: none;
+}
+
+ul li.checked ul li.checked {
+  color: white;
 }
 
 /* Add a "checked" mark when clicked on */
@@ -151,8 +163,8 @@ input {
   align-self: center;
 }
 
-/* Style the "Add" button */
-.addBtn {
+/* Style the "Add" buttons */
+.addBtn, .addSubBtn {
   padding: 10px;
   width: 6vw;
   background: #7C7CB4;
@@ -184,25 +196,29 @@ input {
 /* Style the "Next" button */
 .nextBtn {
   padding: 10px;
-  width: 5vw;
-  height: 2vw;
+  width: 12vw;
+  height: 4vw;
   background: #7C7CB4;
   float: right;
   cursor: pointer;
   transition: 0.3s;
   border-radius: 10px;
+  font-size: 30px;
+  text-align: center;
 }
 
 /* Style the "Previous" button */
 .previousBtn {
-    padding: 10px;
-    width: 5.5vw;
-    height: 2vw;
-    background: #7C7CB4;
-    float: left;
-    cursor: pointer;
-    transition: 0.3s;
-    border-radius: 10px;
+  padding: 10px;
+  width: 12vw;
+  height: 4vw;
+  background: #7C7CB4;
+  float: left;
+  cursor: pointer;
+  transition: 0.3s;
+  border-radius: 10px;
+  font-size: 30px;
+  text-align: center;
 }
 
 .addBtn:hover {
@@ -237,17 +253,48 @@ input {
   flex-direction: row;
 }
 
+#sub-bullet-container {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+}
+
 /* Style the input box for subbullets */
 #mySubInput {
   width: 20vw;
 }
 
+/* Style the bullet button to add subbullet */
+.sub-bullet-button {
+  float: right;
+  margin: 1%;
+  padding: 2px;
+  width: 4vw;
+  background: #7C7CB4;
+  color: #FFFFFF;
+  text-align: center;
+  font-size: 0.75vw;
+  line-height: 0.7vw;
+  cursor: pointer;
+  transition: 0.3s;
+  border-radius: 10px;
+}
 
+/* Style the list containing subullets*/
+ul li ul {
+  margin: 2%;
+}
 
 .dropdowns {
   flex: 5% 5% 2% 20%;
   width: auto;
 }
+
+/* Style the subullet dropdowns */
+#sub-bullet-type{
+  float: left;
+}
+
 .task {
   align-self: center;
   width: 50vw;
@@ -260,5 +307,4 @@ select, option {
     border-radius: 45px;
     padding: 5px;
 }
-
 

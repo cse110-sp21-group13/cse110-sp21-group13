@@ -207,10 +207,16 @@ function appendBullet(bulletId, inputValue, bulletType, signifier, completed, ch
     button.className = "sub-bullet-button"
     button.addEventListener('click', () =>{
         let subContainer = document.getElementById("sub-bullet-container");
-        if(subContainer.hidden){
+        if(subContainer.hidden ){
           subContainer.hidden = false;
-        }else{
+          document.getElementById("sub-bullet-type").hidden = false;
+          document.getElementById("mySubInput").hidden = false;
+          document.getElementsByClassName("addSubBtn")[0].hidden = false;
+        }else if (subContainer.parentElement == li){
           subContainer.hidden = true;
+          document.getElementById("sub-bullet-type").hidden = true;
+          document.getElementById("mySubInput").hidden = true;
+          document.getElementsByClassName("addSubBtn")[0].hidden = true;
         }
 
         li.appendChild(subContainer);
@@ -221,7 +227,12 @@ function appendBullet(bulletId, inputValue, bulletType, signifier, completed, ch
       button.hidden = false;
     })
     li.addEventListener("mouseout", () => {
-      button.hidden = true;
+      let subAddList = document.getElementById("sub-bullet-container")
+      let subAddParent = subAddList.parentElement;
+      console.log(subAddParent == li);
+      if(subAddParent != li || subAddList.hidden == true){
+        button.hidden = true;
+      }
     })
 
     // Add bullets to category based on their signifier
@@ -309,10 +320,14 @@ async function newBulletFromParentBullet() {
   let subButton = document.getElementById("mySubInput").closest("li").getElementsByClassName("sub-bullet-button");
   // Send values into append bullet
   let subInputValue = document.getElementById("mySubInput").value;
+  document.getElementById("mySubInput").value = "";
   let subBulletType = document.getElementById("sub-bullet-type").value;
   let subSignifier = document.getElementById("sub-bullet-container").closest("ul").getAttribute("value");
   let subContainer = document.getElementById("sub-bullet-container");
   subContainer.hidden = true;
+  document.getElementById("sub-bullet-type").hidden = true;
+  document.getElementById("mySubInput").hidden = true;
+  document.getElementsByClassName("addSubBtn")[0].hidden = true;
   createBullet(subInputValue, subBulletType, subSignifier, parentLI.id);
 }
 

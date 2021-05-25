@@ -58,15 +58,14 @@
             <div id="sub-bullet-container" hidden = true>
                 <div class="dropdowns">
                     <label for="sub-bullet-type"></label>
-                        <select name="sub-bullet-type" id="sub-bullet-type">
+                        <select name="sub-bullet-type" id="sub-bullet-type" hidden = true>
                         <option value="•">• Task</option>
                         <option value="-">- Note</option>
                         <option value="◦">◦ Event</option>
                         </select>
-                </div>
-                <div class="subtask">
-                    <input type="text" id="mySubInput" placeholder="What's on your mind?">
-                    <button onclick="newBulletFromParentBullet()" class="addSubBtn">Add Sub </button>
+                <class="subtask">
+                    <input type="text" id="mySubInput" placeholder="What's on your mind?" hidden = true>
+                    <button onclick="newBulletFromParentBullet()" class="addSubBtn" hidden = true>Add Sub </button>
                 </div>
             </div>
 
