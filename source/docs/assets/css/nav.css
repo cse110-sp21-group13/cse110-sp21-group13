@@ -1,3 +1,5 @@
+/* whole page */
+
 body {
     margin: 0;
 }
@@ -7,6 +9,8 @@ header {
     padding: 0;
 }
 
+/* top bar */
+
 .topbar {
     background: #7C7CB4;
     padding: 0;
@@ -15,9 +19,7 @@ header {
     z-index: 1;
 }
 
-#hamburger {
-    display: none;
-}
+/* hamburger icon */
 
 .topbar label {
     border-radius: 4px;
@@ -35,6 +37,8 @@ header {
     background: #8E8ECD;;
 }
 
+/* logo and name*/
+
 #barlogo {
     display: inline-block;
     margin: 8px 0px 4px 14px;
@@ -46,6 +50,8 @@ header {
     margin-bottom: 15px;
 }
 
+/* greeting */
+
 .topbar h2 {
     display: inline-block;
     position: absolute;
@@ -53,10 +59,13 @@ header {
     top: 10px;
 }
 
+/* main drop down */
+
 #hamitems {
     display: none;
 }
 
+/* hide all checkboxes */
 nav input[type="checkbox"] {
     display: none;
 }
@@ -70,7 +79,9 @@ nav input[type="checkbox"] {
     top: 0;
 }
 
-nav a, #setlabel {
+/* drop-down items */
+
+.dropitem {
     border-bottom: 1px solid white;
     box-sizing: border-box;
     display: block;
@@ -82,8 +93,13 @@ nav a, #setlabel {
     width: 11em;
 }
 
-nav a:hover, #setlabel:hover{
+.dropitem:hover{
     background-color:#ADADE2;
+}
+
+/* settings drop-down */
+#settings:checked ~ #menu {
+    display: block;
 }
 
 #menu {
@@ -116,11 +132,8 @@ nav form legend {
     padding-bottom: 1em;
 }
 
-#settings:checked ~ #menu {
-    display: block;
-}
-
-li button, .popup button {
+/* buttons */
+.popup button, #openpop {
     border-radius: 5px;
     color: rgb(110, 110, 110);
     font-size: 16px;
@@ -144,6 +157,8 @@ li button, .popup button {
     cursor: pointer;    
 }
 
+/* password popup */
+
 .popup {
     background-color: #ADADE2;
     border-radius: 10px;
@@ -154,6 +169,12 @@ li button, .popup button {
     position: absolute;
     top: 50%;
     transform: translate(-50%, -50%);
+}
+
+.popup p {
+    font-size: 16px;
+    margin: 0;
+    padding: 0;
 }
 
 .changepass label, .changepass input {
@@ -169,7 +190,7 @@ li button, .popup button {
 }
 
 /* Universal font things*/
-h2, nav a, label, nav li, button {
+h2, nav a, label, nav li, button, p {
     color: white;
     font-family: sans-serif;
 }
