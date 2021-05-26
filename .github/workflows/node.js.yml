@@ -38,5 +38,10 @@ jobs:
         run: npm ci
       - name: Run ESLint
         working-directory: ./source
-        run: npx eslint . --ext .js,.jsx,.ts,.tsx
+        run: |
+          npx eslint . --ext .js,.jsx,.ts,.tsx --fix
+          git add .
+          git commit -m "Auto fixed style issues with eslint"
+          git push
+        
     
