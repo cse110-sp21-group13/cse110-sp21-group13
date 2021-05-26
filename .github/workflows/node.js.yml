@@ -39,11 +39,5 @@ jobs:
       - name: Run ESLint
         working-directory: ./source
         run: |
-          npx eslint . --ext .js,.jsx,.ts,.tsx --fix
-          git config --local user.email "$(git log --format='%ae' HEAD^!)"
-          git config --local user.name "$(git log --format='%an' HEAD^!)"
-          git add .
-          git commit -m "Auto fixed style issues with eslint"
-          git push
-        
+          npx eslint . --ext .js,.jsx,.ts,.tsx --ignore-pattern "jsdocs/**"
     
