@@ -41,5 +41,5 @@
     "preset": "jest-puppeteer",
     "verbose": true
   },
-  "eslintIgnore": ["./jsdocs"]
+  "eslintIgnore": ["./jsdocs/*.js"]
 }
