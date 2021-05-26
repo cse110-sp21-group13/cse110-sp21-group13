@@ -12,14 +12,28 @@ module.exports = {
     middleware: [authenticate],
     fn: function(req, res, next) {
       // get month page by id
-      db.get(req.body._id)
+      db.find({
+        selector: {
+          _id: req.body._id,
+          user: req.user._id,
+          docType: 'month',
+        },
+        limit: 1,
+      })
           .then((response) => {
             // access all bullet documents' id
-            response.bullets.forEach((bullet, index) => {
-              db.get(bullet)
+            response.docs[0].bullets.forEach((bullet, index) => {
+              db.find({
+                selector: {
+                  _id: bullet,
+                  user: req.user._id,
+                  docType: 'bullet',
+                },
+                limit: 1,
+              })
                   .then(function(doc) {
                     // delete bullet document
-                    return db.remove(doc._id, doc._rev);
+                    return db.remove(doc.docs[0]._id, doc.docs[0]._rev);
                   })
                   .catch((err) => {
                     console.log(err);
@@ -27,7 +41,7 @@ module.exports = {
                   });
             });
             // delete month page
-            db.remove(response._id, response._rev);
+            db.remove(response.docs[0]._id, response.docs[0]._rev);
             res.send('success');
           })
           .catch((err) => {

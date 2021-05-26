@@ -4,30 +4,31 @@
         <title>13ullet</title>
         <meta charset="UTF-8"/>
         <link rel="shortcut icon" href="favicon.ico"/>
+        <link rel="stylesheet" type="text/css" href="assets/css/index.css"/>
     </head>
     <body>
-        <header>
-            <nav>
-                <label for="hamburger">&#9776;</label>
-                <input type="checkbox" id="hamburger"/>
-        
-                <div id="hamitems">
-                    <a href="index.html">Home</a>
-                    <a href="daily.html">Daily Log</a>
-                    <a href="calendar.html">Montly Log</a>
-                    <a href="future.html">Future Log</a>
-                    <button>sign out</button>
-                </div>
-            </nav>
-            <img src="assets/images/13bullet_logo.png" alt="a smiling black cat" width="50px">
-            <h1>13ullet</h1>
-        </header>
         <main>
-            <img src="assets/images/13bullet_logo.png" alt="a smiling black cat">
-            <h1>Welcome to your new journal!</h1>
-            <h2>Reduce paper waste</h2>
-            <h2>Stay productive online</h2>
-            <button type="button">get started</button>
+            <div class="left">
+                <img src="assets/images/logo.svg" alt="a smiling black cat">
+            </div>
+            <div class="right">
+                <div id="welcome">
+                    <h1>Welcome to your new journal!</h1>
+                    <h2>Reduce paper waste</h2>
+                    <h2>Stay productive online</h2>
+                    <button type="button" id="getstarted">get started</button>
+                </div>
+                <form id="loginform">
+                    <label for="username">Name</label>
+                    <input type="text" id="username" name="username">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password">
+                    <button type=submit id="loginbutton">log in</button>
+                    <button type=button id="signup">sign up</button>
+                </form>
+                <span id="errormsg"></span>
+            </div>
         </main>
+        <script src="assets/js/login.js"></script>
     </body>
 </html>
