@@ -186,6 +186,7 @@ function appendBullet(bulletId, inputValue, bulletType, signifier, completed, ch
   if(childId != "None"){
     let parentBullet = document.getElementById(bulletId);
     let ul = parentBullet.getElementsByTagName('ul');
+    ul.class = "subBulletUl";
     li.id = childId;
     if(ul.length == 0){
         ul = parentBullet.appendChild(document.createElement("ul"));
@@ -253,7 +254,7 @@ function appendBullet(bulletId, inputValue, bulletType, signifier, completed, ch
 
   // Change the bullet list style to the necessary type of bullet
   if(bulletType == "•"){
-    li.style.listStyle =  "disc";
+    li.style.listStyleType = "disc";
   }
   else if(bulletType == "-"){
     li.style.listStyleType = "square";
@@ -335,14 +336,14 @@ async function newBulletFromParentBullet() {
 // Edit daily log when pressed
 function editDaily() {
     let button = document.getElementsByClassName("editBtn")[0].textContent;
-    if (button == "Save") {
-        document.getElementsByClassName("editBtn")[0].textContent = "Edit";
+    if (button == "SAVE") {
+        document.getElementsByClassName("editBtn")[0].textContent = "EDIT";
         document.getElementById("bullet-type").hidden = true;
         document.getElementById("signifier").hidden = true;
         document.getElementById("myInput").hidden = true;
         document.getElementsByClassName("addBtn")[0].hidden = true;
     } else {
-        document.getElementsByClassName("editBtn")[0].textContent = "Save";
+        document.getElementsByClassName("editBtn")[0].textContent = "SAVE";
         document.getElementById("bullet-type").hidden = false;
         document.getElementById("signifier").hidden = false;
         document.getElementById("myInput").hidden = false;
