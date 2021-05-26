@@ -15,9 +15,9 @@ jobs:
             output_dir: ./source/jsdocs
         - name: list
           working-directory: ./source
-          run: |
-            git config --global user.name "QE" 
-            git config --global user.email "b2wu@ucsd.edu"
-            git add jsdocs/
-            git commit -m 'jsodcs update'
-            git push origin HEAD
+          #run: |
+          #  git config --global user.name "QE" 
+          #  git config --global user.email "b2wu@ucsd.edu"
+          #  git add jsdocs/
+          #  git commit -m 'jsodcs update'
+          #  git push origin HEAD
