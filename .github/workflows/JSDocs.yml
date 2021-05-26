@@ -15,7 +15,7 @@ jobs:
             output_dir: ./source/jsdocs
         - name: list
           working-directory: ./source
-           run: |
+          run: |
             git config --global user.name "QE" 
             git config --global user.email "b2wu@ucsd.edu"
             git add jsdocs/
