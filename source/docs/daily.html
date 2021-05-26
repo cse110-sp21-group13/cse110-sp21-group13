@@ -5,71 +5,16 @@
         <meta charset="UTF-8"/>
         <link rel="shortcut icon" href="favicon.ico"/>
         <link rel="stylesheet" href="./assets/css/daily.css">
-        
     </head>
     <body>
         <header>
         </header>
         <main>
+            <iframe id="journal-frame" src="journal.html" style="position: fixed; top: 0; left: 0; bottom: 0; right: 0; width: 100%; height: 100%; border: none; margin: 0; padding: 0; overflow: hidden; z-index: -999999;"></iframe>
             <div class="footer">
                 <span onclick="nextView()" class="nextBtn">NEXT ></span>
                 <span onclick="previousView()" class="previousBtn">< PREV</span>
             </div>
-            
-            <div class="myUL" class="header">
-                <div class = "headerButtons">
-                    <h2 id = "date">May 7, 2021 </h2>
-                    <span onclick="editDaily()" class="editBtn">ADD</span>
-                </div>
-                <div id="container">
-                        <label for="signifier"></label>
-                                <select name="signifier" id="signifier" hidden = true>
-                                <option value=" ">None</option>
-                                <option value="*">* Priority</option>
-                                <option value="!">! Inspiration</option>
-                                </select>
-                        <label for="bullet-type"></label>
-                            <select name="bullet-type" id="bullet-type" hidden = true>
-                            <option value="•">• Task</option>
-                            <option value="-">- Note</option>
-                            <option value="◦">◦ Event</option>
-                            </select>
-                        <input type="text" id="myInput" placeholder="What's on your mind?" hidden = true>
-                        <span onclick="newBulletFromInputBox()" class="addBtn" hidden = true>ADD </span>
-
-                </div>
-
-                
-
-
-
-            </div>
-            <div id= "bulletContainer">
-                <div class = "categoryDiv">
-                    <h1 class="bulletHeader" id="priorityTitle"  hidden= true>Priority</h1>
-                    <ul id="Priority" value = "!"></ul>
-                </div>
-                <div class = "categoryDiv">
-                    <h1 class="bulletHeader" id="bulletTitle"  hidden="true">Bullets</h1>
-                    <ul id="Bullets" value = " "></ul>
-                </div>
-                <div class = "categoryDiv">
-                    <h1 class="bulletHeader" id = "inspirationTitle" hidden="true">Inspiration</h1>
-                    <ul id="Inspiration" value = "*"></ul>
-                </div>
-            </div>
-
-            <!-- Sub-Bullet Creation HTML -->
-            <div id="sub-bullet-container" hidden = true>
-                    <select name="sub-bullet-type" id="sub-bullet-type" hidden = true>
-                    <option value="•">• Task</option>
-                    <option value="-">- Note</option>
-                    <option value="◦">◦ Event</option>
-                    </select>
-                    <input type="text" id="mySubInput" placeholder="What's on your mind?" hidden = true>
-                    <button onclick="newBulletFromParentBullet()" class="addSubBtn" hidden = true>ADD </button>
-            </div>
-
         </main>
         <!-- Main Script -->
     <script type = "text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
