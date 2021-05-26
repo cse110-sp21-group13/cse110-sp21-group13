@@ -1,6 +1,6 @@
 # Date Formatting
 
-* Status: Accepted
+* Status: Outdated (Overwritten by 0006-date-formatting)
 * Deciders: Ryan Keegan
 * Date: 2021-05-22
 
