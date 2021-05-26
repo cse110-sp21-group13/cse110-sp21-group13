@@ -40,6 +40,6 @@
   "jest": {
     "preset": "jest-puppeteer",
     "verbose": true
-  }
+  },
   "eslintIgnore": ["./jsdocs"]
 }
