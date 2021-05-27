@@ -16,7 +16,6 @@ if (queryString == '') {
  */
 function nextView() {
   const d = new Date(params.get('date') + " 00:00:00");
-  console.log(params.get("date"));
   d.setDate(d.getDate() + 1);
   window.location.search = 'date='+ d.getFullYear() + '-' +
                            (d.getMonth() + 1) + '-' + (d.getDate());
