@@ -1,0 +1,396 @@
+/* importing roboto font */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap');
+
+@font-face {
+    font-family: 'Roboto', sans-serif;
+    src: url('https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap');
+}
+
+/* make everything consistent font */
+body {
+    font-family: 'Roboto';
+}
+
+.headerButtons {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: center;
+}
+
+/* header for the date */
+h2 {
+  font-size: 5ch;
+  position: relative;
+  align-self: center;
+}
+
+.editBtn {
+  position:absolute;
+  right:0;
+}
+
+/* Include the padding and border in an element's total width and height */
+* {
+  box-sizing: border-box;
+}
+
+/* Remove margins and padding from the list */
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+/* Style the list items */
+ul li {
+  cursor: pointer;
+  position: relative;
+  z-index: 0;
+  padding: 12px 8px 12px 40px;
+  background: #eee;
+  font-size: 18px;
+  transition: 0.2s;
+  width: 30vw;
+  margin: auto;
+  border-style: solid;
+  border-radius: 45px;
+  border-color:#7C7CB4;
+  /* To avoid the border between li elements being double thick, set the
+  border separately for the top and bottom to half the height*/
+  border-top-width: 2px;
+  border-bottom-width: 2px;
+  border-left-width: 4px;
+  border-right-width: 4px;
+  /* make the list items unselectable */
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  overflow-wrap: break-word;
+  transition: all .3s;
+  text-decoration: none;
+}
+
+/* Style the bullets inside the parent bullets */
+ul li ul li {
+  width: 25vw;
+  overflow-wrap: break-word;
+  text-decoration: none;
+}
+
+/* Style the first list element to have a normal width top border*/
+ul li:first-of-type {
+  border-top-width: 4px;
+}
+
+/* Style the last list element to have a normal width bottom border*/
+ul li:last-of-type {
+  border-bottom-width: 4px;
+}
+
+/* Style the dividers between bullet categories */
+.bulletHeader {
+  text-align: center;
+}
+
+/* Set all odd list items to a different color (zebra-stripes) */
+ul li:nth-child(odd) {
+  background: #f9f9f9;
+  border-color:#a37bc9
+}
+
+/* Darker background-color on hover */
+ul li:hover {
+  background: #fff;
+}
+
+/* When clicked on, add a background color and strike out text */
+ul li.checked {
+  background: #888;
+  color: #fff;
+}
+
+/* Preventing the subbullets from turning white with a checked parent bullet */
+ul li.checked ul li {
+  /*display: block;*/
+  color:black;
+  text-decoration: none;
+}
+
+/* Preventing the subbullets from turning white with a checked parent bullet */
+ul li.checked ul li.checked {
+  /*display: block;*/
+  color: white;
+  text-decoration: none;
+}
+
+/* Add a "checked" mark when clicked on */
+ul li.checked::before {
+  content: '';
+  position: absolute;
+  border-color: #fff;
+  border-style: solid;
+  border-width: 0 2px 2px 0;
+  top: 10px;
+  left: 16px;
+  transform: rotate(45deg);
+  height: 15px;
+  width: 7px;
+}
+
+/* Styling for the close button */
+/* .close {
+  position: absolute;
+  right: 0;
+  top: 0;
+  padding: 12px 16px 12px 16px;
+}
+
+.close:hover {
+  background-color: #f44336;
+  color: white;
+} */
+
+/* Style the header */
+.header {
+  background-color: none;
+  padding: 30px 40px;
+  color: black;
+  text-align: center;
+}
+
+/* Clear floats after the header */
+.header:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Style the input */
+input {
+  margin: 0;
+  background-color: #F3F3F3;
+  border: 1px solid #AAAAAA;
+  border-radius: 45px;
+  width: 40vw;
+  padding: 10px;
+  float: left;
+  font-size: 1.2ch;
+  align-self: center;
+}
+
+/* Style the "Add" buttons */
+.addBtn, .addSubBtn {
+  z-index: 1;
+  padding: 10px;
+  width: 6vmax;
+  background: #7C7CB4;
+  color: #FFFFFF;
+  float: left;
+  text-align: center;
+  font-size: 2vmin;
+  line-height: 90%;
+  cursor: pointer;
+  transition: 0.3s;
+  border-radius: 10px;
+}
+
+#container {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  max-height: 35px;
+}
+
+/* Style the window when the window is large */
+@media only screen and (min-width: 1000px){
+  #bulletContainer {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+  }
+}
+
+/* Style the window when the window is small */
+@media only screen and (max-width: 1000px){
+  #bulletContainer {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    position: relative;
+  }
+
+  .editBtn{
+    min-width: 150px;
+    height: 4vmax;
+  }
+
+  ul li {
+    width: 65vw;
+    min-width: 460px;
+  }
+
+  ul li ul li {
+    min-width: 400px;
+    width: 55vw;
+  }
+  .previousBtn, .nextBtn{
+    font-size: 4vmax;
+    height: 5vmax;
+    min-width: 270px;
+  }
+
+  /* Style the add button for subbullets */
+  .addSubBtn {
+    font-size: 4vmax;
+    line-height: 50%;
+  }
+
+  .sub-bullet-button {
+    font-size: 3vmax;
+  }
+
+}
+
+.categoryDiv {
+  margin: 1% 1% 1% 1%;
+}
+
+#sub-bullet-container {
+  display: flex;
+  flex-direction: row;
+  max-height: 35px;
+}
+
+/* Style the input box for subbullets */
+#mySubInput{
+  flex-grow: 1;
+}
+
+
+
+.sub-bullet-dropdown{
+  flex-grow: 1;
+  
+}
+
+/* Style the bullet button to add subbullet */
+.sub-bullet-button {
+  float: right;
+  margin: 1%;
+  padding: 2px;
+  width: 10%;
+  height: 10%;
+  background: #7C7CB4;
+  color: #FFFFFF;
+  text-align: center;
+  font-size: 0.75vw;
+  line-height: 0.7vw;
+  cursor: pointer;
+  border-radius: 10px;
+  transition: width 1s;
+}
+
+
+
+/* Style the list containing subullets*/
+ul li ul {
+  margin: 2%;
+}
+
+
+/* Style the subullet dropdowns */
+#sub-bullet-type{
+  float: left;
+}
+
+.task {
+  align-self: center;
+  width: 50vw;
+}
+
+select, option {
+    font-family: 'Roboto';
+    background-color: #F3F3F3;
+    border: 1px solid #AAAAAA;
+    border-radius: 45px;
+    padding: 5px;
+}
+
+
+/* Style the add button for subbullets */
+.addSubBtn {
+  flex-grow: 1;
+  font-size: 1vmax;
+  line-height: 50%;
+}
+
+.footer {
+  position: fixed;
+  left: 1vw;
+  right: 1vw;
+  bottom: 1vw;
+  color: #FFFFFF;
+  text-align: center;
+  font-size: 0.75vw;
+  line-height: 0.7vw;
+  z-index: 1;
+}
+
+/* Style the "Next" and "Prev" buttons */
+.nextBtn, .previousBtn {
+  position: relative;
+  padding: 10px;
+  width: 12vw;
+  font-size: 2vmax;
+  height: 3vmax;
+  background: #7C7CB4;
+  cursor: pointer;
+  transition: 0.3s;
+  border-radius: 10px;
+  text-align: center;
+  line-height: 100%;
+}
+/* Style the "Next" button */
+.nextBtn{
+  float: right;
+}
+/* Style the "Previous" button */
+.previousBtn {
+  float: left;
+}
+
+.addBtn:hover {
+  background-color: #9A9AC0;
+}
+
+.editBtn:hover {
+  background-color: #9A9AC0;
+}
+
+.nextBtn:hover {
+  background-color: #9A9AC0;
+}
+
+.previousBtn:hover {
+  background-color: #9A9AC0;
+}
+
+/* Style the "Create Bullet" button */
+.editBtn {
+  padding: 10px;
+  width: 10vw;
+  height: 3vmax;
+  background: #7C7CB4;
+  color: #FFFFFF;
+  float: right;
+  text-align: center;
+  font-size: 2vmax;
+  line-height: 1vw;
+  cursor: pointer;
+  transition: 0.3s;
+  border-radius: 10px;
+  word-wrap: break-word; 
+  line-height: 100%;
+  right: 1vw;
+}

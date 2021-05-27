@@ -1,3 +1,4 @@
+let username;
 fetch('../read/user', {
   method: 'GET',
 })
@@ -5,6 +6,7 @@ fetch('../read/user', {
     .then((data) => {
       const greeting = document.getElementById('greeting');
       greeting.innerText = 'Hello ' + data.username + '!';
+      username = data.username;
     });
 
 const openPop = document.getElementById('openpop');
@@ -34,44 +36,37 @@ submitPass.addEventListener('click', (e) => {
     const errorMsg = passForm.getElementsByTagName('p')[0];
     errorMsg.innerText = 'please enter a new password';
   } else {
-    fetch('../read/user', {
-      method: 'GET',
+    fetch('../update/user', {
+      method: 'POST',
+      headers: {
+        'Content-type': 'application/json',
+      },
+      body: JSON.stringify({
+        'username': username,
+        'updateField': {
+          'oldPassword': oldPass,
+          'newPassword': newPass,
+        },
+      }),
     })
-        .then((response) => response.json())
+        .then((response) => response.text())
         .then((data) => {
-          messageBody = {
-            'username': data.username,
-            'updateField': {
-              'oldPassword': oldPass,
-              'newPassword': newPass,
-            },
-          };
-          fetch('../update/user', {
-            method: 'POST',
-            headers: {
-              'Content-type': 'application/json',
-            },
-            body: JSON.stringify(messageBody),
-          })
-              .then((response) => response.text())
-              .then((data) => {
-                if (data == 'success') {
-                  const success = document.createElement('h2');
-                  const child = popWindow.appendChild(success);
-                  child.innerHTML = 'Password Changed';
-                  const ok = document.createElement('button');
-                  popWindow.appendChild(ok).innerText = 'okay';
-                  passForm.style.display = 'none';
+          if (data == 'success') {
+            const success = document.createElement('h2');
+            const child = popWindow.appendChild(success);
+            child.innerHTML = 'Password Changed';
+            const ok = document.createElement('button');
+            popWindow.appendChild(ok).innerText = 'okay';
+            passForm.style.display = 'none';
 
-                  ok.addEventListener('click', () => {
-                    popWindow.style.display = 'none';
-                  });
-                } else if (data == 'error: Old password doesn\'t match ' +
-                  'existing password') {
-                  const errorMsg = passForm.getElementsByTagName('p')[0];
-                  errorMsg.innerText = 'incorrect password';
-                }
-              });
+            ok.addEventListener('click', () => {
+              popWindow.style.display = 'none';
+            });
+          } else if (data == 'error: Old password doesn\'t match ' +
+            'existing password') {
+            const errorMsg = passForm.getElementsByTagName('p')[0];
+            errorMsg.innerText = 'incorrect password';
+          }
         });
   }
 });
@@ -89,3 +84,23 @@ signOut.addEventListener('click', () => {
         }
       });
 });
+
+const modeOps = document.getElementsByName('mode');
+for (let i = 0; i < modeOps.length; i++) {
+  modeOps[i].addEventListener('click', () => {
+    fetch('../update/user', {
+      method: 'POST',
+      headers: {
+        'Content-type': 'application/json',
+      },
+      body: JSON.stringify({
+        'username': username,
+        'updateField': {
+          'style': modeOps[i].value,
+        },
+      }),
+    })
+    console.log(modeOps[i].value);
+    console.log(username);
+  });
+}

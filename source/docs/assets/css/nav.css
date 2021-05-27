@@ -1,18 +1,20 @@
 /* whole page */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap');
 
+@font-face {
+    font-family: 'Roboto', sans-serif;
+    src: url('https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap');
+}
 body {
     margin: 0;
-}
-
-header {
-    margin: 0;
-    padding: 0;
+    font-family: 'Roboto', sans-serif;
 }
 
 /* top bar */
 
 .topbar {
     background: #7C7CB4;
+    margin: 0;
     padding: 0;
     position: relative;
     width: 100%;
@@ -52,8 +54,10 @@ header {
 
 /* greeting */
 
-.topbar h2 {
+.topbar h1 {
+    color: white;
     display: inline-block;
+    margin-left: 10px;
     position: absolute;
     right: 50px;
     top: 10px;
@@ -72,6 +76,7 @@ nav input[type="checkbox"] {
 
 #hamburger:checked ~ #hamitems {
     background-color: #8E8ECD;
+    color: white;
     display: block;
     float: left;
     height: 100%;
@@ -189,8 +194,6 @@ nav form legend {
     font-size: 18px;
 }
 
-/* Universal font things*/
-h2, nav a, label, nav li, button, p {
+nav a, .popup, #signout {
     color: white;
-    font-family: sans-serif;
 }
