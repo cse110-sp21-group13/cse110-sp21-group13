@@ -11,8 +11,7 @@ const monthName = function(dt) {
     'July', 'August', 'September', 'October', 'November', 'December'];
   return mlist[dt];
 };
-n = new Date(params.get('date'));
-console.log(params.get('date'));
+n = new Date(params.get('date') + " 00:00:00");
 n.toLocaleString('default', {month: 'short'});
 y = n.getFullYear();
 m = n.getMonth();
@@ -94,7 +93,7 @@ async function loadCurrentDay() {
         }
 
         let reqUrlCreation = '/create/daily';
-        if (journalPostDoc) {
+        if (journalTypeMonth) {
           reqUrlCreation = '/create/month';
         }
 
@@ -210,7 +209,6 @@ function appendBullet(bulletId, inputValue, bulletType, signifier, completed,
     li.addEventListener('mouseout', () => {
       const subAddList = document.getElementById('sub-bullet-container');
       const subAddParent = subAddList.parentElement;
-      console.log(subAddParent == li);
       if (subAddParent != li || subAddList.hidden == true) {
         button.hidden = true;
       }
