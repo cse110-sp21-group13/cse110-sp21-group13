@@ -12,7 +12,6 @@ const monthName = function(dt) {
   return mlist[dt];
 };
 n = new Date(params.get('date') + " 00:00:00");
-console.log(params.get('date'));
 n.toLocaleString('default', {month: 'short'});
 y = n.getFullYear();
 m = n.getMonth();
