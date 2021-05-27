@@ -1,6 +1,7 @@
 currDate = new Date();  // Use current month on initial page load
 let backButton = document.getElementById("back");
 let forwardButton = document.getElementById("forward");
+let iframe = document.getElementById("journal-frame")
 
 // Go back a month
 backButton.addEventListener("click", () => {
@@ -92,16 +93,19 @@ function updateCalendar(month, year, date) {
           if(monthData.dailys.length === 0)  // Account for no dailies case
             throw Error();
 
-          monthData.dailys.forEach((daily) => {
-              if(daily.date == i) {
+          let found = false;
+          monthData.dailys.docs.forEach((daily) => {
+              if(daily.day == i) {
                   let link = document.createElement("a");
                   link.setAttribute("href", "/daily.html?date=" + date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + i);
                   link.innerText = i;
                   cell.appendChild(link);
-              } else {
-                  cell.innerText = i;
+                  found = true;
               }
           });
+
+          if(!found)
+            cell.innerText = i;
       } catch(Error) {
           // If month doesn't exist the monthData will be empty
           cell.innerText = i;
@@ -118,4 +122,6 @@ function updateCalendar(month, year, date) {
       calendar.appendChild(cell);
       globalItr++;
   }
+
+  iframe.src = "journal.html?date=" + (date.getFullYear() + "-" + (date.getMonth() + 1));
 }

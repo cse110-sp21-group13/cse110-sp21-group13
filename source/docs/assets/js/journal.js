@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars*/
-const journalTypeMonth = false;
+let journalTypeMonth = false;
 const queryString = window.location.search;
 const params = new URLSearchParams(queryString);
 let dailyId;
@@ -11,12 +11,15 @@ const monthName = function(dt) {
     'July', 'August', 'September', 'October', 'November', 'December'];
   return mlist[dt];
 };
+if(params.get('date').split('-').length === 2)
+  journalTypeMonth = true;
 n = new Date(params.get('date') + " 00:00:00");
 n.toLocaleString('default', {month: 'short'});
 y = n.getFullYear();
 m = n.getMonth();
 d = n.getDate();
-document.getElementById('date').innerHTML = monthName(m) + ' ' + d + ', ' + y;
+let dateHeader = journalTypeMonth ? monthName(m) + ' ' + y : monthName(m) + ' ' + d + ', ' + y
+document.getElementById('date').innerHTML = dateHeader;
 
 
 // Add a "checked" symbol when clicking on a list item
