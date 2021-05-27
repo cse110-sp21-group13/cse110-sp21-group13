@@ -4,44 +4,21 @@
         <title>13ullet</title>
         <meta charset="UTF-8"/>
         <link rel="shortcut icon" href="favicon.ico"/>
-        <link rel="stylesheet" href="daily.css">
+        <link rel="stylesheet" href="./assets/css/daily.css">
     </head>
     <body>
         <header>
-            <nav>
-                <label for="hamburger">&#9776;</label>
-                <input type="checkbox" id="hamburger"/>
-        
-                <div id="hamitems">
-                    <a href="index.html">Home</a>
-                    <a href="daily.html">Daily Log</a>
-                    <a href="calendar.html">Montly Log</a>
-                    <a href="future.html">Future Log</a>
-                    <button>sign out</button>
-                </div>
-            </nav>
-            <img src="assets/images/13bullet_logo.png" alt="a smiling black cat" width="50px">
-            <h1>13ullet</h1>
         </header>
         <main>
+            <iframe id="journal-frame" src="journal.html" style="position: fixed; top: 0; left: 0; bottom: 0; right: 0; width: 100%; height: 100%; border: none; margin: 0; padding: 0; overflow: hidden; z-index: -999999;"></iframe>
             <div class="footer">
-                <span onclick="nextView()" class="nextBtn">Next ></span>
-                <span onclick="previousView()" class="previousBtn"> < Previous</span>
-              </div>
-            
-            <div id="myDIV" class="header">
-                <span onclick="editDaily()" class="editBtn">Edit</span>
-                <h2 id = "date">May 7, 2021 </h2>
-                
-                <input type="text" id="myInput" placeholder="Enter something" hidden = true>
-                <span onclick="newElement()" class="addBtn" hidden = true>Add </span>
-              </div>
-              <ul id="myUL">
-                
-              </ul>
-
+                <span onclick="nextView()" class="nextBtn">NEXT ></span>
+                <span onclick="previousView()" class="previousBtn">< PREV</span>
+            </div>
         </main>
         <!-- Main Script -->
-     <script src="daily.js" type="text/javascript"></script>
+     <script type = "text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+     <script src="./assets/js/daily.js" type="text/javascript"></script>
+     <script src="assets/js/nav.js" type="text/javascript"></script>
     </body>
 </html>
