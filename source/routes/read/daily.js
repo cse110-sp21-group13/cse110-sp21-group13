@@ -14,7 +14,7 @@ read daily will send response with form
 }
 */
 module.exports = {
-  '/read/daily': {
+  '/read/daily/:month/:day': {
     methods: ['get'],
     middleware: [authenticate],
     fn: function(req, res, next) {
@@ -22,7 +22,8 @@ module.exports = {
       // get Daily entry documnet by id
       db.find({
         selector: {
-          date: req.body.date,
+          day: req.params.day,
+          month: req.params.month,
           user: req.user._id,
           docType: 'daily',
         },
@@ -45,7 +46,7 @@ module.exports = {
                 limit: 1,
               })
                   .then((bulletResponse) => {
-                    tempArr.push(bulletResponse.docs[0]);
+                    tempArr[index] = bulletResponse.docs[0];
                   })
                   .catch((err) => {
                     res.send('error');
