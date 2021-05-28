@@ -28,9 +28,8 @@
     "supertest": "^6.1.3"
   },
   "scripts": {
-    "test": "jest --coverage",
-    "mocha-test": "mocha --timeout 500000",
-    "test-coverage": "nyc --reporter=text --all mocha" 
+    "test": "jest",
+    "mocha-test": "mocha --timeout 500000"
   },
   "author": "",
   "license": "ISC"
