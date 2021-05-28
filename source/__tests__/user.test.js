@@ -6,6 +6,7 @@ chai.use(chaiHttp);
 
 const app = require('../start');
 const request = require('supertest');
+const {authorize} = require('passport');
 const authenticatedUser = request.agent(app);
 
 describe('User REST API Unit Test', function() {
@@ -125,6 +126,72 @@ describe('User REST API Unit Test', function() {
         .set('Content-Type', 'application/json')
         .end(function(err, res) {
           expect(res.text).to.equal('success');
+          done();
+        });
+  });
+
+  it('Test 9: error if read invalid user', function(done) {
+    authenticatedUser
+        .get('/read/user')
+        .set('Content-Type', 'application/json')
+        .end(function(err, res) {
+          expect(res.text).to.equal('error');
+          done();
+        });
+  });
+
+  it('Test 10: error if delete invalid user', function(done) {
+    authenticatedUser
+        .delete('/delete/user')
+        .set('Content-Type', 'application/json')
+        .end(function(err, res) {
+          expect(res.text).to.equal('error');
+          done();
+        });
+  });
+
+  const invalidUser = {
+    'username': 'dave',
+  };
+  it('Test 11: error if missing field when creating user', function(done) {
+    authenticatedUser
+        .post('/create/user')
+        .set('Content-Type', 'application/json')
+        .send(invalidUser)
+        .end(function(err, res) {
+          expect(res.body.error).to.equal('MISSING FIELD');
+          done();
+        });
+  });
+
+  const invalidUpdate = {
+    'username': 'dave',
+  };
+  it('Test 12: error if update field is missing', function(done) {
+    authenticatedUser
+        .post('/update/user')
+        .set('Content-Type', 'application/json')
+        .send(invalidUpdate)
+        .end(function(err, res) {
+          expect(res.body.error).to.equal('MISSING UPDATE DATA');
+          done();
+        });
+  });
+
+  const wrongUser = {
+    'username': 'Emily',
+    'updateField': {
+      'password': '2233',
+    },
+  };
+
+  it('Test 13: error if updating nonexisting user', function(done) {
+    authenticatedUser
+        .post('/update/user')
+        .set('Content-Type', 'application/json')
+        .send(wrongUser)
+        .end(function(err, res) {
+          expect(res.text).to.equal('error');
           done();
         });
   });
