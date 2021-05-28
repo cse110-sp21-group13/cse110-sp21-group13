@@ -39,7 +39,11 @@ module.exports = {
                         res.send('error');
                       });
                 });
-          });
+          })
+          .catch((err) =>{
+            console.log(err);
+            res.send('error');
+          })
     },
   },
 };
