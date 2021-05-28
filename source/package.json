@@ -28,8 +28,7 @@
     "supertest": "^6.1.3"
   },
   "scripts": {
-    "test": "jest --coverage",
-    "mocha-test": "mocha --timeout 500000"
+    "test": "jest"
   },
   "author": "",
   "license": "ISC"
