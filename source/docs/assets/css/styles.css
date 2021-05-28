@@ -352,12 +352,13 @@ ul li ul {
     background-color: rgba(255, 255, 255, 0.8);
     border: 1px solid rgba(0, 0, 0);
     padding: 3px;
-    text-align: left;
-    
+    text-align: center;
+    font-size: 4.5ch;
 }
 /* if the dates are clickable, make them not ugly */
 .grid-item-dates a {
     text-decoration: none;
+    color: #7C7CB4;
 }
 
 /* making it a two column system*/
