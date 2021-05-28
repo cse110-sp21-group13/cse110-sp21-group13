@@ -30,7 +30,7 @@ module.exports = {
           docType: 'daily',
         },
         limit: 1,
-      }).get(req.body._id)
+      })
           .then((response) => {
             // update every specified field.
             for (const updatedField in req.body.updateField) {
