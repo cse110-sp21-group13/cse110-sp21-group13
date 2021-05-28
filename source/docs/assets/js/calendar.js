@@ -78,7 +78,7 @@ function updateCalendar(month, year, date) {
 
   for(let i = 0; i < currMonth.getDay(); i++) {  // Put in empty days for month
       let cell = document.createElement("div");
-      cell.setAttribute("class", "grid-item");
+      cell.setAttribute("class", "grid-item-dates");
       cell.setAttribute("name", "calendar-day");
       calendar.appendChild(cell);
       globalItr++;
@@ -86,7 +86,7 @@ function updateCalendar(month, year, date) {
 
   for(let i = 1; i <= daysInMonth; i++) {  // Populate valid days
       let cell = document.createElement("div");
-      cell.setAttribute("class", "grid-item");
+      cell.setAttribute("class", "grid-item-dates");
       cell.setAttribute("name", "calendar-day");
 
       try {
