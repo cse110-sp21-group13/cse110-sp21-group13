@@ -28,36 +28,35 @@ module.exports = {
               response['style'] = req.body.updateField.style;
             }
             // If the user attempts to update their password,
-            //check the old password
-            if(req.body.updateField.newPassword !== undefined) {
-              bcrypt.compare(req.body.updateField.oldPassword, 
-              response.password)
-                  .then(
-                  function(isMatch) {
+            // check the old password
+            if (req.body.updateField.newPassword !== undefined) {
+              bcrypt.compare(req.body.updateField.oldPassword,
+                  response.password)
+                  .then(function(isMatch) {
                     if (!isMatch) {
                       res.send('error: Old password doesn\'t match ' +
-                      'existing password');
+                          'existing password');
                     } else {
-                      bcrypt.hash(req.body.updateField.newPassword, 
-                      _saltRounds,
-                      function(err, hash) {
-                        if (err) {
-                          console.log(err);
-                          res.send('error');
-                        }
-                        // Replace fields of the response document
-                        response['_id'] = req.user._id;
-                        response['password'] = hash;
-                        // Put newly updated document into the databse
-                        db.put(response)
-                            .then(() => {
-                              res.send('success');
-                            })
-                            .catch((err) => {
+                      bcrypt.hash(req.body.updateField.newPassword,
+                          _saltRounds,
+                          function(err, hash) {
+                            if (err) {
                               console.log(err);
                               res.send('error');
-                            });
-                       });
+                            }
+                            // Replace fields of the response document
+                            response['_id'] = req.user._id;
+                            response['password'] = hash;
+                            // Put newly updated document into the databse
+                            db.put(response)
+                                .then(() => {
+                                  res.send('success');
+                                })
+                                .catch((err) => {
+                                  console.log(err);
+                                  res.send('error');
+                                });
+                          });
                     }
                   });
             } else {
