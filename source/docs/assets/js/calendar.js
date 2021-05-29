@@ -74,8 +74,6 @@ function updateCalendar(month, year, date) {
     });
   }
 
-  console.log(monthData);
-
   for(let i = 0; i < currMonth.getDay(); i++) {  // Put in empty days for month
       let cell = document.createElement("div");
       cell.setAttribute("class", "grid-item-dates");
@@ -117,7 +115,7 @@ function updateCalendar(month, year, date) {
 
   for(let i = 0; i < globalItr%7; i++) {  // Put in empty trailing days for month
       let cell = document.createElement("div");
-      cell.setAttribute("class", "grid-item");
+      cell.setAttribute("class", "grid-item-dates");
       cell.setAttribute("name", "calendar-day");
       calendar.appendChild(cell);
       globalItr++;

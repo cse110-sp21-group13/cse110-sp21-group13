@@ -63,8 +63,24 @@ module.exports = {
                   .catch((err) => {
                     console.log(err);
                     res.send('error');
-                  });
-            }
+                  }
+                  // Replace fields of the response document
+                  response['_id'] = req.user._id;
+                  response['password'] = hash;
+                  // Put newly updated document into the databse
+                  db.put(response)
+                      .then(() => {
+                        res.send('success');
+                      })
+                      .catch((err) => {
+                        console.log(err);
+                        res.send('error');
+                      });
+                });
+          })
+          .catch((err) =>{
+            console.log(err);
+            res.send('error');
           });
     },
   },

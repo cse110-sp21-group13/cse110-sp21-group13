@@ -367,7 +367,6 @@ ul li ul {
     border: 1px solid rgba(0, 0, 0);
     padding: 3px;
     text-align: left;
-    
 }
 /* if the dates are clickable, make them not ugly */
 .grid-item-dates a {
