@@ -99,8 +99,23 @@ for (let i = 0; i < modeOps.length; i++) {
           'style': modeOps[i].value,
         },
       }),
+    }).then(() => {
+      window.top.location.reload();
     });
     console.log(modeOps[i].value);
     console.log(username);
   });
 }
+
+$.ajax({
+    url: "/read/user",
+    type: "GET",
+    async: true,
+    success: function(retData) {
+      let selectedStyle = document.getElementById(retData.style);
+      selectedStyle.checked = true;
+    },
+    error: function() {
+        console.log("error");
+    }
+})
