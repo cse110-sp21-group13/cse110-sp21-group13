@@ -1,113 +1,53 @@
 <!DOCTYPE html>
 <html>
-<head>
-<style>
-.grid-container {
-  display: grid;
-  grid-template-columns: 6vw 6vw 6vw 6vw 6vw 6vw 6vw;
-  grid-template-rows: auto 6vw 6vw 6vw 6vw 6vw 6vw;
-  padding: 10px;
-}
-.grid-item {
-  background-color: rgba(255, 255, 255, 0.8);
-  border: 1px solid rgba(0, 0, 0);
-  padding: 3px;
-}
-.left {
-    display: inline-block;
-    width: 45vw;
-}
-.right {
-    display: inline-block;
-    width: 45vw;
-}
-</style>
-</head>
-<header>
-    <nav>
-        <label for="hamburger">&#9776;</label>
-        <input type="checkbox" id="hamburger"/>
-
-        <div id="hamitems">
-            <a href="index.html">Home</a>
-            <a href="daily.html">Daily Log</a>
-            <a href="calendar.html">Montly Log</a>
-            <a href="future.html">Future Log</a>
-            <button>sign out</button>
-        </div>
-    </nav>
-    <img src="assets/images/13bullet_logo.png" alt="a smiling black cat" width="50px">
-    <h1>13ullet</h1>
-</header>
+    <head>
+        <title>13ullet: Monthly</title>
+        <meta charset="UTF-8"/>
+        <link rel="shortcut icon" href="favicon.ico"/>
+        <link rel="stylesheet" href="./assets/css/styles.css">
+    </head>
 <body>
-<div class="left">
-    <h2>May</h2>
-    (tap on a day to view daily log!)
+    <!-- blob decoration styling -->
+    <svg class="pinkblob" width="420" height="320" viewBox="0 0 491 508" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M717.238 992.171C628.292 989.933 548.289 962.074 462.246 939.425C347.18 909.136 198.841 933.961 129.301 837.41C60.2431 741.527 91.8814 599.758 139.818 491.755C181.884 396.979 294.502 365.111 370.323 294.377C441.701 227.788 478.6 124.012 570.194 90.2551C670.384 53.3306 783.905 64.2306 882.306 105.687C985.227 149.049 1077.89 223.095 1125.4 324.168C1172.05 423.392 1151.21 536.325 1135.77 644.872C1120.14 754.731 1121.2 882.994 1035.81 953.854C951.434 1023.87 826.841 994.928 717.238 992.171Z" fill="#F5CDFF"/>
+    </svg>
 
-    <!-- add javacript loop later so we don't need all the indiv grid items -->
-    <div class="grid-container">
-    <div class="grid-item"><center>Sunday</center></div>
-    <div class="grid-item"><center>Monday</center></div>
-    <div class="grid-item"><center>Tuesday</center></div>
-    <div class="grid-item"><center>Wednesday</center></div>
-    <div class="grid-item"><center>Thursday</center></div>
-    <div class="grid-item"><center>Friday</center></div>
-    <div class="grid-item"><center>Saturday</center></div>
-    <div class="grid-item"> </div>
-    <div class="grid-item"> </div>
-    <div class="grid-item"> </div>
-    <div class="grid-item"> </div>
-    <div class="grid-item"> </div>
-    <div class="grid-item"> </div>
-    <div class="grid-item"><a href="https://plsgimme.money/giveaway">1</a></div>
-    <div class="grid-item">2</div>
-    <div class="grid-item">3</div>
-    <div class="grid-item">4</div>
-    <div class="grid-item">5</div>
-    <div class="grid-item">6</div>
-    <div class="grid-item">7</div>
-    <div class="grid-item">8</div>
-    <div class="grid-item">9</div>
-    <div class="grid-item">10</div>
-    <div class="grid-item">11</div>
-    <div class="grid-item">12</div>
-    <div class="grid-item">13</div>
-    <div class="grid-item">14</div>
-    <div class="grid-item">15</div>
-    <div class="grid-item">16</div>
-    <div class="grid-item">17</div>
-    <div class="grid-item">18</div>
-    <div class="grid-item">19</div>
-    <div class="grid-item">20</div>
-    <div class="grid-item">21</div>
-    <div class="grid-item">22</div>
-    <div class="grid-item">23</div>
-    <div class="grid-item">24</div>
-    <div class="grid-item">25</div>
-    <div class="grid-item">26</div>
-    <div class="grid-item">27</div>
-    <div class="grid-item">28</div>
-    <div class="grid-item">29</div>
-    <div class="grid-item">30</div>
-    <div class="grid-item">31</div>
-    <div class="grid-item"> </div>
-    <div class="grid-item"> </div>
-    <div class="grid-item"> </div>
-    <div class="grid-item"> </div>
-    <div class="grid-item"> </div>
+    <svg class="pinkc" width="35" height="35" viewBox="0 0 58 58" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="29" cy="29" r="29" fill="#F5CDFF"/>
+    </svg>
+
+    <svg class="purplec" width="75" height="30" viewBox="0 0 91 46" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="45.5" cy="45.5" r="45.5" fill="#D0C8FF"/>
+    </svg>
+    <!-- end: blob decoration styling -->
+
+    <div class="column">
+        <div class="left">
+            <h2 id="calendar-title">May</h2>
+            (tap on a day to view daily log!)
+            <!-- add javacript loop later so we don't need all the indiv grid items -->
+            <div class="grid-container" id="calendar">
+                <div class="grid-item-days">Sunday</div>
+                <div class="grid-item-days">Monday</div>
+                <div class="grid-item-days">Tuesday</div>
+                <div class="grid-item-days">Wednesday</div>
+                <div class="grid-item-days">Thursday</div>
+                <div class="grid-item-days">Friday</div>
+                <div class="grid-item-days">Saturday</div>
+            </div>
+        </div>
+
+        <div class="right">
+            <iframe id="journal-frame" src="journal.html" style="display: block; width: 100%; height: 100%; border: none;"></iframe>
+        </div>
     </div>
-</div>
+    
+    <div class="footer">
+        <span id="back" class="previousBtn">< PREV</span>
+        <span id="forward" class="nextBtn">NEXT ></span>
+    </div>
 
-<div class="right">
-<h2>May Goals</h2>
-<input type="submit">
-    <form>
-        <label for="task">What are your goals this month?</label><br>
-        <input type="text" id="task" name="task">
-        <!-- add javacript event listener to see if more tasks will be added -->
-        <button>add more?</button>
-    </form>
-</div>
-
+    <script type="text/javascript" src="assets/js/calendar.js"></script>
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 </body>
 </html>
