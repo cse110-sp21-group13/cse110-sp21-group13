@@ -23,7 +23,7 @@ jobs:
       - name: npm install, and test
         working-directory: ./source
         run: |
-          npm ci
+          npm install
           npm test 
         env:
           CI: true
@@ -35,7 +35,7 @@ jobs:
       - uses: actions/checkout@v2
       - name: Install modules
         working-directory: ./source
-        run: npm ci
+        run: npm install
       - name: Run ESLint
         working-directory: ./source
         run: npx eslint . --ext .js,.jsx,.ts,.tsx
