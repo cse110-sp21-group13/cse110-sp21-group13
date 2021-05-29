@@ -27,7 +27,8 @@ describe('User REST API Unit Test', function() {
         .send(firstUser)
         .end(function(err, res) {
           expect(res).to.have.status(200);
-          expect(res.body.id).to.equal('user1');
+          expect(res.body.id).to.equal(firstUser.username);
+          user = firstUser.username;
           done();
         });
   }, 30000);
@@ -61,17 +62,24 @@ describe('User REST API Unit Test', function() {
         .set('Content-Type', 'application/json')
         .send(newDay)
         .end(function(err, res) {
-          bulletPostDoc.parentDocId = res.body.id;
           expect(res.statusCode).to.equal(200);
           expect(res.ok).to.equal(true);
+        });
+
+    authenticatedUser
+        .get('/read/daily/' + newDay.month + '/' + newDay.day)
+        .set('Content-Type', 'application/json')
+        .end(function(err, res) {
+          bulletPostDoc.parentDocId = res.body._id;
           done();
         });
   });
 
   // create a bullet
   it('Test 4: create a new bullet', function(done) {
+    console.log(`[BULLET DOC] ${bulletPostDoc.parentDocId}`);
     authenticatedUser
-        .post('/create/daily')
+        .post('/create/bullet')
         .set('Content-Type', 'application/json')
         .send(JSON.stringify(bulletPostDoc))
         .end(function(err, res) {
@@ -84,16 +92,19 @@ describe('User REST API Unit Test', function() {
   });
 
   // read newly created bullet
-  /* it('Test 5: read created bullet', function(done) {
+  it('Test 5: read created bullet', function(done) {
     authenticatedUser
-        .get('/read/bullet')
+        .get('/read/daily/' + newDay.month + '/' + newDay.day)
         .set('Content-Type', 'application/json')
-        .send(JSON.stringify(bulletRead))
         .end(function(err, res) {
-          console.log(`[READ] ${JSON.stringify(res)}\n[BODY] ${JSON.stringify(res.body)}`);
+          const bullet = res.body.bullets.find((el) => el !== null);
+          expect(bullet.signifier).to.equal(bulletPostDoc.signifier);
+          expect(bullet.content).to.equal(bulletPostDoc.content);
+          expect(bullet.completed).to.equal(bulletPostDoc.completed);
+          expect(bullet.date).to.equal(bulletPostDoc.date);
           done();
         });
-  }); */
+  });
 
   // update bullet
   const bulletUpdateDoc = {
@@ -112,11 +123,23 @@ describe('User REST API Unit Test', function() {
         });
   });
 
+  // read newly created bullet
+  it('Test 7: read updated bullet', function(done) {
+    authenticatedUser
+        .get('/read/daily/' + newDay.month + '/' + newDay.day)
+        .set('Content-Type', 'application/json')
+        .end(function(err, res) {
+          const bullet = res.body.bullets.find((el) => el !== null);
+          expect(bullet.completed).to.equal(true);
+          done();
+        });
+  });
+
   // delete bullet
   const bulletDeleteDoc = {
     _id: '',
   };
-  it('Test 7: delete bullet', function(done) {
+  it('Test 8: delete bullet', function(done) {
     authenticatedUser
         .delete('/delete/bullet')
         .set('Content-Type', 'application/json')
@@ -128,8 +151,20 @@ describe('User REST API Unit Test', function() {
         });
   });
 
+  // read newly created bullet
+  it('Test 9: read updated bullet', function(done) {
+    authenticatedUser
+        .get('/read/daily/' + newDay.month + '/' + newDay.day)
+        .set('Content-Type', 'application/json')
+        .end(function(err, res) {
+          const bullet = res.body.bullets.find((el) => el !== null);
+          expect(bullet).to.equal(undefined);
+          done();
+        });
+  });
+
   // so that next time run test 1 will not cause error due to duplicate username
-  it('Test 8: delete current user', function(done) {
+  it('Test 10: delete current user', function(done) {
     authenticatedUser
         .delete('/delete/user')
         .set('Content-Type', 'application/json')
