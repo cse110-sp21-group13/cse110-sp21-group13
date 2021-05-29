@@ -26,7 +26,7 @@ module.exports = {
           // Stores the hashed password
           password: hash,
           // Stores default styling (light)
-          style: 'light'
+          style: 'light',
         }).then((response) => {
           res.send(response);
         }).catch((err) => {

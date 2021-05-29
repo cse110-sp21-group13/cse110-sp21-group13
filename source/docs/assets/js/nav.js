@@ -99,7 +99,7 @@ for (let i = 0; i < modeOps.length; i++) {
           'style': modeOps[i].value,
         },
       }),
-    })
+    });
     console.log(modeOps[i].value);
     console.log(username);
   });
