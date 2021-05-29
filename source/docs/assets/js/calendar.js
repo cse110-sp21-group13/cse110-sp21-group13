@@ -74,8 +74,6 @@ function updateCalendar(month, year, date) {
     });
   }
 
-  console.log(monthData);
-
   for(let i = 0; i < currMonth.getDay(); i++) {  // Put in empty days for month
       let cell = document.createElement("div");
       cell.setAttribute("class", "grid-item-dates");
