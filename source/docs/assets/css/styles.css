@@ -7,9 +7,23 @@
 }
 
 /*----------Main Shared Elements----------*/
+
 body {
     font-family: 'Roboto';
     font-size: 1.5ch;
+    margin: 0;
+}
+
+#nav-frame {
+    border: none;
+    display: block;
+    line-height: 0;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 200;
 }
 
 /* header for the date title */
@@ -365,6 +379,7 @@ ul li ul {
 .column {
     justify-content: center;
     flex-direction: row;
+    padding-top: 70px;
 }
 
 .left {

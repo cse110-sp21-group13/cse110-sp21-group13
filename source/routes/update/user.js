@@ -8,7 +8,10 @@ const authenticate = require(_base + 'middleware/authenticate');
 // Request json must be in the form:
 // {
 // "username": "User's username (primary index)",
-// "updateField": {"customFieldToUpdate": "customDataToUpdate"}
+// "updateField": { "customFieldToUpdate": "customDataToUpdate",
+//                  "oldPassword": "passwd"
+//                  "newPassword": "passwd1"
+//                }
 // }
 module.exports = {
   '/update/user': {
@@ -20,29 +23,52 @@ module.exports = {
       }
       db.get(req.user._id)
           .then((response) => {
-            bcrypt.hash(req.body.updateField.password, _saltRounds,
-                function(err, hash) {
-                  if (err) {
+            // TODO: attempt to update style field first
+            if (req.body.updateField.style) {
+              response['style'] = req.body.updateField.style;
+            }
+            // If the user attempts to update their password,
+            // check the old password
+            if (req.body.updateField.newPassword !== undefined) {
+              bcrypt.compare(req.body.updateField.oldPassword,
+                  response.password)
+                  .then(function(isMatch) {
+                    if (!isMatch) {
+                      res.send('error: Old password doesn\'t match ' +
+                          'existing password');
+                    } else {
+                      bcrypt.hash(req.body.updateField.newPassword,
+                          _saltRounds,
+                          function(err, hash) {
+                            if (err) {
+                              console.log(err);
+                              res.send('error');
+                            }
+                            // Replace fields of the response document
+                            response['_id'] = req.user._id;
+                            response['password'] = hash;
+                            // Put newly updated document into the databse
+                            db.put(response)
+                                .then(() => {
+                                  res.send('success');
+                                })
+                                .catch((err) => {
+                                  console.log(err);
+                                  res.send('error');
+                                });
+                          });
+                    }
+                  });
+            } else {
+              db.put(response)
+                  .then(() => {
+                    res.send('success');
+                  })
+                  .catch((err) => {
                     console.log(err);
                     res.send('error');
-                  }
-                  // Replace fields of the response document
-                  response['_id'] = req.user._id;
-                  response['password'] = hash;
-                  // Put newly updated document into the databse
-                  db.put(response)
-                      .then(() => {
-                        res.send('success');
-                      })
-                      .catch((err) => {
-                        console.log(err);
-                        res.send('error');
-                      });
-                });
-          })
-          .catch((err) =>{
-            console.log(err);
-            res.send('error');
+                  });
+            }
           });
     },
   },
