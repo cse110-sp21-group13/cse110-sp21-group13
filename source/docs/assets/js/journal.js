@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars*/
-let journalTypeMonth = false;
+const journalTypeMonth = false;
 const queryString = window.location.search;
 const params = new URLSearchParams(queryString);
 let dailyId;
@@ -11,14 +11,13 @@ const monthName = function(dt) {
     'July', 'August', 'September', 'October', 'November', 'December'];
   return mlist[dt];
 };
-if(params.get('date').split('-').length === 2)
-  journalTypeMonth = true;
-n = new Date(params.get('date') + " 00:00:00");
+n = new Date(params.get('date') + ' 00:00:00');
 n.toLocaleString('default', {month: 'short'});
 y = n.getFullYear();
 m = n.getMonth();
 d = n.getDate();
-let dateHeader = journalTypeMonth ? monthName(m) + ' ' + y : monthName(m) + ' ' + d + ', ' + y
+const dateHeader =
+  journalTypeMonth ? monthName(m) + ' ' + y : monthName(m) + ' ' + d + ', ' + y;
 document.getElementById('date').innerHTML = dateHeader;
 
 
@@ -83,7 +82,7 @@ async function loadCurrentDay() {
       // Upon error, it is assumed there is no daily matching the date.
       // Therefore, we must create the daily corresponding to the current date.
       if (getData == 'error' && !journalTypeMonth) {
-        let journalPostDoc = {
+        const journalPostDoc = {
           day: dayComponent,
           month: monthComponent,
           bullets: [],
