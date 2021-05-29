@@ -1,12 +1,12 @@
 const chai = require('chai');
 const chaiHttp = require('chai-http');
 const expect = chai.expect;
-const baseUrl = 'localhost:3001/';
+// const baseUrl = 'localhost:3001/';
 chai.use(chaiHttp);
 
 const app = require('../start');
 const request = require('supertest');
-const {authorize} = require('passport');
+// const {authorize} = require('passport');
 const authenticatedUser = request.agent(app);
 
 describe('User REST API Unit Test', function() {
@@ -88,17 +88,19 @@ describe('User REST API Unit Test', function() {
   };
 
   // if success, the password changed successfully
-  it('Test 6: Recreate a session for current user with updated password', function(done) {
-    authenticatedUser
-        .post('/create/session')
-        .set('Content-Type', 'application/json')
-        .send(tempUser)
-        .end(function(err, res) {
-          expect(res.statusCode).to.equal(302);
-          expect(res.text).to.equal('Found. Redirecting to session/success');
-          done();
-        });
-  });
+  it('Test 6: Recreate a session for current user with updated password',
+      function(done) {
+        authenticatedUser
+            .post('/create/session')
+            .set('Content-Type', 'application/json')
+            .send(tempUser)
+            .end(function(err, res) {
+              expect(res.statusCode).to.equal(302);
+              expect(res.text)
+                  .to.equal('Found. Redirecting to session/success');
+              done();
+            });
+      });
 
   const tempUpdateUser = {
     'username': 'non9',

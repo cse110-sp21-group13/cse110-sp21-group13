@@ -11,7 +11,7 @@ const monthName = function(dt) {
     'July', 'August', 'September', 'October', 'November', 'December'];
   return mlist[dt];
 };
-n = new Date(params.get('date') + " 00:00:00");
+n = new Date(params.get('date') + ' 00:00:00');
 n.toLocaleString('default', {month: 'short'});
 y = n.getFullYear();
 m = n.getMonth();
