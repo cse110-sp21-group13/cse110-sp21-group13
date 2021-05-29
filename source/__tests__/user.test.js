@@ -5,6 +5,7 @@ const expect = chai.expect;
 chai.use(chaiHttp);
 
 const app = require('../start');
+const server = require('../start');
 const request = require('supertest');
 // const {authorize} = require('passport');
 const authenticatedUser = request.agent(app);
@@ -196,5 +197,9 @@ describe('User REST API Unit Test', function() {
           expect(res.text).to.equal('error');
           done();
         });
+  });
+
+  afterAll(() => {
+    server.close();
   });
 });
