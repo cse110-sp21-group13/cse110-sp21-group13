@@ -1,23 +1,26 @@
 /* eslint-disable no-unused-vars*/
-const journalTypeMonth = false;
+let journalTypeMonth = false;
 const queryString = window.location.search;
 const params = new URLSearchParams(queryString);
 let dailyId;
 
 
 // Date Title
+if(params.get('date').split('-').length === 2)
+  journalTypeMonth = true;
 const monthName = function(dt) {
   mlist = ['January', 'February', 'March', 'April', 'May', 'June',
     'July', 'August', 'September', 'October', 'November', 'December'];
   return mlist[dt];
 };
-n = new Date(params.get('date'));
-console.log(params.get('date'));
+n = new Date(params.get('date') + ' 00:00:00');
 n.toLocaleString('default', {month: 'short'});
 y = n.getFullYear();
 m = n.getMonth();
 d = n.getDate();
-document.getElementById('date').innerHTML = monthName(m) + ' ' + d + ', ' + y;
+const dateHeader =
+  journalTypeMonth ? monthName(m) + ' ' + y : monthName(m) + ' ' + d + ', ' + y;
+document.getElementById('date').innerHTML = dateHeader;
 
 
 // Add a "checked" symbol when clicking on a list item
@@ -80,29 +83,19 @@ async function loadCurrentDay() {
     success: function(getData) {
       // Upon error, it is assumed there is no daily matching the date.
       // Therefore, we must create the daily corresponding to the current date.
-      if (getData == 'error') {
-        let journalPostDoc = {
+      if (getData == 'error' && !journalTypeMonth) {
+        const journalPostDoc = {
           day: dayComponent,
           month: monthComponent,
           bullets: [],
         };
-        if (journalTypeMonth) {
-          journalPostDoc = {
-            month: monthComponent,
-            bullets: [],
-          };
-        }
 
-        let reqUrlCreation = '/create/daily';
-        if (journalPostDoc) {
-          reqUrlCreation = '/create/month';
-        }
 
         // Create a new daily using the above document's information, and
         // store the new document's ID in the dailyId variable to pass to
         // bullets during creation.
         $.ajax({
-          url: reqUrlCreation,
+          url: '/create/daily',
           type: 'POST',
           contentType: 'application/json',
           data: JSON.stringify(journalPostDoc),
@@ -118,7 +111,7 @@ async function loadCurrentDay() {
           },
         });
       } else {
-        // If the daily log exists, we must load the entries from the json body.
+        // If the log exists, we must load the entries from the json body.
         // We must also store the existing document's id to pass to bullets
         // during creation.
         dailyId = getData._id;
@@ -210,7 +203,6 @@ function appendBullet(bulletId, inputValue, bulletType, signifier, completed,
     li.addEventListener('mouseout', () => {
       const subAddList = document.getElementById('sub-bullet-container');
       const subAddParent = subAddList.parentElement;
-      console.log(subAddParent == li);
       if (subAddParent != li || subAddList.hidden == true) {
         button.hidden = true;
       }

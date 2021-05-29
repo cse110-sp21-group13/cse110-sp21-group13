@@ -17,7 +17,7 @@ read month will send response with form
 }
 */
 module.exports = {
-  '/read/month': {
+  '/read/month/:month': {
     methods: ['get'],
     middleware: [authenticate],
     fn: function(req, res, next) {
@@ -37,7 +37,7 @@ module.exports = {
       // get month page by id
       db.find({
         selector: {
-          date: req.body.date,
+          month: req.params.month,
           user: req.user._id,
           docType: 'month',
         },
@@ -50,14 +50,14 @@ module.exports = {
               db.find({
                 selector: {
                   user: req.user._id,
-                  monthKey: response.docs[0].month,
+                  month: response.docs[0].month,
                   docType: 'daily',
                 },
-                fields: ['date', '_id'],
+                fields: ['day', '_id'],
               })
                   .then((result) => {
-                    response.dailys = result.docs;
-                    res.send(response);
+                    response.docs[0].dailys = result.docs;
+                    res.send(response.docs[0]);
                   });
             }
 
@@ -86,15 +86,15 @@ module.exports = {
                       db.find({
                         selector: {
                           user: req.user._id,
-                          monthKey: response.docs[0].month,
+                          month: response.docs[0].month,
                           docType: 'daily',
                         },
-                        fields: ['date', '_id'],
+                        fields: ['day', '_id'],
                       })
                           .then((result) => {
                             response.docs[0].dailys = result;
                             // send out the response
-                            res.send(response);
+                            res.send(response.docs[0]);
                           });
                       return;
                     }

@@ -1,0 +1,199 @@
+/* whole page */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap');
+
+@font-face {
+    font-family: 'Roboto', sans-serif;
+    src: url('https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap');
+}
+body {
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+}
+
+/* top bar */
+
+.topbar {
+    background: #7C7CB4;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    width: 100%;
+    z-index: 1;
+}
+
+/* hamburger icon */
+
+.topbar label {
+    border-radius: 4px;
+    cursor: pointer;
+    float: left;
+    margin: 18px 10px 0 12px;
+    padding: 10px 6px 6px 6px;
+}
+
+.topbar label img {
+    width: 45px;
+}
+
+.topbar label:hover {
+    background: #8E8ECD;;
+}
+
+/* logo and name*/
+
+#barlogo {
+    display: inline-block;
+    margin: 8px 0px 4px 14px;
+    width: 65px;
+}
+
+#bartitle {
+    display: inline-block;
+    margin-bottom: 15px;
+}
+
+/* greeting */
+
+.topbar h1 {
+    color: white;
+    display: inline-block;
+    margin-left: 10px;
+    position: absolute;
+    right: 50px;
+    top: 10px;
+}
+
+/* main drop down */
+
+#hamitems {
+    display: none;
+}
+
+/* hide all checkboxes */
+nav input[type="checkbox"] {
+    display: none;
+}
+
+#hamburger:checked ~ #hamitems {
+    background-color: #8E8ECD;
+    color: white;
+    display: block;
+    float: left;
+    height: 100%;
+    position: absolute;
+    top: 0;
+}
+
+/* drop-down items */
+
+.dropitem {
+    border-bottom: 1px solid white;
+    box-sizing: border-box;
+    display: block;
+    font-size: 28px;
+    padding: .5em;
+    position: relative;
+    text-decoration: none;
+    top: 80px;
+    width: 11em;
+}
+
+.dropitem:hover{
+    background-color:#ADADE2;
+}
+
+/* settings drop-down */
+#settings:checked ~ #menu {
+    display: block;
+}
+
+#menu {
+    background-color:#ADADE2;
+    border-bottom: 1px solid white;
+    box-sizing: border-box;
+    display: none;
+    font-size: 20px;
+    list-style-type: none;
+    margin: 0;
+    padding: .5em;
+    position: relative;
+    top: 80px;
+    width: 100%;
+}
+
+nav form {
+    border: none;
+    border-bottom: 1px solid white;
+    margin: 0;
+    width: 100%;
+}
+
+nav form legend {
+    padding-bottom: .5em;
+}
+
+#modes {
+    display: block;
+    padding-bottom: 1em;
+}
+
+/* buttons */
+.popup button, #openpop {
+    border-radius: 5px;
+    color: rgb(110, 110, 110);
+    font-size: 16px;
+    margin-top: 1em;
+    padding: .3em .5em;
+}
+
+#signout {
+    background-color:#ADADE2;
+    border: none;
+    border-top: 1px solid white;
+    bottom: 0px;
+    font-size: 18px;
+    height: 60px;
+    position: absolute;
+    width: 100%;
+}
+
+#signout:hover {
+    background-color:#7C7CB4;
+    cursor: pointer;    
+}
+
+/* password popup */
+
+.popup {
+    background-color: #ADADE2;
+    border-radius: 10px;
+    display: none;
+    font-size: 20px;
+    left: 50%;
+    padding: 1em;
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.popup p {
+    font-size: 16px;
+    margin: 0;
+    padding: 0;
+}
+
+.changepass label, .changepass input {
+    display: block;
+    margin-bottom: .5em;
+}
+
+.changepass input {
+    background: #E8E8E8;
+    border: 1px solid #AFAFAF;
+    border-radius: 5px;
+    font-size: 18px;
+}
+
+nav a, .popup, #signout {
+    color: white;
+}

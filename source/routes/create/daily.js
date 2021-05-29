@@ -29,7 +29,7 @@ module.exports = {
         user: req.user._id,
         // Stores the date the daily entry was created
         day: req.body.day,
-        // Stores the month the daily entry was created
+        // Stores the YYYY/MM; used for month's batch reads of daily
         month: req.body.month,
         // Stores the docType of the daily entry
         docType: 'daily',

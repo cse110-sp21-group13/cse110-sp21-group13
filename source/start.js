@@ -4,7 +4,11 @@ const session = require('express-session');
 const bodyParser = require('body-parser');
 const path = require('path');
 const passport = require('passport');
+const fs = require('fs');
+const https = require('https');
 const app = express();
+
+const useHttps = true;  // Toggle HTTPS
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
@@ -53,17 +57,22 @@ app.use(function(err, req, res, next) {
   res.json({error: err.message});
 });
 
-// HTTPS (don't have cert yet)
-// let options = {
-//     key: fs.readFileSync('privateKey.key'),
-//     cert: fs.readFileSync('certificate.crt')
-// };
-// https.createServer(options, app).listen(3001);
-
-/** This listens to the port 3001 */
-const server = app.listen(3001, ()=>{
-  console.log('API listening on port 3001');
-});
+// Start Express Server
+if (useHttps) {
+  // HTTPS
+  let options = {
+      key: fs.readFileSync('private-key.key'),
+      cert: fs.readFileSync('certificate.crt')
+  };
+  const server = https.createServer(options, app).listen(3001);
+  module.exports = server;
+  console.log('API listening on port 3001; using SSL');
+} else {
+  // HTTP
+  const server = app.listen(3001, ()=>{
+    console.log('API listening on port 3001');
+  });
+  module.exports = server;
+}
 
 module.exports = app;
-module.exports = server;

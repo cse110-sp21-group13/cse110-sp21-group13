@@ -3,11 +3,7 @@
 
 name: Node.js CI
 
-on:
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
+on: [push, pull_request]
 
 jobs:
   test:
@@ -23,7 +19,7 @@ jobs:
       - name: npm install, and test
         working-directory: ./source
         run: |
-          npm ci
+          npm install
           npm test 
         env:
           CI: true
@@ -35,8 +31,8 @@ jobs:
       - uses: actions/checkout@v2
       - name: Install modules
         working-directory: ./source
-        run: npm ci
+        run: npm install
       - name: Run ESLint
         working-directory: ./source
-        run: npx eslint . --ext .js,.jsx,.ts,.tsx
+        run: npx eslint . --ext .js,.jsx,.ts,.tsx --ignore-pattern "jsdocs/**"
     
