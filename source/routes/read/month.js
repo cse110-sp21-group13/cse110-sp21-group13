@@ -39,7 +39,7 @@ module.exports = {
         selector: {
           month: req.params.month,
           user: req.user._id,
-          docType: 'month'
+          docType: 'month',
         },
         limit: 1,
       })
