@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars*/
-const journalTypeMonth = false;
+let journalTypeMonth = false;
 const queryString = window.location.search;
 const params = new URLSearchParams(queryString);
 let dailyId;
@@ -16,7 +16,8 @@ n.toLocaleString('default', {month: 'short'});
 y = n.getFullYear();
 m = n.getMonth();
 d = n.getDate();
-document.getElementById('date').innerHTML = monthName(m) + ' ' + d + ', ' + y;
+let dateHeader = journalTypeMonth ? monthName(m) + ' ' + y : monthName(m) + ' ' + d + ', ' + y
+document.getElementById('date').innerHTML = dateHeader;
 
 
 // Add a "checked" symbol when clicking on a list item
@@ -79,29 +80,19 @@ async function loadCurrentDay() {
     success: function(getData) {
       // Upon error, it is assumed there is no daily matching the date.
       // Therefore, we must create the daily corresponding to the current date.
-      if (getData == 'error') {
+      if (getData == 'error' && !journalTypeMonth) {
         let journalPostDoc = {
           day: dayComponent,
           month: monthComponent,
           bullets: [],
         };
-        if (journalTypeMonth) {
-          journalPostDoc = {
-            month: monthComponent,
-            bullets: [],
-          };
-        }
 
-        let reqUrlCreation = '/create/daily';
-        if (journalTypeMonth) {
-          reqUrlCreation = '/create/month';
-        }
 
         // Create a new daily using the above document's information, and
         // store the new document's ID in the dailyId variable to pass to
         // bullets during creation.
         $.ajax({
-          url: reqUrlCreation,
+          url: '/create/daily',
           type: 'POST',
           contentType: 'application/json',
           data: JSON.stringify(journalPostDoc),
@@ -117,7 +108,7 @@ async function loadCurrentDay() {
           },
         });
       } else {
-        // If the daily log exists, we must load the entries from the json body.
+        // If the log exists, we must load the entries from the json body.
         // We must also store the existing document's id to pass to bullets
         // during creation.
         dailyId = getData._id;
