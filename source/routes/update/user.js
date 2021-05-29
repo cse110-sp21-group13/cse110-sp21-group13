@@ -24,17 +24,22 @@ module.exports = {
       db.get(req.user._id)
           .then((response) => {
             // TODO: attempt to update style field first
-            if(req.body.updateField.style)
+            if (req.body.updateField.style) {
               response['style'] = req.body.updateField.style;
-            // If the user attempts to update their password, check the old password
+            }
+            // If the user attempts to update their password,
+            //check the old password
             if(req.body.updateField.newPassword !== undefined) {
-              bcrypt.compare(req.body.updateField.oldPassword, response.password).then(
-                function(isMatch) {
-                if(!isMatch) {
-                  res.send("error: Old password doesn't match " +
-                    "existing password");
-                } else {
-                  bcrypt.hash(req.body.updateField.newPassword, _saltRounds,
+              bcrypt.compare(req.body.updateField.oldPassword, 
+              response.password)
+                  .then(
+                  function(isMatch) {
+                    if (!isMatch) {
+                      res.send('error: Old password doesn\'t match ' +
+                      'existing password');
+                    } else {
+                      bcrypt.hash(req.body.updateField.newPassword, 
+                      _saltRounds,
                       function(err, hash) {
                         if (err) {
                           console.log(err);
@@ -52,9 +57,9 @@ module.exports = {
                               console.log(err);
                               res.send('error');
                             });
+                       });
+                    }
                   });
-                }
-              });
             } else {
               db.put(response)
                   .then(() => {
