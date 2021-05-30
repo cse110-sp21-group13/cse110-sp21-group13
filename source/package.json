@@ -37,7 +37,7 @@
     "supertest": "^6.1.3"
   },
   "scripts": {
-    "test": "jest --coverage --maxWorkers=1 --detectOpenHandles --forceExit",
+    "test": "jest --coverage --runInBand --detectOpenHandles --forceExit",
     "mocha-test": "mocha --timeout 500000",
     "test-coverage": "nyc --reporter=text --all mocha"
   },
