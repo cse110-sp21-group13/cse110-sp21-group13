@@ -38,7 +38,7 @@
   },
   "scripts": {
     "test": "jest --coverage --maxWorkers=1",
-    "mocha-test": "mocha --timeout 500000"
+    "mocha-test": "mocha"
   },
   "author": "",
   "license": "ISC",
