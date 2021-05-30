@@ -1,6 +1,6 @@
 /*----------Main Shared Elements----------*/
-/* Style the header */
-.header, h2 {
+/* Style the header and footer */
+.header, h2, footer {
     color: #D1D1D1;
 }
 /* Style the input */
@@ -100,9 +100,6 @@ nav a, .popup, #signout {
 legend {
     background-color:#2A2A62;
 }
-.mode {
-    background:#2A2A62;
-}
 /*----------End: Nav Bar----------*/
 
 
@@ -110,12 +107,7 @@ legend {
 /* Style the "Add" buttons */
 .addBtn, .addSubBtn {
     background: #3E3C77;
-    color: #FFFFFF;
-}
-
-/* footer contains the prev and next buttons */
-.footer {
-  color: #D1D1D1;
+    color: #D1D1D1;
 }
 
 /* Style the "Next" and "Prev" buttons */
@@ -187,11 +179,7 @@ ul li.checked::before {
 
 
 /*----------Monthly specific items----------*/
-.grid-item-days {
-    background-color: #1F1F47;
-    border-color: #D1D1D1;
-}
-.grid-item-dates {
+.grid-item-days, .grid-item-dates {
     background-color: #1F1F47;
     border-color: #D1D1D1;
 }
