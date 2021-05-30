@@ -77,7 +77,6 @@ describe('User REST API Unit Test', function() {
 
   // create a bullet
   it('Test 4: create a new bullet', function(done) {
-    console.log(`[BULLET DOC] ${bulletPostDoc.parentDocId}`);
     authenticatedUser
         .post('/create/bullet')
         .set('Content-Type', 'application/json')
