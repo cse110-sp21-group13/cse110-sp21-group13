@@ -4,7 +4,7 @@ const expect = chai.expect;
 chai.use(chaiHttp);
 
 const app = require('../start');
-let server = require('../start');
+const server = require('../start');
 const request = require('supertest');
 const authenticatedUser = request.agent(app);
 
@@ -180,7 +180,7 @@ describe('User REST API Unit Test', function() {
           done();
         });
   });
-  
+
   afterAll(() => {
     server.close();
   });
