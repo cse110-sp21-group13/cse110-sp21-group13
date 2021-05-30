@@ -1,1 +1,1 @@
-web: cd source && node start.js
+web: node start.js
