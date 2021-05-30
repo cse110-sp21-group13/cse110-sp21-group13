@@ -1,7 +1,7 @@
 /*----------Main Shared Elements----------*/
 /* Style the header and footer */
 .header, h2, footer {
-    color: #D1D1D1;
+    color: #FFFFFF;
 }
 /* Style the input */
 input {
@@ -45,7 +45,7 @@ h3 {
 }
 
 .topblob path, .rightblob path, .circTopLeft circle, .circleBottom2 circle {
-    fill: #002BC5;
+    fill: #83F0FF;
 }
 /*----------End: Index/Main Page----------*/
 
