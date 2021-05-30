@@ -1,11 +1,13 @@
 const chai = require('chai');
 const chaiHttp = require('chai-http');
 const expect = chai.expect;
+// const baseUrl = 'localhost:3001/';
 chai.use(chaiHttp);
 
 const app = require('../start');
 const server = require('../start');
 const request = require('supertest');
+// const {authorize} = require('passport');
 const authenticatedUser = request.agent(app);
 
 describe('User REST API Unit Test', function() {
@@ -57,8 +59,7 @@ describe('User REST API Unit Test', function() {
   const updateUser = {
     'username': 'non9',
     'updateField': {
-      'oldPassword': '2233',
-      'newPassword': '1234',
+      'password': '1234',
     },
   };
   it('Test 4: update the current user password', function(done) {
@@ -105,8 +106,7 @@ describe('User REST API Unit Test', function() {
   const tempUpdateUser = {
     'username': 'non9',
     'updateField': {
-      'oldPassword': '1234',
-      'newPassword': '2233',
+      'password': '2233',
     },
   };
 
@@ -177,6 +177,24 @@ describe('User REST API Unit Test', function() {
         .send(invalidUpdate)
         .end(function(err, res) {
           expect(res.body.error).to.equal('MISSING UPDATE DATA');
+          done();
+        });
+  });
+
+  const wrongUser = {
+    'username': 'Emily',
+    'updateField': {
+      'password': '2233',
+    },
+  };
+
+  it('Test 13: error if updating nonexisting user', function(done) {
+    authenticatedUser
+        .post('/update/user')
+        .set('Content-Type', 'application/json')
+        .send(wrongUser)
+        .end(function(err, res) {
+          expect(res.text).to.equal('error');
           done();
         });
   });
