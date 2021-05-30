@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="./assets/css/styles.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/light-style.css" id="master-color"/>
+    <link rel="stylesheet" href="./assets/css/migration.css">
+  </head>
+    <body>
+      <div class="myUL" class="header">
+          <div class = "headerButtons">
+              <h2 id = "date"></h2>
+          </div>
+      </div>
+    </body>
+      <main>
+        <div class="footer">
+            <span onclick="submit()" class="nextBtn">NEXT ></span>
+        </div>
+      </main>
+      <div id= "bulletContainer">
+          <div class = "categoryDiv">
+              <h1 class="bulletHeader" id="priorityTitle"  hidden= true>Priority</h1>
+              <ul id="Priority" value = "!"></ul>
+          </div>
+          <div class = "categoryDiv">
+              <h1 class="bulletHeader" id="bulletTitle"  hidden="true">Bullets</h1>
+              <ul id="Bullets" value = " "></ul>
+          </div>
+          <div class = "categoryDiv">
+              <h1 class="bulletHeader" id = "inspirationTitle" hidden="true">Inspiration</h1>
+              <ul id="Inspiration" value = "*"></ul>
+          </div>
+      </div>
+
+    <script type = "text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="./assets/js/migration.js" type="text/javascript"></script>
+    <script src="assets/js/style.js"></script>
+    </body>
+</html>
