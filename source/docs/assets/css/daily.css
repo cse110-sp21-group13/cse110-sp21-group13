@@ -104,11 +104,26 @@ select, option {
 }
 
 /* decoration element: use svg from images in html */
-.pinkblob {
-    position: fixed;
-    bottom: 0px;
-    right: 0px;
-    z-index: -1;
+.dailyblob {
+  position: fixed;
+  bottom: -5vh;
+  left: 5vw;
+  z-index: -1;
+}
+
+/* decoration element of pink circle */
+.circle1 {
+  position: fixed;
+  bottom: -2vh;
+  left: 65vw;
+  z-index: -1;
+}
+/* decoration element of purple circle */
+.circle2 {
+  position: fixed;
+  bottom: 10vh;
+  right: 25vw;
+  z-index: -1;
 }
 /*----------End: Main Shared Elements----------*/
 

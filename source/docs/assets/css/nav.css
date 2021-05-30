@@ -13,7 +13,6 @@ body {
 /* top bar */
 
 .topbar {
-    background: #7C7CB4;
     margin: 0;
     padding: 0;
     position: relative;
@@ -35,10 +34,6 @@ body {
     width: 45px;
 }
 
-.topbar label:hover {
-    background: #8E8ECD;;
-}
-
 /* logo and name*/
 
 #barlogo {
@@ -55,7 +50,6 @@ body {
 /* greeting */
 
 .topbar h1 {
-    color: white;
     display: inline-block;
     margin-left: 10px;
     position: absolute;
@@ -75,8 +69,6 @@ nav input[type="checkbox"] {
 }
 
 #hamburger:checked ~ #hamitems {
-    background-color: #8E8ECD;
-    color: white;
     display: block;
     float: left;
     height: 100%;
@@ -87,7 +79,7 @@ nav input[type="checkbox"] {
 /* drop-down items */
 
 .dropitem {
-    border-bottom: 1px solid white;
+    border-bottom: 1px solid;
     box-sizing: border-box;
     display: block;
     font-size: 28px;
@@ -98,18 +90,13 @@ nav input[type="checkbox"] {
     width: 11em;
 }
 
-.dropitem:hover{
-    background-color:#ADADE2;
-}
-
 /* settings drop-down */
 #settings:checked ~ #menu {
     display: block;
 }
 
 #menu {
-    background-color:#ADADE2;
-    border-bottom: 1px solid white;
+    border-bottom: 1px solid;
     box-sizing: border-box;
     display: none;
     font-size: 20px;
@@ -123,7 +110,7 @@ nav input[type="checkbox"] {
 
 nav form {
     border: none;
-    border-bottom: 1px solid white;
+    border-bottom: 1px solid;
     margin: 0;
     width: 100%;
 }
@@ -140,32 +127,30 @@ nav form legend {
 /* buttons */
 .popup button, #openpop {
     border-radius: 5px;
-    color: rgb(110, 110, 110);
     font-size: 16px;
     margin-top: 1em;
     padding: .3em .5em;
+    background-image: none;
 }
 
 #signout {
-    background-color:#ADADE2;
     border: none;
-    border-top: 1px solid white;
+    border-top: 1px solid;
     bottom: 0px;
     font-size: 18px;
     height: 60px;
     position: absolute;
     width: 100%;
+    background-image: none;
 }
 
 #signout:hover {
-    background-color:#7C7CB4;
     cursor: pointer;    
 }
 
 /* password popup */
 
 .popup {
-    background-color: #ADADE2;
     border-radius: 10px;
     display: none;
     font-size: 20px;
@@ -188,12 +173,7 @@ nav form legend {
 }
 
 .changepass input {
-    background: #E8E8E8;
-    border: 1px solid #AFAFAF;
+    border: 1px solid;
     border-radius: 5px;
     font-size: 18px;
-}
-
-nav a, .popup, #signout {
-    color: white;
 }

@@ -7,7 +7,6 @@
 }
 
 /*----------Main Shared Elements----------*/
-
 body {
     font-family: 'Roboto';
     font-size: 1.5ch;
@@ -28,7 +27,7 @@ body {
 }
 
 /* header for the date title */
-h2 {
+h3 {
     font-size: 5ch;
     position: relative;
     align-self: center;
@@ -105,7 +104,7 @@ select, option {
 }
 
 /* decoration element: use svg from images in html */
-.pinkblob {
+.cornerblob {
     position: fixed;
     bottom: 0px;
     right: 0px;
@@ -307,12 +306,21 @@ ul li ul {
 
 
 /*----------Monthly specific items----------*/
+.testB {
+    border: 1px solid;
+    width: 38.5vw;
+    height: 37vmax;
+    border-radius: 5px;
+    margin: auto;
+    padding: 0;
+}
 .grid-container {
     display: grid;
     grid-template-columns: 5.5vw 5.5vw 5.5vw 5.5vw 5.5vw 5.5vw 5.5vw;
-    grid-template-rows: auto 5.25vw 5.25vw 5.25vw 5.25vw 5.25vw 5.25vw;
-    padding: 10px;
+    grid-template-rows: auto 5.2vw 5.2vw 5.2vw 5.2vw 5.2vw 5.2vw;
+    top: 0;
     justify-content: center;
+    width: auto;
 }
 /* only for the dates of the week on the top */
 .grid-item-days {
@@ -351,14 +359,14 @@ ul li ul {
     height: auto;
 }
 /* decoration element of pink circle */
-.pinkc {
+.circle1 {
     position: fixed;
-    bottom: 5vw;
+    bottom: 2vw;
     right: 35vw;
     z-index: -1;
 }
 /* decoration element of purple circle */
-.purplec {
+.circle2 {
     position: fixed;
     bottom: 0vw;
     right: 55vw;

@@ -14,7 +14,89 @@ select, option {
     background-color: #F3F3F3;
     border: 1px solid #AAAAAA;
 }
+
+.cornerblob path, .dailyblob path {
+    fill: #F5CDFF;
+}
 /*----------End: Main Shared Elements----------*/
+
+
+/*----------Index/Main Page----------*/
+#username, #password {
+    background-color: #E8E8E8;
+    border-color: #AFAFAF;
+}
+button {
+    background-image: linear-gradient(to right, #FECCFF, #BFC3FF);
+    color: #2C2474;
+}
+h1 {
+    color: #2C2474;
+}
+h3 {
+    color: #7C7CB4;
+}
+.leftblob path, .circleBottom circle, .circleRight circle {
+    fill: #C8C6FF;
+}
+
+.topblob path, .rightblob path, .circTopLeft circle, .circleBottom2 circle {
+    fill: #D0C8FF;
+}
+/*----------End: Index/Main Page----------*/
+
+
+/*----------Nav Bar----------*/
+.topbar {
+    background: #7C7CB4;
+}
+
+.topbar label:hover {
+    background: #8E8ECD;;
+}
+
+.topbar h1 {
+    color: white;
+}
+#hamburger:checked ~ #hamitems {
+    background-color: #8E8ECD;
+    color: white;
+}
+.dropitem {
+    border-color: white;
+}
+.dropitem:hover{
+    background-color:#ADADE2;
+}
+#menu {
+    background-color:#ADADE2;
+    border-bottom-color: white;
+}
+nav form {
+    border-bottom-color: white;
+}
+.popup button, #openpop {
+    color: rgb(110, 110, 110);
+}
+#signout {
+    background-color:#ADADE2;
+    border-top-color: white;
+}
+#signout:hover {
+    background-color:#7C7CB4;
+}
+.popup {
+    background-color: #ADADE2;
+}
+.changepass input {
+    background: #E8E8E8;
+    border-color: #AFAFAF;
+}
+
+nav a, .popup, #signout {
+    color: white;
+}
+/*----------End: Nav Bar----------*/
 
 
 /*----------Button styling----------*/
@@ -108,5 +190,12 @@ ul li.checked::before {
 }
 .grid-item-dates a {
     color: #7C7CB4;
+}
+/* decoration circles */
+.circle1 circle {
+    fill: #F5CDFF;
+}
+.circle2 circle {
+    fill: #D0C8FF;
 }
 /*--------End: Monthly Specific Items--------*/
