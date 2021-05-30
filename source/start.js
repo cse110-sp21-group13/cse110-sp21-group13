@@ -64,12 +64,12 @@ if (useHttps) {
       key: fs.readFileSync('private-key.key'),
       cert: fs.readFileSync('certificate.crt')
   };
-  const server = https.createServer(options, app).listen(3001);
+  const server = https.createServer(options, app).listen(process.env.PORT || 3001);
   module.exports = server;
   console.log('API listening on port 3001; using SSL');
 } else {
   // HTTP
-  const server = app.listen(3001, ()=>{
+  const server = app.listen(process.env.PORT || 3001, ()=>{
     console.log('API listening on port 3001');
   });
   module.exports = server;
