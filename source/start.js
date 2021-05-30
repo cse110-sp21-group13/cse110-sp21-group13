@@ -61,11 +61,38 @@ app.use(function(err, req, res, next) {
 if (useHttps) {
   // HTTPS
   let options = {
-      key: fs.readFileSync('private-key.key'),
-      cert: fs.readFileSync('certificate.crt')
+    key: fs.readFileSync('private-key.key'),
+    cert: fs.readFileSync('certificate.crt')
   };
   const server = https.createServer(options, app).listen(process.env.PORT || 3001);
   module.exports = server;
+
+  // Maintain a hash of all connected sockets
+  var sockets = {}, nextSocketId = 0;
+  server.on('connection', function (socket) {
+    // Add a newly connected socket
+    var socketId = nextSocketId++;
+    sockets[socketId] = socket;
+    console.log('socket', socketId, 'opened');
+
+    // Remove the socket when it closes
+    socket.on('close', function () {
+      console.log('socket', socketId, 'closed');
+      delete sockets[socketId];
+    });
+
+    // Extend socket lifetime for demo purposes
+    socket.setTimeout(4000);
+  });
+
+  // Close the server
+  server.close(function () { console.log('Server closed!'); });
+  // Destroy all open sockets
+  for (let socketId in sockets) {
+    console.log('socket', socketId, 'destroyed');
+    sockets[socketId].destroy();
+  }
+
   console.log('API listening on port 3001; using SSL');
 } else {
   // HTTP

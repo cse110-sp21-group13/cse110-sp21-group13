@@ -174,7 +174,7 @@ describe('User REST API Unit Test', function() {
         });
   });
 
-  afterAll(() => {
-    server.close();
+  afterAll((done) => {
+    server.close(done);
   });
 });
