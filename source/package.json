@@ -37,7 +37,7 @@
     "supertest": "^6.1.3"
   },
   "scripts": {
-    "test": "jest --coverage --maxWorkers=1",
+    "test": "jest --coverage --maxWorkers=1 --forceExit",
     "mocha-test": "mocha --timeout 500000"
   },
   "author": "",
