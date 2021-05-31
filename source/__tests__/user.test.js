@@ -1,14 +1,15 @@
 const chai = require('chai');
 const chaiHttp = require('chai-http');
 const expect = chai.expect;
-// const baseUrl = 'localhost:3001/';
 chai.use(chaiHttp);
 
-const app = require('../start');
-const server = require('../start');
+const {app, server} = require('../start');
 const request = require('supertest');
-// const {authorize} = require('passport');
 const authenticatedUser = request.agent(app);
+
+const PouchDB = require('pouchdb');
+PouchDB.plugin(require('pouchdb-find'));
+const db = new PouchDB('db');
 
 describe('User REST API Unit Test', function() {
   let user;
@@ -59,7 +60,8 @@ describe('User REST API Unit Test', function() {
   const updateUser = {
     'username': 'non9',
     'updateField': {
-      'password': '1234',
+      'oldPassword': '2233',
+      'newPassword': '1234',
     },
   };
   it('Test 4: update the current user password', function(done) {
@@ -106,7 +108,8 @@ describe('User REST API Unit Test', function() {
   const tempUpdateUser = {
     'username': 'non9',
     'updateField': {
-      'password': '2233',
+      'oldPassword': '1234',
+      'newPassword': '2233',
     },
   };
 
@@ -181,25 +184,8 @@ describe('User REST API Unit Test', function() {
         });
   });
 
-  const wrongUser = {
-    'username': 'Emily',
-    'updateField': {
-      'password': '2233',
-    },
-  };
-
-  it('Test 13: error if updating nonexisting user', function(done) {
-    authenticatedUser
-        .post('/update/user')
-        .set('Content-Type', 'application/json')
-        .send(wrongUser)
-        .end(function(err, res) {
-          expect(res.text).to.equal('error');
-          done();
-        });
-  });
-
-  afterAll(() => {
+  afterAll(async () => {
     server.close();
+    await db.destroy();
   });
 });
