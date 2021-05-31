@@ -227,7 +227,7 @@ function appendBullet(bulletId, inputValue, bulletType, signifier, completed,
       });
     }
 
-    li.remove();
+    li.hidden = true;
   });
 
   li.appendChild(deleteButton);
