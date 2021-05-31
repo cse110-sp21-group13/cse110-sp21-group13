@@ -12,8 +12,6 @@ module.exports = {
     methods: ['get'],
     middleware: [authenticate],
     fn: function(req, res, next) {
-      const tempArr = [];
-
       // create index for query
       db.createIndex({
         index: {
@@ -29,15 +27,15 @@ module.exports = {
       db.find({
         selector: {
           user: req.user._id,
-        }
+        },
       })
-      .then((response) => {
-        res.send(response);
-      })
-      .catch((err) => {
-        console.log(err);
-        res.send('error');
-      });
-    }
-  }
-}
+          .then((response) => {
+            res.send(response);
+          })
+          .catch((err) => {
+            console.log(err);
+            res.send('error');
+          });
+    },
+  },
+};
