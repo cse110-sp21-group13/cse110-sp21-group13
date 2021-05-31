@@ -21,6 +21,7 @@ n.toLocaleString('default', {month: 'short'});
 y = n.getFullYear();
 m = n.getMonth();
 d = n.getDate();
+
 const dateHeader = 'Migrating from ' +
 (journalTypeMonth ? monthName(m) + ' ' + y : monthName(m) + ' ' + d + ', ' + y);
 document.getElementById('date').innerHTML = dateHeader;
