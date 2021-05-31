@@ -8,7 +8,7 @@ const fs = require('fs');
 const https = require('https');
 const app = express();
 
-const useHttps = true; // Toggle HTTPS
+const useHttps = false;  // Toggle HTTPS
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
