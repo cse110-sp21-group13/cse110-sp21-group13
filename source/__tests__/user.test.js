@@ -3,10 +3,13 @@ const chaiHttp = require('chai-http');
 const expect = chai.expect;
 chai.use(chaiHttp);
 
-const app = require('../start');
-const server = require('../start');
+const {app, server} = require('../start');
 const request = require('supertest');
 const authenticatedUser = request.agent(app);
+
+const PouchDB = require('pouchdb');
+PouchDB.plugin(require('pouchdb-find'));
+const db = new PouchDB('db');
 
 describe('User REST API Unit Test', function() {
   let user;
@@ -181,7 +184,8 @@ describe('User REST API Unit Test', function() {
         });
   });
 
-  afterAll(() => {
+  afterAll(async () => {
     server.close();
+    await db.destroy();
   });
 });
