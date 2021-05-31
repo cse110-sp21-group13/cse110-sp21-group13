@@ -3,13 +3,14 @@ let journalTypeMonth = false;
 const queryString = window.location.search;
 const params = new URLSearchParams(queryString);
 let dailyId;
-let migratedBullets;
 
-// Query args should be of the form oldJournal=year-month-day, newJournal=year-month-day
+// Query args should be of the form oldJournal=year-month-day,
+// newJournal=year-month-day
 
 // Date Title
-if(params.get('oldJournal').split('-').length === 2)
+if (params.get('oldJournal').split('-').length === 2) {
   journalTypeMonth = true;
+}
 const monthName = function(dt) {
   mlist = ['January', 'February', 'March', 'April', 'May', 'June',
     'July', 'August', 'September', 'October', 'November', 'December'];
@@ -20,40 +21,55 @@ n.toLocaleString('default', {month: 'short'});
 y = n.getFullYear();
 m = n.getMonth();
 d = n.getDate();
-const dateHeader =
-  journalTypeMonth ? monthName(m) + ' ' + y : monthName(m) + ' ' + d + ', ' + y;
+const dateHeader = 'Migration ' +
+(journalTypeMonth ? monthName(m) + ' ' + y : monthName(m) + ' ' + d + ', ' + y);
 document.getElementById('date').innerHTML = dateHeader;
 
 /**
  * Submits the migration and creates the journal
  */
 function submit() {
-    const splitDateArray = params.get('newJournal').split('-');
-    const monthComponent = splitDateArray[0]+'-'+splitDateArray[1];
-    const dayComponent = splitDateArray[2];
-    const journalPostDoc = {
-        day: dayComponent,
-        month: monthComponent,
-        bullets: [migratedBullets]
-    }
-    // TODO - create a journal with the bullets checked
+  const splitDateArray = params.get('newJournal').split('-');
+  const monthComponent = splitDateArray[0]+'-'+splitDateArray[1];
+  const dayComponent = splitDateArray[2];
+  const migratedBullets = [];
 
-    $.ajax({
-        url: '/create/daily',
-        type: 'POST',
-        contentType: 'application/json',
-        data: JSON.stringify(journalPostDoc),
-        success: function(postData) {
-          if (postData == 'error') {
-            console.log('Creation of new daily failed.');
-          } else {
-            dailyId = postData.id;
-          }
-        },
-        error: function(xhr, status, error) {
-          console.log(status + ' ' + error);
-        },
-      });
+  // Collect all selected bullets and the parents of any subbullets
+  const bullets = document.querySelectorAll('li.selected');
+  for (const bullet of bullets) {
+    if (bullet.dataset.parent) {
+      if (!migratedBullets.includes(bullet.dataset.parent)) {
+        migratedBullets.push(bullet.dataset.parent);
+      }
+    }
+    migratedBullets.push(bullet.id);
+  }
+
+  // Create the daily journal that stores the bullets being migrated
+  const journalPostDoc = {
+    day: dayComponent,
+    month: monthComponent,
+    bullets: migratedBullets,
+  };
+  $.ajax({
+    url: '/create/daily',
+    type: 'POST',
+    contentType: 'application/json',
+    data: JSON.stringify(journalPostDoc),
+    success: function(postData) {
+      if (postData == 'error') {
+        console.log('Creation of new daily failed.');
+      } else {
+        dailyId = postData.id;
+      }
+    },
+    error: function(xhr, status, error) {
+      console.log(status + ' ' + error);
+    },
+  }).then(() => {
+    // Redirect to the newly created daily
+    window.location.replace('daily.html?date='+params.get('newJournal'));
+  });
 }
 
 // Add a "checked" symbol when clicking on a list item
@@ -72,10 +88,11 @@ list.forEach((listElement) => {
 async function loadCurrentDay() {
   // Date components
   const splitDateArray = params.get('oldJournal').split('-');
-  const monthComponent = splitDateArray[0]+'-'+splitDateArray[1];
+  const monthComponent = splitDateArray[0]+'-'+
+                         splitDateArray[1];
   const dayComponent = splitDateArray[2];
 
-  // Attempt to get a potential existing daily from the truncated date
+  // Attempt to get an existing daily from the truncated date
   // generated.
   let reqUrl = '/read/daily/' + monthComponent+'/' + dayComponent;
   if (journalTypeMonth) {
@@ -86,22 +103,25 @@ async function loadCurrentDay() {
     type: 'GET',
     contentType: 'application/json',
     success: function(getData) {
-        // If the log exists, we must load the entries from the json body.
-        // We must also store the existing document's id to pass to bullets
-        // during creation.
-        dailyId = getData._id;
-        getData.bullets.forEach((bullet) =>{
+      // If the log exists, we must load the entries from the json body.
+      // We must also store the existing document's id to pass to bullets
+      // during creation.
+      dailyId = getData._id;
+      if (!getData.bullets) {
+        submit();
+      }
+      getData.bullets.forEach((bullet) =>{
         if (!bullet._id) {
-            return;
+          return;
         }
         if (bullet.parentBulId != 'None') {
-            appendBullet(bullet.parentBulId, bullet.content, bullet.bulletType,
-            bullet.signifier, bullet.completed, bullet._id);
+          appendBullet(bullet.parentBulId, bullet.content, bullet.bulletType,
+              bullet.signifier, bullet.completed, bullet._id);
         } else {
-            appendBullet(bullet._id, bullet.content, bullet.bulletType,
-            bullet.signifier, bullet.completed);
+          appendBullet(bullet._id, bullet.content, bullet.bulletType,
+              bullet.signifier, bullet.completed);
         }
-    });
+      });
     },
     error: function(xhr, status, error) {
       console.log(status + ' ' + error);
@@ -169,7 +189,5 @@ function appendBullet(bulletId, inputValue, bulletType, signifier, completed,
     li.classList.toggle('checked');
   }
 }
-
-
 
 
