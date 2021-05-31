@@ -58,22 +58,52 @@ app.use(function(err, req, res, next) {
 });
 
 // Start Express Server
+let server;
 if (useHttps) {
   // HTTPS
   const options = {
     key: fs.readFileSync('private-key.key'),
     cert: fs.readFileSync('certificate.crt'),
   };
-  const server =
-    https.createServer(options, app).listen(process.env.PORT || 3001);
-  module.exports = server;
+  server = https.createServer(options, app).listen(process.env.PORT || 3001);
+
+  // Maintain a hash of all connected sockets
+  const sockets = {};
+  let nextSocketId = 0;
+  server.on('connection', function(socket) {
+    // Add a newly connected socket
+    const socketId = nextSocketId++;
+    sockets[socketId] = socket;
+    console.log('socket', socketId, 'opened');
+
+    // Remove the socket when it closes
+    socket.on('close', function() {
+      console.log('socket', socketId, 'closed');
+      delete sockets[socketId];
+    });
+
+    // Extend socket lifetime for demo purposes
+    socket.setTimeout(4000);
+  });
+
+  // Close the server
+  server.close(function() {
+    console.log('Server closed!');
+  });
+  // Destroy all open sockets
+  for (const socketId in sockets) {
+    if (Object.prototype.hasOwnProperty.call(sockets, socketId)) {
+      console.log('socket', socketId, 'destroyed');
+      sockets[socketId].destroy();
+    }
+  }
+
   console.log('API listening on port 3001; using SSL');
 } else {
   // HTTP
-  const server = app.listen(process.env.PORT || 3001, ()=>{
+  server = app.listen(process.env.PORT || 3001, ()=>{
     console.log('API listening on port 3001');
   });
-  module.exports = server;
 }
 
-module.exports = app;
+module.exports = {app, server};
