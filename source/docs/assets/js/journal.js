@@ -143,7 +143,8 @@ async function loadCurrentDay() {
         // during creation.
         dailyId = getData._id;
         getData.bullets.forEach((bullet) =>{
-          if (!bullet._id) {
+          // Do not display bullet if the entry is null (has been deleted)
+          if (bullet == null) {
             return;
           }
           if (bullet.parentBulId != 'None') {
@@ -187,21 +188,79 @@ function appendBullet(bulletId, inputValue, bulletType, signifier, completed,
     alert('You must write something!');
     return;
   }
+
+  // Add deletion button
+  const deleteButton = document.createElement('button');
+  deleteButton.innerHTML = '-';
+  deleteButton.hidden = true;
+  deleteButton.className = 'sub-bullet-button';
+  deleteButton.addEventListener('click', () =>{
+    // Delete parents with no children
+    if (childId == 'None') {
+      deleteDoc = {_id: bulletId};
+      $.ajax({
+        url: '/delete/bullet',
+        type: 'DELETE',
+        contentType: 'application/json',
+        data: JSON.stringify(deleteDoc),
+        success: function(postData) {
+        },
+        error: function(xhr, status, error) {
+          console.log(status + ' ' + error);
+          return;
+        },
+      });
+    // Delete children bullets
+    } else {
+      deleteDoc = {_id: childId};
+      $.ajax({
+        url: '/delete/bullet',
+        type: 'DELETE',
+        contentType: 'application/json',
+        data: JSON.stringify(deleteDoc),
+        success: function(postData) {
+        },
+        error: function(xhr, status, error) {
+          console.log(status + ' ' + error);
+          return;
+        },
+      });
+    }
+    // TODO - delete actual DOM elements
+  });
+
+  li.appendChild(deleteButton);
+  li.addEventListener('mouseover', () => {
+    deleteButton.hidden = false;
+  });
+  li.addEventListener('mouseout', () => {
+    deleteButton.hidden = true;
+  });
+
+
   // Append button to parents and add list element to parent id
   if (childId != 'None') {
     const parentBullet = document.getElementById(bulletId);
+    // Do not attempt to display child if no parent
+    if (parentBullet == null) {
+      return;
+    }
     let ul = parentBullet.getElementsByTagName('ul');
-    ul.class = 'subBulletUl';
+
     li.id = childId;
     if (ul.length == 0) {
       ul = parentBullet.appendChild(document.createElement('ul'));
+      ul.className = 'subBulletUl';
       ul.appendChild(li);
     } else {
       ul[0].appendChild(li);
     }
+    li.dataset.parent = bulletId;
   } else {
     // If there is no child parameter
     document.getElementById('myInput').value = '';
+
+    // Add subbullet button
     const button = document.createElement('button');
     button.innerHTML = '+';
     button.hidden = true;
@@ -222,6 +281,7 @@ function appendBullet(bulletId, inputValue, bulletType, signifier, completed,
 
       li.appendChild(subContainer);
     });
+
 
     li.appendChild(button);
     li.addEventListener('mouseover', () => {
@@ -276,7 +336,7 @@ function createBullet(inputValue, bulletType, signifier, parentId = 'None') {
     bulletType: bulletType,
     content: inputValue,
     completed: 'false',
-    date: document.location.search.substring(1),
+    date: params.get('date'),
     parentBulId: parentId,
   };
   $.ajax({
