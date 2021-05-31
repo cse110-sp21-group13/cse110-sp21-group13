@@ -8,7 +8,7 @@ const fs = require('fs');
 const https = require('https');
 const app = express();
 
-const useHttps = true;  // Toggle HTTPS
+const useHttps = false; // Toggle HTTPS
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
@@ -60,16 +60,17 @@ app.use(function(err, req, res, next) {
 // Start Express Server
 if (useHttps) {
   // HTTPS
-  let options = {
-      key: fs.readFileSync('private-key.key'),
-      cert: fs.readFileSync('certificate.crt')
+  const options = {
+    key: fs.readFileSync('private-key.key'),
+    cert: fs.readFileSync('certificate.crt'),
   };
-  const server = https.createServer(options, app).listen(3001);
+  const server =
+    https.createServer(options, app).listen(process.env.PORT || 3001);
   module.exports = server;
   console.log('API listening on port 3001; using SSL');
 } else {
   // HTTP
-  const server = app.listen(3001, ()=>{
+  const server = app.listen(process.env.PORT || 3001, ()=>{
     console.log('API listening on port 3001');
   });
   module.exports = server;
