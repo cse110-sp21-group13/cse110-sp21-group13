@@ -6,8 +6,9 @@ let dailyId;
 
 
 // Date Title
-if(params.get('date').split('-').length === 2)
+if (params.get('date').split('-').length === 2) {
   journalTypeMonth = true;
+}
 const monthName = function(dt) {
   mlist = ['January', 'February', 'March', 'April', 'May', 'June',
     'July', 'August', 'September', 'October', 'November', 'December'];
