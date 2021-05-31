@@ -15,7 +15,7 @@ if (queryString == '') {
  * Switches the daily to the next day by setting the url parms
  */
 function nextView() {
-  const d = new Date(params.get('date') + " 00:00:00");
+  const d = new Date(params.get('date') + ' 00:00:00');
   d.setDate(d.getDate() + 1);
   window.location.search = 'date='+ d.getFullYear() + '-' +
                            (d.getMonth() + 1) + '-' + (d.getDate());
@@ -26,7 +26,7 @@ function nextView() {
  * Switches the daily to the previous day by setting the url parms
  */
 function previousView() {
-  const d = new Date(params.get('date') + " 00:00:00");
+  const d = new Date(params.get('date') + ' 00:00:00');
   d.setDate(d.getDate() - 1);
   window.location.search = 'date='+ d.getFullYear() + '-' +
                            (d.getMonth() + 1) + '-' + (d.getDate());

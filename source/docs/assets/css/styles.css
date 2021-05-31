@@ -1,0 +1,495 @@
+/* importing roboto font (main font face used) */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap');
+
+@font-face {
+    font-family: 'Roboto', sans-serif;
+    src: url('https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap');
+}
+
+/*----------Main Shared Elements----------*/
+
+body {
+    font-family: 'Roboto';
+    font-size: 1.5ch;
+    margin: 0;
+}
+
+#nav-frame {
+    border: none;
+    display: block;
+    line-height: 0;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 200;
+}
+
+/* header for the date title */
+h2 {
+    font-size: 5ch;
+    position: relative;
+    align-self: center;
+}
+
+/* Style the header */
+.header {
+    background-color: none;
+    padding: 30px 40px;
+    color: black;
+    text-align: center;
+}
+  
+/* Clear floats after the header */
+.header:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+/* daily: the add button */
+.headerButtons {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: center;
+}
+
+/* Include the padding and border in an element's total width and height */
+* {
+    box-sizing: border-box;
+}
+
+/* Style the input */
+input {
+  margin: 0;
+  background-color: #F3F3F3;
+  border: 1px solid #AAAAAA;
+  border-radius: 45px;
+  width: 40vw;
+  padding: 7px;
+  float: left;
+  font-size: 1.5ch;
+  align-self: center;
+}
+
+#sub-bullet-container {
+  display: flex;
+  flex-direction: row;
+  max-height: 35px;
+}
+
+/* Style the input box for subbullets */
+#mySubInput{
+  flex-grow: 1;
+}
+
+.sub-bullet-dropdown{
+  flex-grow: 1;  
+}
+
+/* Style the subullet dropdowns */
+#sub-bullet-type{
+  float: left;
+}
+
+.task {
+  align-self: center;
+  width: 50vw;
+}
+
+/* styles the dropdown */
+select, option {
+    font-family: 'Roboto';
+    background-color: #F3F3F3;
+    border: 1px solid #AAAAAA;
+    border-radius: 45px;
+    padding: 5px;
+}
+
+/* decoration element: use svg from images in html */
+.pinkblob {
+    position: fixed;
+    bottom: 0px;
+    right: 0px;
+    z-index: -1;
+}
+/*----------End: Main Shared Elements----------*/
+
+
+/*----------Button styling----------*/
+
+/* Style the "Add" buttons */
+.addBtn, .addSubBtn {
+    z-index: 1;
+    padding: 10px;
+    width: 6vmax;
+    background: #7C7CB4;
+    color: #FFFFFF;
+    float: left;
+    text-align: center;
+    font-size: 2vmin;
+    line-height: 90%;
+    cursor: pointer;
+    transition: 0.3s;
+    border-radius: 10px;
+}
+
+/* Style the add button for subbullets */
+.addSubBtn {
+  flex-grow: 1;
+  font-size: 1vmax;
+  line-height: 50%;
+}
+
+/* footer contains the prev and next buttons */
+.footer {
+  position: fixed;
+  left: 1vw;
+  right: 1vw;
+  bottom: 1vw;
+  color: #FFFFFF;
+  text-align: center;
+  font-size: 0.75vw;
+  line-height: 0.7vw;
+  z-index: 100;
+}
+
+/* Style the "Next" and "Prev" buttons */
+.nextBtn, .previousBtn {
+  position: relative;
+  padding: 10px;
+  width: 8vw;
+  font-size: 1.2vmax;
+  height: 2.5vmax;
+  background: #7C7CB4;
+  cursor: pointer;
+  transition: 0.3s;
+  border-radius: 10px;
+  text-align: center;
+  line-height: 100%;
+}
+/* Style the "Next" button */
+.nextBtn{
+  float: right;
+}
+
+/* Style the "Previous" button */
+.previousBtn {
+  float: left;
+}
+
+/* sets all the hover colors */
+.addBtn:hover, .editBtn:hover, .nextBtn:hover, .previousBtn:hover {
+  background-color: #9A9AC0;
+}
+
+/* i found two .editBtn so i'm commenting one of 
+these out since it seems to conflict with prev one
+.editBtn {
+    position:absolute;
+    right:0;
+}*/
+
+/* Style the "Create Bullet" button */
+.editBtn {
+  position:absolute; /* copied over from last part - may not need */
+  padding: 10px;
+  width: 6vmax;
+  height: 3vmax;
+  background: #7C7CB4;
+  color: #FFFFFF;
+  float: right;
+  text-align: center;
+  font-size: 1.75vmax;
+  cursor: pointer;
+  transition: 0.3s;
+  border-radius: 10px;
+  word-wrap: break-word; 
+  line-height: 1ch;
+  right: 1vw;
+}
+
+/*----------End: button styling----------*/
+
+
+
+/*----------All bullet styling----------*/
+
+/* Remove margins and padding from the list */
+ul {
+    margin: 0;
+    padding: 0;
+}
+
+/* Style the list items */
+ul li {
+    cursor: pointer;
+    position: relative;
+    z-index: 0;
+    padding: 12px 8px 12px 40px;
+    background: #eee;
+    font-size: 18px;
+    transition: 0.2s;
+    width: 30vw;
+    margin: auto;
+    border-style: solid;
+    border-radius: 45px;
+    border-color:#7C7CB4;
+    /* To avoid the border between li elements being double thick, set the
+    border separately for the top and bottom to half the height*/
+    border-top-width: 2px;
+    border-bottom-width: 2px;
+    border-left-width: 4px;
+    border-right-width: 4px;
+    /* make the list items unselectable */
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    overflow-wrap: break-word;
+    transition: all .3s;
+    text-decoration: none;
+}
+
+/* Style the bullets inside the parent bullets */
+ul li ul li {
+    width: 25vw;
+    overflow-wrap: break-word;
+    text-decoration: none;
+}
+
+/* Style the first list element to have a normal width top border*/
+ul li:first-of-type {
+    border-top-width: 4px;
+}
+
+/* Style the last list element to have a normal width bottom border*/
+ul li:last-of-type {
+    border-bottom-width: 4px;
+}
+
+/* Style the dividers between bullet categories */
+.bulletHeader {
+    text-align: center;
+}
+
+/* Set all odd list items to a different color (zebra-stripes) */
+ul li:nth-child(odd) {
+    background: #f9f9f9;
+    border-color:#a37bc9
+}
+
+/* Darker background-color on hover */
+ul li:hover {
+    background: #fff;
+}
+
+/* When clicked on, add a background color and strike out text */
+ul li.checked {
+    background: #888;
+    color: #fff;
+}
+
+/* Preventing the subbullets from turning white with a checked parent bullet */
+ul li.checked ul li {
+/*display: block;*/
+    color:black;
+    text-decoration: none;
+}
+
+/* Preventing the subbullets from turning white with a checked parent bullet */
+ul li.checked ul li.checked {
+/*display: block;*/
+    color: white;
+    text-decoration: none;
+}
+
+/* Add a "checked" mark when clicked on */
+ul li.checked::before {
+    content: '';
+    position: absolute;
+    border-color: #fff;
+    border-style: solid;
+    border-width: 0 2px 2px 0;
+    top: 10px;
+    left: 16px;
+    transform: rotate(45deg);
+    height: 15px;
+    width: 7px;
+}
+
+/* Style the bullet button to add subbullet */
+.sub-bullet-button {
+    float: right;
+    margin: 1%;
+    padding: 2px;
+    width: 10%;
+    height: 10%;
+    background: #7C7CB4;
+    color: #FFFFFF;
+    text-align: center;
+    font-size: 0.75vw;
+    line-height: 0.7vw;
+    cursor: pointer;
+    border-radius: 10px;
+    transition: width 1s;
+}
+
+/* Style the list containing subullets*/
+ul li ul {
+    margin: 2%;
+}
+
+/*--------End: All bullet styling--------*/
+
+
+/*----------Monthly specific items----------*/
+.grid-container {
+    display: grid;
+    grid-template-columns: 5.5vw 5.5vw 5.5vw 5.5vw 5.5vw 5.5vw 5.5vw;
+    grid-template-rows: auto 5.25vw 5.25vw 5.25vw 5.25vw 5.25vw 5.25vw;
+    padding: 10px;
+    justify-content: center;
+}
+/* only for the dates of the week on the top */
+.grid-item-days {
+    background-color: rgba(255, 255, 255, 0.8);
+    border: 1px solid rgba(0, 0, 0);
+    padding: 3px;
+    text-align: center;
+    overflow: hidden;
+}
+/* for the actual date numbers */
+.grid-item-dates {
+    background-color: rgba(255, 255, 255, 0.8);
+    border: 1px solid rgba(0, 0, 0);
+    padding: 3px;
+    text-align: center;
+    font-size: 4.5ch;
+}
+/* if the dates are clickable, make them not ugly */
+.grid-item-dates a {
+    text-decoration: none;
+    color: #7C7CB4;
+}
+
+/* making it a two column system*/
+.column {
+    justify-content: center;
+    flex-direction: row;
+    padding-top: 70px;
+}
+
+.left {
+    margin: auto;
+    text-align: center;
+    width: 50vmax;
+}
+.right {
+    right: 0;
+    width: 50vmax;
+    height: auto;
+}
+/* decoration element of pink circle */
+.pinkc {
+    position: fixed;
+    bottom: 5vw;
+    right: 35vw;
+    z-index: -1;
+}
+/* decoration element of purple circle */
+.purplec {
+    position: fixed;
+    bottom: 0vw;
+    right: 55vw;
+    z-index: -1;
+}
+/*--------End: Monthly Specific Items--------*/
+
+
+/*-----------Daily Specific Items-----------*/
+
+/* main positioning of items */
+#container {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    max-height: 35px;
+}
+  
+.categoryDiv {
+    margin: 1% 1% 1% 1%;
+}
+/*---------End: Daily Specific Items---------*/
+
+
+
+/*--------Adjusting for window sizes--------*/
+
+/* Style the window when the window is large */
+@media only screen and (min-width: 1000px){
+    #bulletContainer, .column {
+        display: flex;
+        justify-content: center;
+        flex-direction: row;
+    }
+}
+
+/* Style the window when the window is small */
+@media only screen and (max-width: 1000px){
+    #bulletContainer, .column {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        position: relative;
+    }
+    .pinkc {
+        z-index: -3;
+    }
+    /* decoration element of purple circle */
+    .purplec {
+        z-index: -3;
+    }
+    .editBtn, .nextBtn, .prevBtn {
+        min-width: 100px;
+        width: 4vmax;
+        height: 4vmax;
+        line-height: 0.5ch;
+    }
+    .left {
+        margin: auto;
+        text-align: center;
+        width: 50vmax;
+    }
+    .right {
+        top: 10vh;
+        margin: auto;
+        right: 0;
+        height: 30vh;
+    }
+    ul li {
+        width: 65vw;
+        min-width: 460px;
+    }
+
+    ul li ul li {
+        min-width: 400px;
+        width: 55vw;
+    }
+    .previousBtn, .nextBtn{
+        font-size: 4vmax;
+        height: 5vmax;
+        min-width: 270px;
+    }
+
+    /* Style the add button for subbullets */
+    .addSubBtn {
+        font-size: 4vmax;
+        line-height: 50%;
+    }
+    .sub-bullet-button {
+        font-size: 3vmax;
+    }
+}

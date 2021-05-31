@@ -1,17 +1,18 @@
 # This workflow will do a clean install of node dependencies, build the source code and run tests across different versions of node
 # For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
 
-name: Node.js CI
+name: Lint & Test
 
 on:
   push:
     branches: [ main ]
   pull_request:
     branches: [ main ]
-
+    
 jobs:
   test:
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
     
     steps:
       - uses: actions/checkout@v2
@@ -23,7 +24,7 @@ jobs:
       - name: npm install, and test
         working-directory: ./source
         run: |
-          npm ci
+          npm install
           npm test 
         env:
           CI: true
@@ -35,8 +36,8 @@ jobs:
       - uses: actions/checkout@v2
       - name: Install modules
         working-directory: ./source
-        run: npm ci
+        run: npm install
       - name: Run ESLint
         working-directory: ./source
-        run: npx eslint . --ext .js,.jsx,.ts,.tsx
+        run: npx eslint . --ext .js,.jsx,.ts,.tsx --ignore-pattern "jsdocs/**"
     

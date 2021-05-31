@@ -4,7 +4,11 @@ const session = require('express-session');
 const bodyParser = require('body-parser');
 const path = require('path');
 const passport = require('passport');
+const fs = require('fs');
+const https = require('https');
 const app = express();
+
+const useHttps = false; // Toggle HTTPS
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
@@ -53,17 +57,53 @@ app.use(function(err, req, res, next) {
   res.json({error: err.message});
 });
 
-// HTTPS (don't have cert yet)
-// let options = {
-//     key: fs.readFileSync('privateKey.key'),
-//     cert: fs.readFileSync('certificate.crt')
-// };
-// https.createServer(options, app).listen(3001);
+// Start Express Server
+let server;
+if (useHttps) {
+  // HTTPS
+  const options = {
+    key: fs.readFileSync('private-key.key'),
+    cert: fs.readFileSync('certificate.crt'),
+  };
+  server = https.createServer(options, app).listen(process.env.PORT || 3001);
 
-/** This listens to the port 3001 */
-const server = app.listen(3001, ()=>{
-  console.log('API listening on port 3001');
-});
+  // Maintain a hash of all connected sockets
+  const sockets = {};
+  let nextSocketId = 0;
+  server.on('connection', function(socket) {
+    // Add a newly connected socket
+    const socketId = nextSocketId++;
+    sockets[socketId] = socket;
+    console.log('socket', socketId, 'opened');
 
-module.exports = app;
-module.exports = server;
+    // Remove the socket when it closes
+    socket.on('close', function() {
+      console.log('socket', socketId, 'closed');
+      delete sockets[socketId];
+    });
+
+    // Extend socket lifetime for demo purposes
+    socket.setTimeout(4000);
+  });
+
+  // Close the server
+  server.close(function() {
+    console.log('Server closed!');
+  });
+  // Destroy all open sockets
+  for (const socketId in sockets) {
+    if (Object.prototype.hasOwnProperty.call(sockets, socketId)) {
+      console.log('socket', socketId, 'destroyed');
+      sockets[socketId].destroy();
+    }
+  }
+
+  console.log('API listening on port 3001; using SSL');
+} else {
+  // HTTP
+  server = app.listen(process.env.PORT || 3001, ()=>{
+    console.log('API listening on port 3001');
+  });
+}
+
+module.exports = {app, server};
