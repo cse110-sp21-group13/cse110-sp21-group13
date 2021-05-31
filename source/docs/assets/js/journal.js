@@ -92,7 +92,7 @@ async function loadCurrentDay() {
         };
 
         // Form Migration URL
-        oldDate = new Date(params.get('date'));
+        oldDate = new Date(params.get('date')+ ' 00:00:00');
         oldDate.setDate(oldDate.getDate() - 1);
         oldDateUrl = '/read/daily/' + oldDate.getFullYear() + '-' +
         (oldDate.getMonth() + 1) +'/'+ oldDate.getDate();
