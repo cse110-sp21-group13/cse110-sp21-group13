@@ -131,7 +131,8 @@ describe('User REST API Unit Test', function() {
     'bullets': [],
   };
 
-  //create a daily for that user to test whether delete/user will delete this daily too
+  // create a daily for that user to test whether delete/user
+  // will delete this daily too
   it('Test 8: create a daily', function(done) {
     authenticatedUser
         .post('/create/daily')
