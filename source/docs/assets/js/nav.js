@@ -100,6 +100,7 @@ for (let i = 0; i < modeOps.length; i++) {
         },
       }),
     }).then(() => {
+      document.getElementsByTagName('HTML')[0].click();
       window.top.location.reload();
     });
     console.log(modeOps[i].value);
@@ -118,4 +119,17 @@ $.ajax({
   error: function() {
     console.log('error');
   },
+});
+
+const hamLabel = document.getElementsByClassName('topbar')[0]
+    .getElementsByTagName('label')[0];
+const settings = document.getElementById('settings');
+window.addEventListener('click', (e) => {
+  if (e.target.tagName === 'HTML') {
+    closePop.click();
+    if (settings.checked) {
+      settings.click();
+    }
+    hamLabel.click();
+  }
 });
