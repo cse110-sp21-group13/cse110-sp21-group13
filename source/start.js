@@ -8,7 +8,7 @@ const fs = require('fs');
 const https = require('https');
 const app = express();
 
-const useHttps = true;  // Toggle HTTPS
+const useHttps = false; // Toggle HTTPS
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
@@ -60,11 +60,12 @@ app.use(function(err, req, res, next) {
 // Start Express Server
 if (useHttps) {
   // HTTPS
-  let options = {
+  const options = {
     key: fs.readFileSync('private-key.key'),
-    cert: fs.readFileSync('certificate.crt')
+    cert: fs.readFileSync('certificate.crt'),
   };
-  const server = https.createServer(options, app).listen(process.env.PORT || 3001);
+  const server =
+    https.createServer(options, app).listen(process.env.PORT || 3001);
   module.exports = server;
 
   // Maintain a hash of all connected sockets
