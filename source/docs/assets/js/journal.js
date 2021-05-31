@@ -226,7 +226,8 @@ function appendBullet(bulletId, inputValue, bulletType, signifier, completed,
         },
       });
     }
-    // TODO - delete actual DOM elements
+
+    li.remove();
   });
 
   li.appendChild(deleteButton);
