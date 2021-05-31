@@ -1,7 +1,7 @@
 describe ('Basic user flow for login page', () => {
     beforeAll(async () => {
         await page.goto('https://journalbullet.herokuapp.com');
-        await page.waitForTimeout(500);
+        //await page.waitForTimeout(500);
     });
 
     it('Test 1: landing page title and welcome', async () => {
@@ -34,26 +34,30 @@ describe ('Basic user flow for login page', () => {
         'username': 'test',
         'password': '12345',
     };
-    it('Test 5: log in with an existing user', async() => {
+    it('Test 5: sign up with missing password field', async() =>{
         await expect(page).toFillForm('form[id=loginform]',{
             username: newUser.username,
+            //password: newUser.password,
+        });
+        await expect(page).toClick('button', {text: 'sign up'});
+        let error = await page.$eval('#errormsg', (errorMsg) => {return errorMsg.innerText;});
+        expect(error).toBe('please enter a username and a password');
+    }, 50000);
+
+    it('test 6: sign up with new user or log in with existing user', async() => {
+        await expect(page).toFillForm('form[id=loginform]',{
+            //username: newUser.username,
             password: newUser.password,
         });
-        await expect(page).toClick('button', {text: 'log in'});
-        
-        /*await page.waitForNavigation
-        await page.waitForSelector();
-
-        let nextBtn = page.$eval('nextBtn', (button) =>{ return button.innerHTML;});
-        expect(nextBtn).toBe('NEXT');*/
-        //need to learn how to track newly opened page.
-    },60000);
-
-    /*it("Test 6: cannot sign up with an existing user", async () => {
         await expect(page).toClick('button', {text: 'sign up'});
-        let error = await page.$eval('#errormsg', (errorMsg) => {return errorMsg.innerHTML;});
-        expect(error).toBe('');
-    }, 30000);*/
-    
-
+        let error = await page.$eval('#errormsg', (errorMsg) => {return errorMsg.innerText;});
+        if(error.length != 0){
+            expect(error).toBe('username already taken');
+            await expect(page).toClick('button', {text: 'log in'});
+            await page.waitForNavigation({waitUntil: 'networkidle2'});
+            expect(page.url().includes('daily.html')).toBe(true);
+        };
+        //await page.waitForNavigation({waitUntil: 'networkidle2'});
+        //expect(page.url().includes('daily.html')).toBe(true);
+    }, 100000);
 });
