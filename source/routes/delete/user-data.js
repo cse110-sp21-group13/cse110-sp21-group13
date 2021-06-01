@@ -24,28 +24,28 @@ module.exports = {
       db.find({
         selector: {
           user: req.user._id,
-        }
+        },
       })
-      .then((response) => {
-        response.docs.forEach((doc, index) => {
-          db.remove(doc._id, doc._rev);
-        });
-      })
-      .catch((err) => {
-        console.log(err);
-        res.send('error');
-      });
+          .then((response) => {
+            response.docs.forEach((doc, index) => {
+              db.remove(doc._id, doc._rev);
+            });
+          })
+          .catch((err) => {
+            console.log(err);
+            res.send('error');
+          });
 
       // delete user itself
       db.get(req.user._id)
-      .then((response) => {
-        db.remove(response._id, response._rev);
-        res.send('success');
-      })
-      .catch((err) => {
-        console.log(err);
-        res.send('error');
-      });
+          .then((response) => {
+            db.remove(response._id, response._rev);
+            res.send('success');
+          })
+          .catch((err) => {
+            console.log(err);
+            res.send('error');
+          });
     },
   },
 };

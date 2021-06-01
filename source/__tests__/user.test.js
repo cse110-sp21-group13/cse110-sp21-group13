@@ -125,10 +125,30 @@ describe('User REST API Unit Test', function() {
         });
   });
 
-  // so that next time run test 1 will not cause error due to duplicate username
-  it('Test 8: delete current user', function(done) {
+  const newDay = {
+    'day': '20',
+    'month': '2021-5',
+    'bullets': [],
+  };
+
+  // create a daily for that user to test whether delete/user
+  // will delete this daily too
+  it('Test 8: create a daily', function(done) {
     authenticatedUser
-        .delete('/delete/user')
+        .post('/create/daily')
+        .set('Content-Type', 'application/json')
+        .send(newDay)
+        .end(function(err, res) {
+          expect(res.statusCode).to.equal(200);
+          expect(res.ok).to.equal(true);
+          done();
+        });
+  });
+
+  // so that next time run test 1 will not cause error due to duplicate username
+  it('Test 9: delete current user', function(done) {
+    authenticatedUser
+        .delete('/delete/user-data')
         .set('Content-Type', 'application/json')
         .end(function(err, res) {
           expect(res.text).to.equal('success');
@@ -136,7 +156,17 @@ describe('User REST API Unit Test', function() {
         });
   });
 
-  it('Test 9: error if read invalid user', function(done) {
+  it('Test 10: error when the daily does not exist', function(done) {
+    authenticatedUser
+        .get('/read/daily/' + newDay.month + '/' + newDay.day)
+        .set('Content-Type', 'application/json')
+        .end(function(err, res) {
+          expect(res.text).to.equal('error');
+          done();
+        });
+  });
+
+  it('Test 11: error if read invalid user', function(done) {
     authenticatedUser
         .get('/read/user')
         .set('Content-Type', 'application/json')
@@ -146,9 +176,9 @@ describe('User REST API Unit Test', function() {
         });
   });
 
-  it('Test 10: error if delete invalid user', function(done) {
+  it('Test 12: error if delete invalid user', function(done) {
     authenticatedUser
-        .delete('/delete/user')
+        .delete('/delete/user-data')
         .set('Content-Type', 'application/json')
         .end(function(err, res) {
           expect(res.text).to.equal('error');
@@ -159,7 +189,7 @@ describe('User REST API Unit Test', function() {
   const invalidUser = {
     'username': 'dave',
   };
-  it('Test 11: error if missing field when creating user', function(done) {
+  it('Test 13: error if missing field when creating user', function(done) {
     authenticatedUser
         .post('/create/user')
         .set('Content-Type', 'application/json')
@@ -173,13 +203,23 @@ describe('User REST API Unit Test', function() {
   const invalidUpdate = {
     'username': 'dave',
   };
-  it('Test 12: error if update field is missing', function(done) {
+  it('Test 14: error if update field is missing', function(done) {
     authenticatedUser
         .post('/update/user')
         .set('Content-Type', 'application/json')
         .send(invalidUpdate)
         .end(function(err, res) {
           expect(res.body.error).to.equal('MISSING UPDATE DATA');
+          done();
+        });
+  });
+
+  it('Test 15: delete current session', function(done) {
+    authenticatedUser
+        .delete('/delete/session')
+        .set('Content-Type', 'application/json')
+        .end(function(err, res) {
+          expect(res.body.result).to.equal('Success');
           done();
         });
   });
