@@ -181,7 +181,7 @@ ul li.checked::before {
 .sub-bullet-button {
     background: #24FF00;
     border-color: #090315;
-    color: #FFFFFF;
+    color: #000000;
 }
 /*--------End: All bullet styling--------*/
 
