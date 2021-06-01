@@ -108,14 +108,14 @@ for (let i = 0; i < modeOps.length; i++) {
 }
 
 $.ajax({
-    url: "/read/user",
-    type: "GET",
-    async: true,
-    success: function(retData) {
-      let selectedStyle = document.getElementById(retData.style);
-      selectedStyle.checked = true;
-    },
-    error: function() {
-        console.log("error");
-    }
-})
+  url: '/read/user',
+  type: 'GET',
+  async: true,
+  success: function(retData) {
+    const selectedStyle = document.getElementById(retData.style);
+    selectedStyle.checked = true;
+  },
+  error: function() {
+    console.log('error');
+  },
+});

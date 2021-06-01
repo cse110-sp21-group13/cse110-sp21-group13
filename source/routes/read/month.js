@@ -92,7 +92,7 @@ module.exports = {
                         fields: ['day', '_id'],
                       })
                           .then((result) => {
-                            response.docs[0].dailys = result;
+                            response.docs[0].dailys = result.docs;
                             // send out the response
                             res.send(response.docs[0]);
                           });

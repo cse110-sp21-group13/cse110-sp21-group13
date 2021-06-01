@@ -48,9 +48,18 @@ signup.addEventListener('click', (e) => {
     },
     body: JSON.stringify(formData),
   })
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.error == undefined) {
+      .then((response) => response.text())
+      .then((text) => {
+        let data;
+        try {
+          data = JSON.parse(text);
+        } catch (error) {
+          data = text;
+        }
+        if (data == 'error') {
+          const errorElem = document.getElementById('errormsg');
+          errorElem.innerText = 'username already taken';
+        } else if (data.error == undefined) {
           fetch('../create/session', {
             method: 'POST',
             headers: {
@@ -71,6 +80,5 @@ signup.addEventListener('click', (e) => {
           const errorElem = document.getElementById('errormsg');
           errorElem.innerText = 'error occured. please try again later.';
         }
-        /* TODO: Implement error catching for user already created */
       });
 });

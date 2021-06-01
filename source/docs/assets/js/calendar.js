@@ -87,7 +87,6 @@ function updateCalendar(month, year, date) {
     calendar.appendChild(cell);
     globalItr++;
   }
-
   for (let i = 1; i <= daysInMonth; i++) { // Populate valid days
     const cell = document.createElement('div');
     cell.setAttribute('class', 'grid-item-dates');
@@ -99,7 +98,7 @@ function updateCalendar(month, year, date) {
       }
 
       let found = false;
-      monthData.dailys.docs.forEach((daily) => {
+      monthData.dailys.forEach((daily) => {
         if (daily.day == i) {
           const link = document.createElement('a');
           link.setAttribute('href', '/daily.html?date=' +

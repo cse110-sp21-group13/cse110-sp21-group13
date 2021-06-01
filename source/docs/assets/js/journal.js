@@ -6,8 +6,9 @@ let dailyId;
 
 
 // Date Title
-if(params.get('date').split('-').length === 2)
+if (params.get('date').split('-').length === 2) {
   journalTypeMonth = true;
+}
 const monthName = function(dt) {
   mlist = ['January', 'February', 'March', 'April', 'May', 'June',
     'July', 'August', 'September', 'October', 'November', 'December'];
@@ -82,7 +83,7 @@ async function loadCurrentDay() {
     contentType: 'application/json',
     success: function(getData) {
       // Upon error, it is assumed there is no daily matching the date.
-      // Therefore, we must create the daily corresponding to the current date.
+      // Therefore, we must redirect to Migration
       if (getData == 'error' && !journalTypeMonth) {
         const journalPostDoc = {
           day: dayComponent,
@@ -90,24 +91,50 @@ async function loadCurrentDay() {
           bullets: [],
         };
 
-
-        // Create a new daily using the above document's information, and
-        // store the new document's ID in the dailyId variable to pass to
-        // bullets during creation.
+        // Form Migration URL
+        oldDate = new Date(params.get('date')+ ' 00:00:00');
+        oldDate.setDate(oldDate.getDate() - 1);
+        oldDateUrl = '/read/daily/' + oldDate.getFullYear() + '-' +
+        (oldDate.getMonth() + 1) +'/'+ oldDate.getDate();
+        // Get the daily journal from one day ago
         $.ajax({
-          url: '/create/daily',
-          type: 'POST',
+          url: oldDateUrl,
+          type: 'GET',
           contentType: 'application/json',
-          data: JSON.stringify(journalPostDoc),
-          success: function(postData) {
-            if (postData == 'error') {
-              console.log('Creation of new daily failed.');
-            } else {
-              dailyId = postData.id;
+          success: function(oldDailyData) {
+            if (oldDailyData === 'error' || oldDailyData.bullets == '') {
+              const journalPostDoc = {
+                day: dayComponent,
+                month: monthComponent,
+                bullets: [],
+              };
+              // Avoid a migration and create a daily if no old day found or if
+              // the previous day has no bullets
+              $.ajax({
+                url: '/create/daily',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(journalPostDoc),
+                success: function(postData) {
+                  if (postData == 'error') {
+                    console.log('Creation of new daily failed.');
+                  } else {
+                    dailyId = postData.id;
+                  }
+                },
+                error: function(xhr, status, error) {
+                  console.log(status + ' ' + error);
+                },
+              });
+            } else if (oldDailyData.bullets != '') {
+              // If the previous day exists and has bullets, migrate
+              window.top.location.replace('migration.html?oldJournal=' +
+              oldDate.getFullYear() + '-' +
+              (oldDate.getMonth() + 1) + '-' + (oldDate.getDate())+
+              '&newJournal='+params.get('date'));
             }
           },
           error: function(xhr, status, error) {
-            console.log(status + ' ' + error);
           },
         });
       } else {
