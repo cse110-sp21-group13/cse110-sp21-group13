@@ -142,7 +142,7 @@ nav form legend, #data-management {
 }
 
 /* buttons */
-#menu button {
+.popup button, #menu button {
     border-radius: 5px;
     color: rgb(110, 110, 110);
     font-size: 16px;
