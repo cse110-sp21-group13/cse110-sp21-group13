@@ -1,0 +1,208 @@
+/*----------Main Shared Elements----------*/
+/* Style the header */
+.header {
+    color: black;
+}
+/* Style the input */
+input {
+  background-color: #F3F3F3;
+  border-color: #AAAAAA;
+}
+
+/* styles the dropdown */
+select, option {
+    background-color: #F3F3F3;
+    border: 1px solid #AAAAAA;
+}
+
+/*----------End: Main Shared Elements----------*/
+
+/*----------Decorative Blobs----------*/
+.cornerblob path, .dailyblob path, .topblob path, .rightblob path, .circTopLeft circle, .circleBottom2 circle, .circle1 circle {
+    fill: #F5CDFF;
+}
+.leftblob path, .circleBottom circle, .circleRight circle, .circle2 circle {
+    fill: #C8C6FF;
+}
+/*----------End: Decorative Blobs----------*/
+
+
+/*----------Index/Main Page----------*/
+#username, #password {
+    background-color: #E8E8E8;
+    border-color: #AFAFAF;
+}
+button {
+    background-image: linear-gradient(to right, #FECCFF, #BFC3FF);
+    color: #2C2474;
+}
+h1 {
+    color: #2C2474;
+}
+h3 {
+    color: #7C7CB4;
+}
+/*----------End: Index/Main Page----------*/
+
+
+/*----------Nav Bar----------*/
+.topbar {
+    background: #7C7CB4;
+}
+
+.topbar label:hover {
+    background: #8E8ECD;;
+}
+
+.topbar h1 {
+    color: white;
+}
+#hamburger:checked ~ #hamitems {
+    background-color: #8E8ECD;
+    color: white;
+}
+.dropitem {
+    border-color: white;
+}
+.dropitem:hover{
+    background-color:#ADADE2;
+}
+#menu {
+    background-color:#ADADE2;
+    border-bottom-color: white;
+}
+nav form, #data-management {
+    border-bottom-color: white;
+}
+.popup button, #menu button {
+    color: rgb(110, 110, 110);
+}
+#signout {
+    background-color:#ADADE2;
+    border-top-color: white;
+}
+#signout:hover {
+    background-color:#7C7CB4;
+}
+.popup {
+    background-color: #ADADE2;
+}
+.changepass input {
+    background: #E8E8E8;
+    border-color: #AFAFAF;
+}
+
+nav a, .popup, #signout {
+    color: white;
+}
+/*----------End: Nav Bar----------*/
+
+
+/*----------Button styling----------*/
+/* Style the "Add" buttons */
+.addBtn, .addSubBtn {
+    background: #7C7CB4;
+    color: #FFFFFF;
+}
+
+/* footer contains the prev and next buttons */
+.footer {
+  color: #FFFFFF;
+}
+
+/* Style the "Next" and "Prev" buttons */
+.nextBtn, .previousBtn {
+  background: #7C7CB4;
+}
+
+/* sets all the hover colors */
+.addBtn:hover, .editBtn:hover, .nextBtn:hover, .previousBtn:hover {
+  background-color: #9A9AC0;
+}
+
+/* Style the "Create Bullet" button */
+.editBtn {
+  background: #7C7CB4;
+  color: #FFFFFF;
+}
+/*----------End: button styling----------*/
+
+
+
+/*----------All bullet styling----------*/
+/* Style the list items */
+ul li {
+    background: #eee;
+    border-color:#7C7CB4;
+}
+
+/* Set all odd list items to a different color (zebra-stripes) */
+ul li:nth-child(odd) {
+    background: #f9f9f9;
+    border-color:#a37bc9
+}
+
+/* Darker background-color on hover */
+ul li:hover {
+    background: #fff;
+}
+
+/* When clicked on, add a background color and strike out text */
+ul li.checked {
+    background: #c4aadd;
+    color: rgb(44, 44, 44);
+}
+
+/* Preventing the subbullets from turning white with a checked parent bullet */
+ul li.checked ul li {
+/*display: block;*/
+    color:black;
+}
+
+/* Preventing the subbullets from turning white with a checked parent bullet */
+ul li.checked ul li.checked {
+/*display: block;*/
+    color: white;
+}
+
+/* Add a "checked" mark when clicked on */
+ul li.checked::before {
+    border-color: #fff;
+}
+
+/* Style the bullet button to add subbullet */
+.sub-bullet-button {
+    background: #7C7CB4;
+    color: #FFFFFF;
+}
+/*--------End: All bullet styling--------*/
+
+
+/*----------Monthly specific items----------*/
+.grid-item-days {
+    background-color: rgba(255, 255, 255, 0.8);
+    border-color: rgba(0, 0, 0);
+}
+.grid-item-dates {
+    background-color: rgba(255, 255, 255, 0.8);
+    border-color: rgba(0, 0, 0);
+}
+.grid-item-dates a {
+    color: #7C7CB4;
+}
+/*--------End: Monthly Specific Items--------*/
+
+
+/*--------Migration Specific Items--------*/
+:root {
+    --selected: #ADADE2;
+}
+.selected {
+    background-color: var(--selected) !important;
+    color: #fff !important;
+}
+
+.selected:hover {
+    background-color: var(--selected) !important;
+}
+/*--------End: Migration Specific Items--------*/

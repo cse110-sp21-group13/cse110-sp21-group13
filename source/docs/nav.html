@@ -7,7 +7,7 @@
     <link rel="stylesheet" type="text/css" href="assets/css/light-style.css" id="master-color"/>
     <base target="_parent">
   </head>
-  <body>
+  <body style="background-color: transparent;">
     <div class="topbar">
       <label for="hamburger">
         <img src="assets/images/hamburger.svg" alt="three horizonal lines">
@@ -24,7 +24,7 @@
         <label for="settings" class="dropitem">Settings v</label>
         <input type="checkbox" id="settings"/>
         <ul id="menu">
-          <li>
+          <li style="background-color: transparent;">
             <form id="modes">
               <legend>Mode:</legend>
               <input type="radio" id="light" name="mode" value="light">
@@ -37,10 +37,10 @@
           </li>
           <div id="data-management">
             <legend>Data Management:</legend>
-            <li><button id="download-data">Download User Data</button></li>
-            <li><button id="delete-account">Delete Account</button></li>
+            <li style="background-color: transparent;"><button id="download-data">Download User Data</button></li>
+            <li style="background-color: transparent;"><button id="delete-account">Delete Account</button></li>
           </div>
-          <li><button id="openpop">Change password</button></li>
+          <li style="background-color: transparent;"><button id="openpop">Change password</button></li>
         </ul>
         <button id="signout">SIGN OUT</button>
       </div>

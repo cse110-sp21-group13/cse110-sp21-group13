@@ -32,8 +32,6 @@ main {
 }
 
 #username, #password {
-    background-color: #E8E8E8;
-    border-color: #AFAFAF;
     border-radius: 8px;
     border-width: 1px;
     display: block;
@@ -65,23 +63,19 @@ form > button {
 }
 
 button {
-    background-image: linear-gradient(to right, #FECCFF, #BFC3FF);
-    color: #2C2474;
     font-weight: bold;
 }
 
 h1 {
-    color: #2C2474;
     font-size: 60px;
     font-weight: bold;
 }
 
-h2 {
-    color: #7C7CB4;
+h3 {
     font-size: 30px;
 }
 
-h1, h2, button, label, #errormsg {
+h1, h3, button, label, #errormsg {
     font-family: sans-serif;
 }
 
@@ -89,4 +83,48 @@ h1, h2, button, label, #errormsg {
     font-size: 16px;
     margin-top: 1em;
     position: absolute;
+}
+
+/* blob decoration positioning */
+.leftblob {
+    position: fixed;
+    left: 0;
+    bottom: -10vh;
+    z-index: -1;
+}
+.topblob {
+    position: absolute;
+    left: 20vw;
+    top: -25vh;
+    z-index: -1;
+}
+.rightblob {
+    position: fixed;
+    right: -10vw;
+    bottom: 0;
+    z-index: -1;
+}
+.circTopLeft {
+    position: fixed;
+    left: 10vw;
+    top: 25vh;
+    z-index: -1;
+}
+.circleBottom {
+    position: fixed;
+    left: 35vw;
+    bottom: 15vh;
+    z-index: -1;
+}
+.circleBottom2 {
+    position: fixed;
+    left: 40vw;
+    bottom: 40vh;
+    z-index: -1;
+}
+.circleRight {
+    position: fixed;
+    right: 10vw;
+    bottom: 60vh;
+    z-index: -1;
 }

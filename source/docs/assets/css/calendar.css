@@ -7,7 +7,6 @@
 }
 
 /*----------Main Shared Elements----------*/
-
 body {
     font-family: 'Roboto';
     font-size: 1.5ch;
@@ -21,13 +20,14 @@ body {
     margin: 0;
     padding: 0;
     position: absolute;
+    left: 0;
     top: 0;
     width: 100%;
     z-index: 200;
 }
 
 /* header for the date title */
-h2 {
+h3 {
     font-size: 5ch;
     position: relative;
     align-self: center;
@@ -37,7 +37,6 @@ h2 {
 .header {
     background-color: none;
     padding: 30px 40px;
-    color: black;
     text-align: center;
 }
   
@@ -64,8 +63,6 @@ h2 {
 /* Style the input */
 input {
   margin: 0;
-  background-color: #F3F3F3;
-  border: 1px solid #AAAAAA;
   border-radius: 45px;
   width: 40vw;
   padding: 7px;
@@ -102,19 +99,21 @@ input {
 /* styles the dropdown */
 select, option {
     font-family: 'Roboto';
-    background-color: #F3F3F3;
-    border: 1px solid #AAAAAA;
     border-radius: 45px;
     padding: 5px;
 }
 
 /* decoration element: use svg from images in html */
-.pinkblob {
+.cornerblob {
     position: fixed;
     bottom: 0px;
     right: 0px;
     z-index: -1;
 }
+.journal-frame {
+    position: relative;
+    z-index: 100;
+  }
 /*----------End: Main Shared Elements----------*/
 
 
@@ -125,8 +124,6 @@ select, option {
     z-index: 1;
     padding: 10px;
     width: 6vmax;
-    background: #7C7CB4;
-    color: #FFFFFF;
     float: left;
     text-align: center;
     font-size: 2vmin;
@@ -149,7 +146,6 @@ select, option {
   left: 1vw;
   right: 1vw;
   bottom: 1vw;
-  color: #FFFFFF;
   text-align: center;
   font-size: 0.75vw;
   line-height: 0.7vw;
@@ -163,7 +159,6 @@ select, option {
   width: 8vw;
   font-size: 1.2vmax;
   height: 2.5vmax;
-  background: #7C7CB4;
   cursor: pointer;
   transition: 0.3s;
   border-radius: 10px;
@@ -180,11 +175,6 @@ select, option {
   float: left;
 }
 
-/* sets all the hover colors */
-.addBtn:hover, .editBtn:hover, .nextBtn:hover, .previousBtn:hover {
-  background-color: #9A9AC0;
-}
-
 /* i found two .editBtn so i'm commenting one of 
 these out since it seems to conflict with prev one
 .editBtn {
@@ -198,8 +188,6 @@ these out since it seems to conflict with prev one
   padding: 10px;
   width: 6vmax;
   height: 3vmax;
-  background: #7C7CB4;
-  color: #FFFFFF;
   float: right;
   text-align: center;
   font-size: 1.75vmax;
@@ -229,14 +217,12 @@ ul li {
     position: relative;
     z-index: 0;
     padding: 12px 8px 12px 40px;
-    background: #eee;
     font-size: 18px;
     transition: 0.2s;
     width: 30vw;
     margin: auto;
     border-style: solid;
     border-radius: 45px;
-    border-color:#7C7CB4;
     /* To avoid the border between li elements being double thick, set the
     border separately for the top and bottom to half the height*/
     border-top-width: 2px;
@@ -275,34 +261,15 @@ ul li:last-of-type {
     text-align: center;
 }
 
-/* Set all odd list items to a different color (zebra-stripes) */
-ul li:nth-child(odd) {
-    background: #f9f9f9;
-    border-color:#a37bc9
-}
-
-/* Darker background-color on hover */
-ul li:hover {
-    background: #fff;
-}
-
-/* When clicked on, add a background color and strike out text */
-ul li.checked {
-    background: #888;
-    color: #fff;
-}
-
 /* Preventing the subbullets from turning white with a checked parent bullet */
 ul li.checked ul li {
 /*display: block;*/
-    color:black;
     text-decoration: none;
 }
 
 /* Preventing the subbullets from turning white with a checked parent bullet */
 ul li.checked ul li.checked {
 /*display: block;*/
-    color: white;
     text-decoration: none;
 }
 
@@ -310,7 +277,6 @@ ul li.checked ul li.checked {
 ul li.checked::before {
     content: '';
     position: absolute;
-    border-color: #fff;
     border-style: solid;
     border-width: 0 2px 2px 0;
     top: 10px;
@@ -327,8 +293,6 @@ ul li.checked::before {
     padding: 2px;
     width: 10%;
     height: 10%;
-    background: #7C7CB4;
-    color: #FFFFFF;
     text-align: center;
     font-size: 0.75vw;
     line-height: 0.7vw;
@@ -346,25 +310,32 @@ ul li ul {
 
 
 /*----------Monthly specific items----------*/
+.testB {
+    border: 1px solid;
+    width: 38.5vw;
+    height: 37vmax;
+    border-radius: 5px;
+    margin: auto;
+    padding: 0;
+}
 .grid-container {
     display: grid;
     grid-template-columns: 5.5vw 5.5vw 5.5vw 5.5vw 5.5vw 5.5vw 5.5vw;
-    grid-template-rows: auto 5.25vw 5.25vw 5.25vw 5.25vw 5.25vw 5.25vw;
-    padding: 10px;
+    grid-template-rows: auto 5.2vw 5.2vw 5.2vw 5.2vw 5.2vw 5.2vw;
+    top: 0;
     justify-content: center;
+    width: auto;
 }
 /* only for the dates of the week on the top */
 .grid-item-days {
-    background-color: rgba(255, 255, 255, 0.8);
-    border: 1px solid rgba(0, 0, 0);
+    border: 1px solid;
     padding: 3px;
     text-align: center;
     overflow: hidden;
 }
 /* for the actual date numbers */
 .grid-item-dates {
-    background-color: rgba(255, 255, 255, 0.8);
-    border: 1px solid rgba(0, 0, 0);
+    border: 1px solid;
     padding: 3px;
     text-align: center;
     font-size: 4.5ch;
@@ -372,7 +343,6 @@ ul li ul {
 /* if the dates are clickable, make them not ugly */
 .grid-item-dates a {
     text-decoration: none;
-    color: #7C7CB4;
 }
 
 /* making it a two column system*/
@@ -393,38 +363,20 @@ ul li ul {
     height: auto;
 }
 /* decoration element of pink circle */
-.pinkc {
+.circle1 {
     position: fixed;
-    bottom: 5vw;
+    bottom: 2vw;
     right: 35vw;
     z-index: -1;
 }
 /* decoration element of purple circle */
-.purplec {
+.circle2 {
     position: fixed;
     bottom: 0vw;
     right: 55vw;
     z-index: -1;
 }
 /*--------End: Monthly Specific Items--------*/
-
-
-/*-----------Daily Specific Items-----------*/
-
-/* main positioning of items */
-#container {
-    display: flex;
-    justify-content: center;
-    flex-direction: row;
-    max-height: 35px;
-}
-  
-.categoryDiv {
-    margin: 1% 1% 1% 1%;
-}
-/*---------End: Daily Specific Items---------*/
-
-
 
 /*--------Adjusting for window sizes--------*/
 
@@ -493,3 +445,4 @@ ul li ul {
         font-size: 3vmax;
     }
 }
+/*--------End: Adjusting for window sizes--------*/
