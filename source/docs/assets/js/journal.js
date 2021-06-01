@@ -228,16 +228,15 @@ function appendBullet(bulletId, inputValue, bulletType, signifier, completed,
     }
 
     li.hidden = true;
+
+    // Hide categories when the last bullet is deleted
     if ($('#Bullets').children(':visible').length == 0) {
-      console.log("hiding title");
       document.getElementById('bulletTitle').hidden = true;
     }
     if ($('#Priority').children(':visible').length == 0) {
-      console.log("hiding priority");
       document.getElementById('priorityTitle').hidden = true;
     }
     if ($('#Inspiration').children(':visible').length == 0) {
-      console.log("hiding inspriation");
       document.getElementById('inspirationTitle').hidden = true;
     }
   });
