@@ -133,3 +133,48 @@ window.addEventListener('click', (e) => {
     hamLabel.click();
   }
 });
+
+const downloadButton = document.getElementById('download-data');
+const deleteAccountButton = document.getElementById('delete-account');
+
+downloadButton.addEventListener('click', () => {
+  $.ajax({
+    url: '/read/user-data',
+    type: 'GET',
+    async: false,
+    success: function(retData) {
+      const pom = document.createElement('a');
+      pom.setAttribute('href', 'data:text/plain;charset=utf-8,' +
+        encodeURIComponent(JSON.stringify(retData)));
+      pom.setAttribute('download', 'user-data.json');
+
+      if (document.createEvent) {
+        const event = document.createEvent('MouseEvents');
+        event.initEvent('click', true, true);
+        pom.dispatchEvent(event);
+      } else {
+        pom.click();
+      }
+    },
+    error: function() {
+      console.log('error');
+    },
+  });
+});
+
+deleteAccountButton.addEventListener('click', () => {
+  if (confirm('Are you sure you want to delete your account and all ' +
+      'associated data?')) {
+    $.ajax({
+      url: '/delete/user-data',
+      type: 'DELETE',
+      async: false,
+      success: function(retData) {},
+      error: function() {
+        console.log('error');
+      },
+    });
+
+    window.top.location.replace('index.html');
+  }
+});
