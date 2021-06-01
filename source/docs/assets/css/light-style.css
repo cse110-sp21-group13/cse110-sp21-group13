@@ -71,10 +71,10 @@ h3 {
     background-color:#ADADE2;
     border-bottom-color: white;
 }
-nav form {
+nav form, #data-management {
     border-bottom-color: white;
 }
-.popup button, #openpop {
+.popup button, #menu button {
     color: rgb(110, 110, 110);
 }
 #signout {

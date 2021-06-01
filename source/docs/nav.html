@@ -16,7 +16,6 @@
       <img id="bartitle" src="assets/images/13ullet.svg" alt="13Bullet">
       <h1 id="greeting">Hello!</h1>
     </div>
-<header>
     <nav>
       <input type="checkbox" id="hamburger"/>
       <div id="hamitems">
@@ -25,7 +24,7 @@
         <label for="settings" class="dropitem">Settings v</label>
         <input type="checkbox" id="settings"/>
         <ul id="menu">
-          
+          <li style="background-color: transparent;">
             <form id="modes">
               <legend>Mode:</legend>
               <input type="radio" id="light" name="mode" value="light">
@@ -35,7 +34,13 @@
               <input type="radio" id="contrast" name="mode" value="contrast">
               <label for="contrast">high contrast</label>
             </form>
-          <button id="openpop">Change password</button>
+          </li>
+          <div id="data-management">
+            <legend>Data Management:</legend>
+            <li style="background-color: transparent;"><button id="download-data">Download User Data</button></li>
+            <li style="background-color: transparent;"><button id="delete-account">Delete Account</button></li>
+          </div>
+          <li style="background-color: transparent;"><button id="openpop">Change password</button></li>
         </ul>
         <button id="signout">SIGN OUT</button>
       </div>

@@ -168,7 +168,7 @@ describe('User REST API Unit Test', function() {
   // so that next time run test 1 will not cause error due to duplicate username
   it('Test 10: delete current user', function(done) {
     authenticatedUser
-        .delete('/delete/user')
+        .delete('/delete/user-data')
         .set('Content-Type', 'application/json')
         .end(function(err, res) {
           expect(res.text).to.equal('success');

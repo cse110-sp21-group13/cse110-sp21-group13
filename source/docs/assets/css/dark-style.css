@@ -73,10 +73,10 @@ h3 {
     background-color:#2A2A62;
     border-bottom-color: #D1D1D1;
 }
-nav form {
+nav form, #data-management {
     border-bottom-color: #D1D1D1;
 }
-.popup button, #openpop {
+.popup button, #menu button {
     background-color: #360A59;
     color: #D1D1D1;
 }
