@@ -2,7 +2,8 @@ const chai = require('chai');
 const chaiHttp = require('chai-http');
 const expect = chai.expect;
 chai.use(chaiHttp);
-
+const PouchDB = require('pouchdb');
+PouchDB.plugin(require('pouchdb-find'));
 const {app, server} = require('../start');
 const request = require('supertest');
 const authenticatedUser = request.agent(app);
