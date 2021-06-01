@@ -18,7 +18,7 @@ module.exports = {
     methods: ['get'],
     middleware: [authenticate],
     fn: function(req, res, next) {
-      const tempArr = [];
+      let tempArr = [];
       // get Daily entry documnet by id
       db.find({
         selector: {
@@ -46,14 +46,21 @@ module.exports = {
                 limit: 1,
               })
                   .then((bulletResponse) => {
-                    tempArr[index] = bulletResponse.docs[0];
+                    if (bulletResponse.docs[0] != 'undefined') {
+                      tempArr[index] = bulletResponse.docs[0];
+                    }
                   })
                   .catch((err) => {
+                    console.log(err);
                     res.send('error');
                   })
                   .finally(()=>{
                     curr++;
                     if (curr >= array.length) {
+                      // Remove unassigned indicies from being sent
+                      tempArr = tempArr.filter(function(arr) {
+                        return arr !== undefined;
+                      });
                       response.docs[0].bullets=tempArr;
                       res.send(response.docs[0]);
                       return;

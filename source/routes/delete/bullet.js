@@ -23,12 +23,28 @@ module.exports = {
         limit: 1,
       })
           .then((response) => {
+            // Remove the bullet itself
             db.remove(response.docs[0]._id, response.docs[0]._rev);
             res.send('success');
+          }).then(()=> {
+            // Delete all children
+            db.find({
+              selector: {
+                parentBulId: req.body._id,
+                user: req.user._id,
+                docType: 'bullet',
+              },
+            }) .then((response) => {
+              response.docs.forEach((doc, index) => {
+                db.remove(doc._id, doc._rev);
+              });
+            })
+                .catch((err) => {
+                  console.log(err);
+                });
           })
           .catch((err) => {
             console.log(err);
-            res.send('error');
           });
     },
   },
