@@ -143,12 +143,13 @@ downloadButton.addEventListener('click', () => {
     type: 'GET',
     async: false,
     success: function(retData) {
-      var pom = document.createElement('a');
-      pom.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(JSON.stringify(retData)));
+      const pom = document.createElement('a');
+      pom.setAttribute('href', 'data:text/plain;charset=utf-8,' +
+        encodeURIComponent(JSON.stringify(retData)));
       pom.setAttribute('download', 'user-data.json');
 
       if (document.createEvent) {
-        var event = document.createEvent('MouseEvents');
+        const event = document.createEvent('MouseEvents');
         event.initEvent('click', true, true);
         pom.dispatchEvent(event);
       } else {
@@ -157,12 +158,13 @@ downloadButton.addEventListener('click', () => {
     },
     error: function() {
       console.log('error');
-    }
+    },
   });
 });
 
 deleteAccountButton.addEventListener('click', () => {
-  if(confirm("Are you sure you want to delete your account and all associated data?")) {
+  if (confirm('Are you sure you want to delete your account and all ' +
+      'associated data?')) {
     $.ajax({
       url: '/delete/user-data',
       type: 'DELETE',
@@ -170,7 +172,7 @@ deleteAccountButton.addEventListener('click', () => {
       success: function(retData) {},
       error: function() {
         console.log('error');
-      }
+      },
     });
 
     window.top.location.replace('index.html');
