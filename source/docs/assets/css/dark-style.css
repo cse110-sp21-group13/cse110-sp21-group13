@@ -184,8 +184,8 @@ ul li.checked::before {
     border-color: #D1D1D1;
 }
 .grid-item-dates a {
-    background-color: #2A2A62;
-    color: #360A59;
+    background-color: #360A59;
+    color: #7C7CB4;
 }
 
 /* decoration circles */
