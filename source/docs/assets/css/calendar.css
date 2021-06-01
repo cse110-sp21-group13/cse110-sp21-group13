@@ -110,6 +110,10 @@ select, option {
     right: 0px;
     z-index: -1;
 }
+.journal-frame {
+    position: relative;
+    z-index: 100;
+  }
 /*----------End: Main Shared Elements----------*/
 
 

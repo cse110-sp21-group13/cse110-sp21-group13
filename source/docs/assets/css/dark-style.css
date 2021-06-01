@@ -16,14 +16,21 @@ select, option {
     border: 1px solid #47477A;
     color: #D1D1D1;
 }
-.cornerblob path, .dailyblob path {
-    fill: #360A59;
-}
 body {
     background-color: #190B37;
     color: #D1D1D1;
 }
 /*----------End: Main Shared Elements----------*/
+
+
+/*----------Decorative Blobs----------*/
+.cornerblob path, .dailyblob path, .topblob path, .rightblob path, .circTopLeft circle, .circleBottom2 circle, .circle2 circle {
+    fill: #360A59;
+}
+.leftblob path, .circleBottom circle, .circleRight circle, .circle1 circle {
+    fill: #1D1A5C;
+}
+/*----------End: Decorative Blobs----------*/
 
 
 /*----------Index/Main Page----------*/
@@ -39,13 +46,6 @@ h1, button {
 }
 h3 {
     color: #7C7CB4;
-}
-.leftblob path, .circleBottom circle, .circleRight circle {
-    fill: #1D1A5C;
-}
-
-.topblob path, .rightblob path, .circTopLeft circle, .circleBottom2 circle {
-    fill: #360A59;
 }
 /*----------End: Index/Main Page----------*/
 
@@ -187,12 +187,19 @@ ul li.checked::before {
     background-color: #360A59;
     color: #7C7CB4;
 }
-
-/* decoration circles */
-.circle1 circle {
-    fill: #1D1A5C;
-}
-.circle2 circle {
-    fill: #360A59;
-}
 /*--------End: Monthly Specific Items--------*/
+
+
+/*--------Migration Specific Items--------*/
+:root {
+    --selected: #292936;
+}
+.selected {
+    background-color: var(--selected) !important;
+    color: #878787 !important;
+}
+
+.selected:hover {
+    background-color: var(--selected) !important;
+}
+/*--------End: Migration Specific Items--------*/

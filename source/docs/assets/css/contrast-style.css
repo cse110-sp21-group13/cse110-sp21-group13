@@ -16,15 +16,20 @@ select, option {
     border: 1px solid #FFFFFF;
     color: #090315;
 }
-.cornerblob path, .dailyblob path {
-    fill: #002BC5;
-}
 body {
     background-color: #090315;
     color: #D1D1D1;
 }
 /*----------End: Main Shared Elements----------*/
 
+/*----------Decorative Blobs----------*/
+.cornerblob path, .dailyblob path, .leftblob path, .circleBottom circle, .circleRight circle, .circle2 circle {
+    fill: #002BC5;
+}
+.topblob path, .rightblob path, .circTopLeft circle, .circleBottom2 circle, .circle1 circle {
+    fill: #83F0FF;
+}
+/*----------End: Decorative Blobs----------*/
 
 /*----------Index/Main Page----------*/
 #username, #password {
@@ -40,14 +45,8 @@ h1, button {
 h3 {
     color: #FFE500;
 }
-.leftblob path, .circleBottom circle, .circleRight circle {
-    fill: #002BC5;
-}
-
-.topblob path, .rightblob path, .circTopLeft circle, .circleBottom2 circle {
-    fill: #83F0FF;
-}
 /*----------End: Index/Main Page----------*/
+
 
 /*----------Nav Bar----------*/
 .topbar {
@@ -133,7 +132,6 @@ legend {
 /*----------End: button styling----------*/
 
 
-
 /*----------All bullet styling----------*/
 /* Style the list items */
 ul li {
@@ -144,15 +142,16 @@ ul li {
 
 /* Set all odd list items to a different color (zebra-stripes) */
 ul li:nth-child(odd) {
-    background: #D1D1D1;
+    background: #040042;
     border-color:#090315;
-    color: #090315;
+    color: #D1D1D1;
 }
 
 /* Darker background-color on hover */
 ul li:hover {
     background: #83F0FF;
     color: #090315;
+    color: #FFFFFF;
 }
 
 /* When clicked on, add a background color and strike out text */
@@ -200,12 +199,19 @@ ul li.checked::before {
     background-color: #2A2A62;
     color: #FFE500;
 }
-
-/* decoration circles */
-.circle1 circle {
-    fill: #83F0FF;
-}
-.circle2 circle {
-    fill: #002BC5;
-}
 /*--------End: Monthly Specific Items--------*/
+
+
+/*--------Migration Specific Items--------*/
+:root {
+    --selected: #0011ff;
+}
+.selected {
+    background-color: var(--selected) !important;
+    color: #FFFFFF !important;
+}
+
+.selected:hover {
+    background-color: var(--selected) !important;
+}
+/*--------End: Migration Specific Items--------*/

@@ -15,10 +15,16 @@ select, option {
     border: 1px solid #AAAAAA;
 }
 
-.cornerblob path, .dailyblob path {
+/*----------End: Main Shared Elements----------*/
+
+/*----------Decorative Blobs----------*/
+.cornerblob path, .dailyblob path, .topblob path, .rightblob path, .circTopLeft circle, .circleBottom2 circle, .circle1 circle {
     fill: #F5CDFF;
 }
-/*----------End: Main Shared Elements----------*/
+.leftblob path, .circleBottom circle, .circleRight circle, .circle2 circle {
+    fill: #C8C6FF;
+}
+/*----------End: Decorative Blobs----------*/
 
 
 /*----------Index/Main Page----------*/
@@ -35,13 +41,6 @@ h1 {
 }
 h3 {
     color: #7C7CB4;
-}
-.leftblob path, .circleBottom circle, .circleRight circle {
-    fill: #C8C6FF;
-}
-
-.topblob path, .rightblob path, .circTopLeft circle, .circleBottom2 circle {
-    fill: #F5CDFF;
 }
 /*----------End: Index/Main Page----------*/
 
@@ -150,8 +149,8 @@ ul li:hover {
 
 /* When clicked on, add a background color and strike out text */
 ul li.checked {
-    background: #888;
-    color: #fff;
+    background: #c4aadd;
+    color: rgb(44, 44, 44);
 }
 
 /* Preventing the subbullets from turning white with a checked parent bullet */
@@ -191,11 +190,19 @@ ul li.checked::before {
 .grid-item-dates a {
     color: #7C7CB4;
 }
-/* decoration circles */
-.circle1 circle {
-    fill: #F5CDFF;
-}
-.circle2 circle {
-    fill: #D0C8FF;
-}
 /*--------End: Monthly Specific Items--------*/
+
+
+/*--------Migration Specific Items--------*/
+:root {
+    --selected: #ADADE2;
+}
+.selected {
+    background-color: var(--selected) !important;
+    color: #fff !important;
+}
+
+.selected:hover {
+    background-color: var(--selected) !important;
+}
+/*--------End: Migration Specific Items--------*/
