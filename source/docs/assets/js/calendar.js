@@ -1,4 +1,5 @@
 currDate = new Date(); // Use current month on initial page load
+currDate.setDate(1); // Always set to first day of the month
 const backButton = document.getElementById('back');
 const forwardButton = document.getElementById('forward');
 const iframe = document.getElementById('journal-frame');

@@ -11,6 +11,7 @@ module.exports = {
   '/read/user-data': {
     methods: ['get'],
     middleware: [authenticate],
+
     fn: function(req, res, next) {
       // create index for query
       db.createIndex({

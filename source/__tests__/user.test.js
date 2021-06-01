@@ -218,6 +218,26 @@ describe('User REST API Unit Test', function() {
         });
   });
 
+  const newDay = {
+    'day': '20',
+    'month': '2021-5',
+    'bullets': [],
+  };
+
+  // create a daily for that user to test whether delete/user
+  // will delete this daily too
+  it('Test 8: create a daily', function(done) {
+    authenticatedUser
+        .post('/create/daily')
+        .set('Content-Type', 'application/json')
+        .send(newDay)
+        .end(function(err, res) {
+          expect(res.statusCode).to.equal(200);
+          expect(res.ok).to.equal(true);
+          done();
+        });
+  });
+
   // so that next time run test 1 will not cause error due to duplicate username
   it('Test 15: delete current user', function(done) {
     authenticatedUser
@@ -230,6 +250,7 @@ describe('User REST API Unit Test', function() {
   });
 
   it('Test 16: error when the daily does not exist', function(done) {
+
     authenticatedUser
         .get('/read/daily/' + newDay.month + '/' + newDay.day)
         .set('Content-Type', 'application/json')
@@ -249,6 +270,7 @@ describe('User REST API Unit Test', function() {
         });
   });
 
+
   it('Test 18: error if delete invalid user', function(done) {
     authenticatedUser
         .delete('/delete/user-data')
@@ -262,6 +284,7 @@ describe('User REST API Unit Test', function() {
   const invalidUser = {
     'username': 'dave',
   };
+
   it('Test 19: error if missing field when creating user', function(done) {
     authenticatedUser
         .post('/create/user')
@@ -276,6 +299,7 @@ describe('User REST API Unit Test', function() {
   const invalidUpdate = {
     'username': 'dave',
   };
+
   it('Test 20: error if update field is missing', function(done) {
     authenticatedUser
         .post('/update/user')
