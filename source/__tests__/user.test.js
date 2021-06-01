@@ -218,12 +218,6 @@ describe('User REST API Unit Test', function() {
         });
   });
 
-  const newDay = {
-    'day': '20',
-    'month': '2021-5',
-    'bullets': [],
-  };
-
   // create a daily for that user to test whether delete/user
   // will delete this daily too
   it('Test 8: create a daily', function(done) {
@@ -250,7 +244,6 @@ describe('User REST API Unit Test', function() {
   });
 
   it('Test 16: error when the daily does not exist', function(done) {
-
     authenticatedUser
         .get('/read/daily/' + newDay.month + '/' + newDay.day)
         .set('Content-Type', 'application/json')
