@@ -32,3 +32,11 @@ function previousView() {
                            (d.getMonth() + 1) + '-' + (d.getDate());
   iframe.src = 'journal.html' + window.location.search;
 }
+
+/* Hides 'next' button if date is current */
+const n = new Date();
+const date = n.getFullYear() + '-' + (n.getMonth() + 1) + '-' + n.getDate();
+if (date === params.get('date')) {
+  const nextBtn = document.getElementsByClassName('nextBtn')[0];
+  nextBtn.style.display = 'none';
+}
