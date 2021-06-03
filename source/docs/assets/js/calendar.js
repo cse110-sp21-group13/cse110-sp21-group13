@@ -41,11 +41,6 @@ function updateCalendar(month, year, date) {
     dayCells[0].remove();
   }
 
-  // Set month title
-  const calTitle = document.getElementById('calendar-title');
-  calTitle.textContent = date.getFullYear() + '/' + (date.getMonth() + 1);
-
-
   let monthData;
 
   $.ajax({
@@ -106,6 +101,7 @@ function updateCalendar(month, year, date) {
             date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + i);
           link.innerText = i;
           cell.appendChild(link);
+          cell.setAttribute('data-contains-daily', 'true');
           found = true;
         }
       });

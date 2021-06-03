@@ -184,8 +184,11 @@ ul li.checked::before {
     border-color: #D1D1D1;
 }
 .grid-item-dates a {
-    background-color: #360A59;
     color: #7C7CB4;
+}
+
+.grid-item-dates[data-contains-daily="true"] {
+    background-color: #360A59;
 }
 /*--------End: Monthly Specific Items--------*/
 

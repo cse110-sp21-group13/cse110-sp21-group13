@@ -180,16 +180,21 @@ ul li.checked::before {
 
 /*----------Monthly specific items----------*/
 .grid-item-days {
-    background-color: rgba(255, 255, 255, 0.8);
+    background-color: #fff8dc;
     border-color: rgba(0, 0, 0);
 }
 .grid-item-dates {
-    background-color: rgba(255, 255, 255, 0.8);
+    background-color: #fff8dc;
     border-color: rgba(0, 0, 0);
 }
 .grid-item-dates a {
     color: #7C7CB4;
 }
+
+.grid-item-dates[data-contains-daily="true"] {
+    background-color: ivory;
+}
+
 /*--------End: Monthly Specific Items--------*/
 
 
