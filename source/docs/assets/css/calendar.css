@@ -27,10 +27,11 @@ body {
 }
 
 /* header for the date title */
-h3 {
+h2 {
     font-size: 5ch;
     position: relative;
     align-self: center;
+    height: 1ch;
 }
 
 /* Style the header */

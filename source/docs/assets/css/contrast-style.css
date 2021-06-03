@@ -187,21 +187,18 @@ ul li.checked::before {
 
 
 /*----------Monthly specific items----------*/
-.grid-item-days {
-    background-color: #090315;
-    border-color: #24FF00;
-}
-.grid-item-dates {
+.grid-item-days, .grid-item-dates {
     background-color: #090315;
     border-color: #24FF00;
 }
 .grid-item-dates a {
-
     color: #FFE500;
 }
-
+.grid-item-dates a:hover {
+    color: #FFFFFF;
+}
 .grid-item-dates[data-contains-daily="true"] {
-    background-color: #2A2A62;
+    background-color: #0011ff;
 }
 /*--------End: Monthly Specific Items--------*/
 
