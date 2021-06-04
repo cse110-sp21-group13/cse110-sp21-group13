@@ -15,7 +15,7 @@ describe('Basic user flow for login page', () => {
     'password': '12345',
   };
 
-  it('Test 5: sign up with missing password field', async () =>{
+  it('Test 0: sign up with missing password field', async () =>{
     await expect(page).toClick('button', {text: 'get started'});
     await expect(page).toFillForm('form[id=loginform]', {
       username: newUser.username,
@@ -30,8 +30,20 @@ describe('Basic user flow for login page', () => {
       await expect(page).toClick('button', {text: 'log in'});
       await page.waitForNavigation({waitUntil: 'networkidle2'});
       expect(page.url().includes('daily.html')).toBe(true);
+    }else {
+    await page.waitForNavigation({waitUntil: 'networkidle2'});
+    expect(page.url().includes('daily.html')).toBe(true);
     };
   }, 20000);
+
+  it('Test 1: nav bar showing right user name', async() => {
+    await page.waitForSelector("iframe");
+    const elementHandle = await page.$('#nav-frame');
+    const frame = await elementHandle.contentFrame();
+    await frame.waitForSelector('#greeting');
+    const greeting = await frame.$eval('#greeting', (hello) => {return hello.innerText});
+    expect(greeting).toBe('Hello ' + newUser.username + '!');
+  })
 
   afterAll(async () => {
     browser.close();
