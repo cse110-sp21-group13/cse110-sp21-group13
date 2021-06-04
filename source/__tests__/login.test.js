@@ -1,5 +1,12 @@
+const { puppeteerErrors } = require("puppeteer");
+const puppeteer = require('puppeteer');
+let page;
+let browser;
+
 describe ('Basic user flow for login page', () => {
     beforeAll(async () => {
+        browser = await puppeteer.launch({headless: false, slowMo: 100, testTimeout: 30000,});
+        page = await browser.newPage();
         await page.goto('https://journalbullet.herokuapp.com');
         //await page.waitForTimeout(500);
     });
@@ -34,7 +41,8 @@ describe ('Basic user flow for login page', () => {
         'username': 'test',
         'password': '12345',
     };
-    it('Test 5: sign up with missing password field', async() =>{
+
+    it('Test 5: sign up with missing password field', async () =>{
         await expect(page).toFillForm('form[id=loginform]',{
             username: newUser.username,
             //password: newUser.password,
@@ -42,9 +50,10 @@ describe ('Basic user flow for login page', () => {
         await expect(page).toClick('button', {text: 'sign up'});
         let error = await page.$eval('#errormsg', (errorMsg) => {return errorMsg.innerText;});
         expect(error).toBe('please enter a username and a password');
-    }, 50000);
+    }, 20000);
 
-    it('test 6: sign up with new user or log in with existing user', async() => {
+
+    it('test 6: sign up with new user or log in with existing user', async () => {
         await expect(page).toFillForm('form[id=loginform]',{
             //username: newUser.username,
             password: newUser.password,
@@ -57,7 +66,8 @@ describe ('Basic user flow for login page', () => {
             await page.waitForNavigation({waitUntil: 'networkidle2'});
             expect(page.url().includes('daily.html')).toBe(true);
         };
-        //await page.waitForNavigation({waitUntil: 'networkidle2'});
-        //expect(page.url().includes('daily.html')).toBe(true);
-    }, 100000);
+    }, 20000);
+    afterAll(async () => {
+        browser.close();
+    });
 });
