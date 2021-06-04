@@ -49,21 +49,15 @@ describe ('Basic user flow for login page', () => {
         await page.waitForSelector("iframe");
         const elementHandle = await page.$('#journal-frame');
         const frame = await elementHandle.contentFrame();
-        // await frame.waitForSelector('#editBtn');
-        // const greeting = await frame.$eval('#editBtn', (hello) => {return hello.innerText});
-        // expect(greeting).toBe('Hello ' + newUser.username + '!');
-
         await expect(frame).toClick('span', {text: 'ADD'});
+    }, 20000);
 
-        // const span = await frame.$x("//span[contains(text(), 'ADD')]");
-        // if (span.length > 0) {
-        //     await span[0].click();
-        // } else {
-        //     throw new Error("Link not found");
-        // }
-        
-
-
+    it('test 4: fill text box', async () => {
+        await page.waitForSelector("iframe");
+        const elementHandle = await page.$('#journal-frame');
+        const frame = await elementHandle.contentFrame();
+        await frame.$eval('input[id=myInput]', el => el.value = 'Testing add a bullet');
+        await expect(frame).toClick('span', {text: 'ADD'});
     }, 20000);
 
     // it('Test 1: nav bar showing right user name', async() => {
