@@ -1,12 +1,12 @@
 describe ('Basic user flow for login page', () => {
     beforeAll(async () => {
-        await page.goto('http://127.0.0.1:5500/source/docs/index.html');
+        await page.goto('http://localhost:3001/');
         // await page.waitForTimeout(500);
     });
 
     const user = {
-        'username': 'cameron2',
-        'password': '12345',
+        'username': 'cameron3',
+        'password': '123456',
     };
 
     it('Test 1: click get started button and get to login', async () => {
@@ -26,19 +26,39 @@ describe ('Basic user flow for login page', () => {
             username: user.username,
             password: user.password,
         });
-        page.click('button', {text: 'sign up'})
+        await expect(page).toClick('button', { text: 'log in' })
+        await page.waitForNavigation();
         // await expect(page).toClick('button', {text: 'sign up'});
         let error = await page.$eval('#errormsg', (errorMsg) => {return errorMsg.innerText;});
         if(error.length != 0){
             expect(error).toBe('username already taken');
             page.click('button', {text: 'log in'})
-            // await expect(page).toClick('button', {text: 'log in'});
-            // await page.waitForNavigation({waitUntil: 'networkidle2'});
+            await expect(page).toClick('button', {text: 'log in'});
+            await page.waitForNavigation({waitUntil: 'networkidle2'});
             expect(page.url().includes('daily.html')).toBe(true);
         };
+        expect(page.url()).toBe("http://localhost:3001/daily.html?date=2021-6-3");
+        // expect(page.url().includes('daily.html')).toBe(true);
         //await page.waitForNavigation({waitUntil: 'networkidle2'});
         //expect(page.url().includes('daily.html')).toBe(true);
     }, 100000);
+
+    // it('test 6: sign up with new user or log in with existing user', async() => {
+    //     await expect(page).toFillForm('form[id=loginform]',{
+    //         username: user.username,
+    //         password: user.password,
+    //     });
+    //     await expect(page).toClick('button', {text: 'sign up'});
+    //     let error = await page.$eval('#errormsg', (errorMsg) => {return errorMsg.innerText;});
+    //     if(error.length != 0){
+    //         expect(error).toBe('username already taken');
+    //         await expect(page).toClick('button', {text: 'log in'});
+    //         await page.waitForNavigation({waitUntil: 'networkidle2'});
+    //         expect(page.url().includes('daily.html')).toBe(true);
+    //     };
+    //     //await page.waitForNavigation({waitUntil: 'networkidle2'});
+    //     //expect(page.url().includes('daily.html')).toBe(true);
+    // }, 100000);
 
 
 });
