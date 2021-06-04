@@ -85,8 +85,7 @@ describe('Basic user flow for login page', () => {
       await expect(page).toClick('button', {text: 'log in'});
       await page.waitForNavigation({waitUntil: 'networkidle2'});
       expect(page.url().includes('daily.html')).toBe(true);
-    }
-    else {
+    } else {
       await page.waitForNavigation({waitUntil: 'networkidle2'});
       expect(page.url().includes('daily.html')).toBe(true);
     };
