@@ -4,8 +4,9 @@ let browser;
 
 describe('Basic user flow for login page', () => {
   beforeAll(async () => {
-    browser = await puppeteer.launch({headless: false,
-      slowMo: 100, testTimeout: 50000});
+    browser = await puppeteer.launch({headless: true,
+      slowMo: 100, testTimeout: 50000, 
+      args: ['--no-sandbox', '--disable-setuid-sandbox'],});
     page = await browser.newPage();
     await page.goto('https://journalbullet.herokuapp.com');
   });
