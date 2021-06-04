@@ -12,7 +12,7 @@ describe ('Basic user flow for login page', () => {
     });
 
     const user = {
-        'username': 'cameron3',
+        'username': 'cameron4',
         'password': '123456',
     };
 
@@ -61,7 +61,7 @@ describe ('Basic user flow for login page', () => {
     }, 20000);
 
     it('test 5: fill text box and add entry with signifier', async () => {
-        await page.waitForSelector("iframe");
+        // await page.waitForSelector("iframe");
         const elementHandle = await page.$('#journal-frame');
         const frame = await elementHandle.contentFrame();
         await frame.select('#signifier', '*')
@@ -70,11 +70,12 @@ describe ('Basic user flow for login page', () => {
     }, 20000);
 
     it('test 6: fill text box and add entry with signifier and bullet type', async () => {
-        await page.waitForSelector("iframe");
+        // await page.waitForSelector("iframe");
         const elementHandle = await page.$('#journal-frame');
         const frame = await elementHandle.contentFrame();
         await frame.select('#signifier', '*')
-        await frame.$eval('input[id=myInput]', el => el.value = 'test 6: fill text box and add entry with signifier and bullet type');
+        await frame.select('#bullet-type', '-')
+        await frame.$eval('input[id=myInput]', el => el.value = 'Testing add a bullet with signifier and bullet type');
         await expect(frame).toClick('span', {text: 'ADD'});
     }, 20000);
 
