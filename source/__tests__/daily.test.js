@@ -1,6 +1,13 @@
+const { puppeteerErrors } = require("puppeteer");
+const puppeteer = require('puppeteer');
+let page;
+let browser;
+
 describe ('Basic user flow for login page', () => {
     beforeAll(async () => {
-        await page.goto('http://localhost:3001/');
+        browser = await puppeteer.launch({headless: false, slowMo: 100, testTimeout: 30000,});
+        page = await browser.newPage();
+        await page.goto('https://journalbullet.herokuapp.com');
         // await page.waitForTimeout(500);
     });
 
@@ -21,44 +28,60 @@ describe ('Basic user flow for login page', () => {
     }, 100000);
 
 
-    it('test 2: sign up with new user or log in with existing user', async() => {
+    it('test 2: sign up with new user or log in with existing user', async () => {
         await expect(page).toFillForm('form[id=loginform]',{
             username: user.username,
             password: user.password,
         });
-        await expect(page).toClick('button', { text: 'log in' })
-        await page.waitForNavigation();
-        // await expect(page).toClick('button', {text: 'sign up'});
+        await expect(page).toClick('button', {text: 'sign up'});
         let error = await page.$eval('#errormsg', (errorMsg) => {return errorMsg.innerText;});
         if(error.length != 0){
             expect(error).toBe('username already taken');
-            page.click('button', {text: 'log in'})
             await expect(page).toClick('button', {text: 'log in'});
             await page.waitForNavigation({waitUntil: 'networkidle2'});
             expect(page.url().includes('daily.html')).toBe(true);
         };
-        expect(page.url()).toBe("http://localhost:3001/daily.html?date=2021-6-3");
-        // expect(page.url().includes('daily.html')).toBe(true);
-        //await page.waitForNavigation({waitUntil: 'networkidle2'});
-        //expect(page.url().includes('daily.html')).toBe(true);
-    }, 100000);
+        expect(page.url().includes('daily.html')).toBe(true);
 
-    // it('test 6: sign up with new user or log in with existing user', async() => {
-    //     await expect(page).toFillForm('form[id=loginform]',{
-    //         username: user.username,
-    //         password: user.password,
-    //     });
-    //     await expect(page).toClick('button', {text: 'sign up'});
-    //     let error = await page.$eval('#errormsg', (errorMsg) => {return errorMsg.innerText;});
-    //     if(error.length != 0){
-    //         expect(error).toBe('username already taken');
-    //         await expect(page).toClick('button', {text: 'log in'});
-    //         await page.waitForNavigation({waitUntil: 'networkidle2'});
-    //         expect(page.url().includes('daily.html')).toBe(true);
-    //     };
-    //     //await page.waitForNavigation({waitUntil: 'networkidle2'});
-    //     //expect(page.url().includes('daily.html')).toBe(true);
-    // }, 100000);
+    }, 20000);
 
+    it('test 3: click add button', async () => {
+        await page.waitForSelector("iframe");
+        const elementHandle = await page.$('#journal-frame');
+        const frame = await elementHandle.contentFrame();
+        // await frame.waitForSelector('#editBtn');
+        // const greeting = await frame.$eval('#editBtn', (hello) => {return hello.innerText});
+        // expect(greeting).toBe('Hello ' + newUser.username + '!');
+
+        await expect(frame).toClick('span', {text: 'ADD'});
+
+        // const span = await frame.$x("//span[contains(text(), 'ADD')]");
+        // if (span.length > 0) {
+        //     await span[0].click();
+        // } else {
+        //     throw new Error("Link not found");
+        // }
+        
+
+
+    }, 20000);
+
+    // it('Test 1: nav bar showing right user name', async() => {
+    //     await page.waitForSelector("iframe");
+    //     const elementHandle = await page.$('#nav-frame');
+    //     const frame = await elementHandle.contentFrame();
+    //     await frame.waitForSelector('#greeting');
+    //     const greeting = await frame.$eval('#greeting', (hello) => {return hello.innerText});
+    //     expect(greeting).toBe('Hello ' + newUser.username + '!');
+    //   })
+
+
+
+
+    afterAll(async () => {
+        browser.close();
+    });
+
+   
 
 });
