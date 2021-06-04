@@ -80,9 +80,13 @@ describe('Basic user flow for login page', () => {
     const error = await page.$eval('#errormsg', (errorMsg) => {
       return errorMsg.innerText;
     });
-    if (error.length != 0) {
+    if (error.length > 0) {
       expect(error).toBe('username already taken');
       await expect(page).toClick('button', {text: 'log in'});
+      await page.waitForNavigation({waitUntil: 'networkidle2'});
+      expect(page.url().includes('daily.html')).toBe(true);
+    }
+    else {
       await page.waitForNavigation({waitUntil: 'networkidle2'});
       expect(page.url().includes('daily.html')).toBe(true);
     };
