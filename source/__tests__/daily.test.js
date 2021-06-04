@@ -52,13 +52,82 @@ describe ('Basic user flow for login page', () => {
         await expect(frame).toClick('span', {text: 'ADD'});
     }, 20000);
 
-    it('test 4: fill text box', async () => {
+    it('test 4: fill text box and add entry', async () => {
         await page.waitForSelector("iframe");
         const elementHandle = await page.$('#journal-frame');
         const frame = await elementHandle.contentFrame();
         await frame.$eval('input[id=myInput]', el => el.value = 'Testing add a bullet');
         await expect(frame).toClick('span', {text: 'ADD'});
     }, 20000);
+
+    it('test 5: fill text box and add entry with signifier', async () => {
+        await page.waitForSelector("iframe");
+        const elementHandle = await page.$('#journal-frame');
+        const frame = await elementHandle.contentFrame();
+        await frame.select('#signifier', '*')
+        await frame.$eval('input[id=myInput]', el => el.value = 'Testing add a bullet with signifier');
+        await expect(frame).toClick('span', {text: 'ADD'});
+    }, 20000);
+
+    it('test 6: fill text box and add entry with signifier and bullet type', async () => {
+        await page.waitForSelector("iframe");
+        const elementHandle = await page.$('#journal-frame');
+        const frame = await elementHandle.contentFrame();
+        await frame.select('#signifier', '*')
+        await frame.$eval('input[id=myInput]', el => el.value = 'test 6: fill text box and add entry with signifier and bullet type');
+        await expect(frame).toClick('span', {text: 'ADD'});
+    }, 20000);
+
+
+    it('test 7: delete bullet', async () => {
+        // await page.waitForSelector("iframe");
+        // const elementHandle = await page.$('#journal-frame');
+        // const frame = await elementHandle.contentFrame();
+        // await frame.select('#signifier', '*')
+        // await frame.$eval('input[id=myInput]', el => el.value = 'test 6: fill text box and add entry with signifier and bullet type');
+        // await expect(frame).toClick('span', {text: 'ADD'});
+    }, 20000);
+
+
+    it('test 8: add sub-bullet', async () => {
+        // await page.waitForSelector("iframe");
+        // const elementHandle = await page.$('#journal-frame');
+        // const frame = await elementHandle.contentFrame();
+        // await frame.select('#signifier', '*')
+        // await frame.$eval('input[id=myInput]', el => el.value = 'test 6: fill text box and add entry with signifier and bullet type');
+        // await expect(frame).toClick('span', {text: 'ADD'});
+    }, 20000);
+
+
+    it('test 9: click prev button to see previous days bullets', async () => {
+        // await page.waitForSelector("iframe");
+        // const elementHandle = await page.$('#journal-frame');
+        // const frame = await elementHandle.contentFrame();
+        // await frame.select('#signifier', '*')
+        // await frame.$eval('input[id=myInput]', el => el.value = 'test 6: fill text box and add entry with signifier and bullet type');
+        // await expect(frame).toClick('span', {text: 'ADD'});
+    }, 20000);
+
+    it('test 10: click next', async () => {
+        // await page.waitForSelector("iframe");
+        // const elementHandle = await page.$('#journal-frame');
+        // const frame = await elementHandle.contentFrame();
+        // await frame.select('#signifier', '*')
+        // await frame.$eval('input[id=myInput]', el => el.value = 'test 6: fill text box and add entry with signifier and bullet type');
+        // await expect(frame).toClick('span', {text: 'ADD'});
+    }, 20000);
+
+    // Last test
+    it('test 11: press save and refresh', async () => {
+        // await page.waitForSelector("iframe");
+        // const elementHandle = await page.$('#journal-frame');
+        // const frame = await elementHandle.contentFrame();
+        // await frame.select('#signifier', '*')
+        // await frame.$eval('input[id=myInput]', el => el.value = 'test 6: fill text box and add entry with signifier and bullet type');
+        // await expect(frame).toClick('span', {text: 'ADD'});
+    }, 20000);
+
+
 
     // it('Test 1: nav bar showing right user name', async() => {
     //     await page.waitForSelector("iframe");
