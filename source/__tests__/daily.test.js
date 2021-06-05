@@ -41,19 +41,52 @@ describe ('Basic user flow for login page', () => {
             await page.waitForNavigation({waitUntil: 'networkidle2'});
             expect(page.url().includes('daily.html')).toBe(true);
         };
+        await page.waitForSelector("iframe");
         expect(page.url().includes('daily.html')).toBe(true);
+
+        const elementHandle = await page.$('#journal-frame');
+        const frame = await elementHandle.contentFrame();
+        const titleDate = await frame.$eval("h2", (headers) => headers.innerHTML);
+        const date = await page.evaluate(() => {
+            
+            // const n = new Date();
+            // queryString = 'date='+ n.getFullYear() + '-' +
+            //               (n.getMonth() + 1) + '-' + (n.getDate());
+            // // journalTypeMonth = queryString.split('-').length === 3;
+            // return queryString;
+
+            const monthName = function(dt) {
+                mlist = ['January', 'February', 'March', 'April', 'May', 'June',
+                    'July', 'August', 'September', 'October', 'November', 'December'];
+                return mlist[dt];
+            };
+            let n = new Date(params.get('date') + ' 00:00:00');
+            n.toLocaleString('default', {month: 'short'});
+            let y = n.getFullYear();
+            let m = n.getMonth();
+            let d = n.getDate();
+            const dateHeader = monthName(m) + ' ' + d + ', ' + y;
+            return dateHeader;
+            
+          });
+        // const dateNow = new Date();
+
+        //no parameter => mocked current Date returned
+        // console.log(dateNow.toISOString()); //outputs: "2020-11-01T00:00:00.000Z"
+        expect(titleDate).toBe(date);
 
     }, 20000);
 
+    
     it('test 3: click add button', async () => {
-        await page.waitForSelector("iframe");
+        // await page.waitForSelector("iframe");
         const elementHandle = await page.$('#journal-frame');
         const frame = await elementHandle.contentFrame();
         await expect(frame).toClick('span', {text: 'ADD'});
     }, 20000);
 
     it('test 4: fill text box and add entry', async () => {
-        await page.waitForSelector("iframe");
+        // await page.waitForSelector("iframe");
         const elementHandle = await page.$('#journal-frame');
         const frame = await elementHandle.contentFrame();
         await frame.$eval('input[id=myInput]', el => el.value = 'Testing add a bullet');
@@ -82,11 +115,22 @@ describe ('Basic user flow for login page', () => {
 
     it('test 7: delete bullet', async () => {
         // await page.waitForSelector("iframe");
-        // const elementHandle = await page.$('#journal-frame');
-        // const frame = await elementHandle.contentFrame();
+        const elementHandle = await page.$('#journal-frame');
+        const frame = await elementHandle.contentFrame();
+        
+        // await frame.hover('button[text=-]')
+        // const element = await frame.$(".bulletContainer");
+        await frame.hover("#bulletContainer");
+        await frame.waitForSelector("#bulletContainer");
+        // await expect(frame).toClick('button', {value: '-'});
         // await frame.select('#signifier', '*')
         // await frame.$eval('input[id=myInput]', el => el.value = 'test 6: fill text box and add entry with signifier and bullet type');
-        // await expect(frame).toClick('span', {text: 'ADD'});
+        // await expect(frame).toClick('button', {value: '-'});
+        // const selector = '#sub-bullet-button';
+        // await frame.click("button[value=-]");
+        // let selector = 'button[innerHTML="-"]';
+        // await frame.evaluate((selector) => document.querySelector(selector).click(), selector); 
+        // await expect(frame).toClick('sub-bullet-delete-button');
     }, 20000);
 
 
