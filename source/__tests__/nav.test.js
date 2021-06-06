@@ -15,7 +15,7 @@ describe('Basic user flow for login page', () => {
     'password': '12345',
   };
 
-  it('Test 0: sign up with missing password field', async () =>{
+  it('Test 0: sign up with new user', async () =>{
     await expect(page).toClick('button', {text: 'get started'});
     await expect(page).toFillForm('form[id=loginform]', {
       username: newUser.username,

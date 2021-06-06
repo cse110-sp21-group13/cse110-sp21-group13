@@ -58,28 +58,32 @@ describe('Basic user flow for login page', () => {
     'password': '12345',
   };
 
-  it('Test 5: sign up with missing password field', async () =>{
+
+  it('test 6: sign up with new user', async () => {
     await expect(page).toFillForm('form[id=loginform]', {
       username: newUser.username,
-      // password: newUser.password,
-    });
-    await expect(page).toClick('button', {text: 'sign up'});
-    const error = await page.$eval('#errormsg', (errorMsg) => {
-      return errorMsg.innerText;
-    });
-    expect(error).toBe('please enter a username and a password');
-  }, 20000);
-
-
-  it('test 6: sign up with new user or log in with existing user', async () => {
-    await expect(page).toFillForm('form[id=loginform]', {
-      // username: newUser.username,
       password: newUser.password,
     });
     await expect(page).toClick('button', {text: 'sign up'});
     await page.waitForNavigation({waitUntil: 'networkidle2'});
     expect(page.url().includes('daily.html')).toBe(true);
   }, 20000);
+  // enable successful run next time
+  it('Test 7: delete user', async () => {
+    page.waitForSelector('#nav-frame');
+    const elementHandle = await page.$('#nav-frame');
+    frame = await elementHandle.contentFrame();
+    const button = await frame.$('label[for=hamburger]');
+    await button.click();
+    await expect(frame).toClick('label', {text: 'Settings v'});
+    page.on('dialog', async (dialog) => {
+      await dialog.accept();
+    });
+    await expect(frame).toClick('button', {text: 'Delete Account'});
+    await page.waitForNavigation({waitUntil: 'networkidle2'});
+    expect(page.url()).toBe('https://journalbullet.herokuapp.com/index.html');
+  });
+
   afterAll(async () => {
     browser.close();
   });
