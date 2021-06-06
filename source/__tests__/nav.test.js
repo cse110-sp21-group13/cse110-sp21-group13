@@ -120,7 +120,7 @@ describe('Basic user flow for login page', () => {
     'username': 'test',
     'password': '2233',
   };
-  it('Test 10: resign in', async () => {
+  it('Test 9: resign in', async () => {
     await expect(page).toClick('button', {text: 'get started'});
     await expect(page).toFillForm('form[id=loginform]', {
       username: updateUser.username,
@@ -131,7 +131,7 @@ describe('Basic user flow for login page', () => {
     expect(page.url().includes('daily.html')).toBe(true);
   }, 20000);
 
-  it('Test 7: change to dark mode', async () => {
+  it('Test 10: change to dark mode', async () => {
     page.waitForSelector('#nav-frame');
     const elementHandle = await page.$('#nav-frame');
     frame = await elementHandle.contentFrame();
@@ -151,7 +151,7 @@ describe('Basic user flow for login page', () => {
     expect(backgroundColor).toBe('rgb(25, 11, 55)');
   });
 
-  it('Test 7: change to high contrast mode', async () => {
+  it('Test 12: change to high contrast mode', async () => {
     page.waitForSelector('#nav-frame');
     const elementHandle = await page.$('#nav-frame');
     frame = await elementHandle.contentFrame();
@@ -163,14 +163,14 @@ describe('Basic user flow for login page', () => {
     await contrastMode.click();
   });
 
-  it('Test 12: check the input background color', async () => {
+  it('Test 13: check the input background color', async () => {
     await page.waitForSelector('body');
     const backgroundColor = await page.$eval('body', (el) =>
       getComputedStyle(el).getPropertyValue('background-color'));
     expect(backgroundColor).toBe('rgb(9, 3, 21)');
   });
 
-  it('Test 13: delete user', async () => {
+  it('Test 14: delete user', async () => {
     page.waitForSelector('#nav-frame');
     const elementHandle = await page.$('#nav-frame');
     frame = await elementHandle.contentFrame();
