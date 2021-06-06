@@ -54,7 +54,7 @@ describe('Basic user flow for login page', () => {
   }, 20000);
 
   const newUser = {
-    'username': 'test',
+    'username': 'test1',
     'password': '12345',
   };
 
@@ -77,18 +77,8 @@ describe('Basic user flow for login page', () => {
       password: newUser.password,
     });
     await expect(page).toClick('button', {text: 'sign up'});
-    const error = await page.$eval('#errormsg', (errorMsg) => {
-      return errorMsg.innerText;
-    });
-    if (error.length > 0) {
-      expect(error).toBe('username already taken');
-      await expect(page).toClick('button', {text: 'log in'});
-      await page.waitForNavigation({waitUntil: 'networkidle2'});
-      expect(page.url().includes('daily.html')).toBe(true);
-    } else {
-      await page.waitForNavigation({waitUntil: 'networkidle2'});
-      expect(page.url().includes('daily.html')).toBe(true);
-    };
+    await page.waitForNavigation({waitUntil: 'networkidle2'});
+    expect(page.url().includes('daily.html')).toBe(true);
   }, 20000);
   afterAll(async () => {
     browser.close();
