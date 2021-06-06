@@ -120,6 +120,7 @@ describe('Basic user flow for login page', () => {
     'username': 'test',
     'password': '2233',
   };
+
   it('Test 9: resign in', async () => {
     await expect(page).toClick('button', {text: 'get started'});
     await expect(page).toFillForm('form[id=loginform]', {
