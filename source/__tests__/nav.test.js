@@ -22,7 +22,7 @@ describe('Basic user flow for login page', () => {
       password: newUser.password,
     });
     await expect(page).toClick('button', {text: 'sign up'});
-    
+
     await page.waitForNavigation({waitUntil: 'networkidle2'});
     expect(page.url().includes('daily.html')).toBe(true);
   }, 20000);
@@ -61,7 +61,7 @@ describe('Basic user flow for login page', () => {
     expect(titleSrc.includes('assets/images/13ullet.svg'));
     expect(titleAlt).toBe('13Bullet');
   });
-  
+
   it('Test 4: daily page showing up', async () =>{
     const button = await frame.$('label[for=hamburger]');
     await button.click();
@@ -91,26 +91,26 @@ describe('Basic user flow for login page', () => {
     await button.click();
     await expect(frame).toClick('label', {text: 'Settings v'});
     await expect(frame).toClick('li', {text: 'Change password'});
-    const popupText1 = await frame.$eval('label[for=old]', 
-    (text) => {return text.innerText});
+    const popupText1 = await frame.$eval('label[for=old]',
+        (text) => {
+          return text.innerText;
+        });
     expect(popupText1).toBe('Please enter your old password');
-    const popupText2 = await frame.$eval('label[for=new]', 
-    (text) => {return text.innerText});
+    const popupText2 = await frame.$eval('label[for=new]',
+        (text) => {
+          return text.innerText;
+        });
     expect(popupText2).toBe('New password');
   });
 
   it('Test 7: change password', async () => {
-    await frame.$eval('input[id=old]', el => el.value = '12345');
-    await frame.$eval('input[id=new]', el => el.value = '2233');
+    await frame.$eval('input[id=old]', (el) => el.value = '12345');
+    await frame.$eval('input[id=new]', (el) => el.value = '2233');
     await expect(frame).toClick('button', {text: 'Submit'});
-    /*const confirmation = await frame.$eval('.popup h2', (element) => {
-      return element.innerText;
-    });
-    expect(confirmation).toBe('Password Changed');*/
     await expect(frame).toClick('button', {text: 'okay'});
   });
 
-  it('Test 9: sign out', async () => {
+  it('Test 8: sign out', async () => {
     await expect(frame).toClick('button', {text: 'SIGN OUT'});
     await page.waitForNavigation({waitUntil: 'networkidle2'});
     expect(page.url()).toBe('https://journalbullet.herokuapp.com/');
@@ -131,23 +131,7 @@ describe('Basic user flow for login page', () => {
     expect(page.url().includes('daily.html')).toBe(true);
   }, 20000);
 
-  it('Test 11: delete user', async () => {
-    page.waitForSelector('#nav-frame');
-    const elementHandle = await page.$('#nav-frame');
-    frame = await elementHandle.contentFrame();
-    const button = await frame.$('label[for=hamburger]');
-    await button.click();
-    await expect(frame).toClick('label', {text: 'Settings v'});
-    page.on('dialog', async dialog => {
-      await dialog.accept();
-    });
-    await expect(frame).toClick('button', {text: 'Delete Account'});
-    await page.waitForNavigation({waitUntil: 'networkidle2'});
-    expect(page.url()).toBe('https://journalbullet.herokuapp.com/index.html');
-  });
-
-
-  /*it('Test 7: change to dark mode', async () => {
+  it('Test 7: change to dark mode', async () => {
     page.waitForSelector('#nav-frame');
     const elementHandle = await page.$('#nav-frame');
     frame = await elementHandle.contentFrame();
@@ -157,14 +141,49 @@ describe('Basic user flow for login page', () => {
     await setting.click();
     const darkMode = await frame.$('#modes label[for=dark]');
     await darkMode.click();
-    await page.goto('https://journalbullet.herokuapp.com/read/user', {
-      waitUntil: 'networkidle2',
+  });
+
+
+  it('Test 11: check the body background color', async () => {
+    await page.waitForSelector('body');
+    const backgroundColor = await page.$eval('body', (el) =>
+      getComputedStyle(el).getPropertyValue('background-color'));
+    expect(backgroundColor).toBe('rgb(25, 11, 55)');
+  });
+
+  it('Test 7: change to high contrast mode', async () => {
+    page.waitForSelector('#nav-frame');
+    const elementHandle = await page.$('#nav-frame');
+    frame = await elementHandle.contentFrame();
+    const button = await frame.$('label[for=hamburger]');
+    await button.click();
+    const setting = await frame.$('#hamitems a+label');
+    await setting.click();
+    const contrastMode = await frame.$('#modes label[for=contrast]');
+    await contrastMode.click();
+  });
+
+  it('Test 12: check the input background color', async () => {
+    await page.waitForSelector('body');
+    const backgroundColor = await page.$eval('body', (el) =>
+      getComputedStyle(el).getPropertyValue('background-color'));
+    expect(backgroundColor).toBe('rgb(9, 3, 21)');
+  });
+
+  it('Test 13: delete user', async () => {
+    page.waitForSelector('#nav-frame');
+    const elementHandle = await page.$('#nav-frame');
+    frame = await elementHandle.contentFrame();
+    const button = await frame.$('label[for=hamburger]');
+    await button.click();
+    await expect(frame).toClick('label', {text: 'Settings v'});
+    page.on('dialog', async (dialog) => {
+      await dialog.accept();
     });
-    await page.on('response', async (response) => {
-      expect(response.username).toBe(newUser.username);
-      expect(response.style).toBe('dark');
-    });
-  });*/
+    await expect(frame).toClick('button', {text: 'Delete Account'});
+    await page.waitForNavigation({waitUntil: 'networkidle2'});
+    expect(page.url()).toBe('https://journalbullet.herokuapp.com/index.html');
+  });
 
   afterAll(async () => {
     browser.close();
