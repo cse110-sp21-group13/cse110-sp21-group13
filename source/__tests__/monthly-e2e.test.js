@@ -15,16 +15,25 @@ describe('Basic user flow for monthly page', () => {
     'password': '12345',
   };
 
-   it('Test 0: sign up with new user', async () =>{
+  it('Test 0: sign up or log in', async () =>{
     await expect(page).toClick('button', {text: 'get started'});
     await expect(page).toFillForm('form[id=loginform]', {
       username: newUser.username,
       password: newUser.password,
     });
     await expect(page).toClick('button', {text: 'sign up'});
-
-    await page.waitForNavigation({waitUntil: 'networkidle2'});
-    expect(page.url().includes('daily.html')).toBe(true);
+    const error = await page.$eval('#errormsg', (errorMsg) => {
+      return errorMsg.innerText;
+    });
+    if (error.length != 0) {
+      expect(error).toBe('username already taken');
+      await expect(page).toClick('button', {text: 'log in'});
+      await page.waitForNavigation({waitUntil: 'networkidle2'});
+      expect(page.url().includes('daily.html')).toBe(true);
+    } else {
+      await page.waitForNavigation({waitUntil: 'networkidle2'});
+      expect(page.url().includes('daily.html')).toBe(true);
+    };
   }, 20000);
 
   it('Test 1: navigate to month page', async () => {
