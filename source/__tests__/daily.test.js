@@ -42,7 +42,7 @@ describe ('Basic user flow for login page', () => {
             expect(page.url().includes('daily.html')).toBe(true);
         };
 
-        await page.waitForSelector("iframe");
+        await page.waitForSelector("#journal-frame");
         expect(page.url().includes('daily.html')).toBe(true);
 
         const elementHandle = await page.$('#journal-frame');
@@ -79,6 +79,8 @@ describe ('Basic user flow for login page', () => {
     }, 20000);
 
     
+
+    
     it('test 3: click add button', async () => {
         // await page.waitForSelector("iframe");
         const elementHandle = await page.$('#journal-frame');
@@ -107,10 +109,27 @@ describe ('Basic user flow for login page', () => {
         // await page.waitForSelector("iframe");
         const elementHandle = await page.$('#journal-frame');
         const frame = await elementHandle.contentFrame();
-        await frame.select('#signifier', '*')
+        await frame.select('#signifier', '!')
         await frame.select('#bullet-type', '-')
         await frame.$eval('input[id=myInput]', el => el.value = 'Testing add a bullet with signifier and bullet type');
         await expect(frame).toClick('span', {text: 'ADD'});
+
+        
+
+    }, 20000);
+
+
+    it('test 6.5: check bullet length', async () => {
+        const elementHandle = await page.$('#journal-frame');
+        const frame = await elementHandle.contentFrame();
+        let bulletLength = await frame.evaluate(_ => {
+            let bulletL = document.getElementsByTagName("li").length;
+            let priorityL = document.getElementById("Priority").getElementsByTagName("li").length;
+            let inspirationL = document.getElementById("Inspiration").getElementsByTagName("li").length;
+            return bulletL;
+        });
+
+        await expect(bulletLength).toBe(3);
     }, 20000);
 
     it('test 7: add sub-bullet', async () => {
@@ -156,12 +175,14 @@ describe ('Basic user flow for login page', () => {
 
     it('test 9: click prev button to see previous days bullets', async () => {
         // await page.waitForSelector("iframe");
-        const elementHandle = await page.$('#journal-frame');
-        const frame = await elementHandle.contentFrame();
+        let elementHandle = await page.$('#journal-frame');
+        let frame = await elementHandle.contentFrame();
 
-        const titleDate = await frame.$eval("h2", (headers) => headers.innerHTML);
+        
 
-        await expect(page).toClick('span', {class: 'previousBtn'});
+        let previousBtn = await page.$('.previousBtn');
+        await previousBtn.click();
+        // await expect(page).toClick('span', {class: 'previousBtn'});
         await page.waitForNavigation({waitUntil: 'networkidle2'});
 
         const dateYesterday = await page.evaluate(() => {
@@ -182,35 +203,73 @@ describe ('Basic user flow for login page', () => {
             let d = n.getDate();
             const dateHeader = monthName(m) + ' ' + d + ', ' + y;
 
-            
-
             return dateHeader;
             
           });
-        
-          expect(titleDate).toBe(dateYesterday);
+
+          elementHandle = await page.$('#journal-frame');
+          frame = await elementHandle.contentFrame();
+
+          const titleDate = await frame.$eval("h2", (headers) => headers.innerHTML);
+          await expect(titleDate).toBe(dateYesterday);
         
 
     }, 20000);
 
+
     it('test 10: click next', async () => {
-        // await page.waitForSelector("iframe");
-        // const elementHandle = await page.$('#journal-frame');
-        // const frame = await elementHandle.contentFrame();
-        // await frame.select('#signifier', '*')
-        // await frame.$eval('input[id=myInput]', el => el.value = 'test 6: fill text box and add entry with signifier and bullet type');
-        // await expect(frame).toClick('span', {text: 'ADD'});
+        let elementHandle = await page.$('#journal-frame');
+        let frame = await elementHandle.contentFrame();
+
+        
+
+        let previousBtn = await page.$('.nextBtn');
+        await previousBtn.click();
+        // await expect(page).toClick('span', {class: 'previousBtn'});
+        await page.waitForNavigation({waitUntil: 'networkidle2'});
+
+        const date = await page.evaluate(() => {
+            
+            // const n = new Date();
+            // queryString = 'date='+ n.getFullYear() + '-' +
+            //               (n.getMonth() + 1) + '-' + (n.getDate());
+            // // journalTypeMonth = queryString.split('-').length === 3;
+            // return queryString;
+
+            const monthName = function(dt) {
+                mlist = ['January', 'February', 'March', 'April', 'May', 'June',
+                    'July', 'August', 'September', 'October', 'November', 'December'];
+                return mlist[dt];
+            };
+            let n = new Date(params.get('date') + ' 00:00:00');
+            n.toLocaleString('default', {month: 'short'});
+            let y = n.getFullYear();
+            let m = n.getMonth();
+            let d = n.getDate();
+            const dateHeader = monthName(m) + ' ' + d + ', ' + y;
+            return dateHeader;
+            
+          });
+        // const dateNow = new Date();
+
+        //no parameter => mocked current Date returned
+        // console.log(dateNow.toISOString()); //outputs: "2020-11-01T00:00:00.000Z"
+        elementHandle = await page.$('#journal-frame');
+        frame = await elementHandle.contentFrame();
+
+        const titleDate = await frame.$eval("h2", (headers) => headers.innerHTML);
+        expect(titleDate).toBe(date);
     }, 20000);
 
     // Migration check
-    it('test 11: migration page, select a bullet continue', async () => {
-        // await page.waitForSelector("iframe");
-        // const elementHandle = await page.$('#journal-frame');
-        // const frame = await elementHandle.contentFrame();
-        // await frame.select('#signifier', '*')
-        // await frame.$eval('input[id=myInput]', el => el.value = 'test 6: fill text box and add entry with signifier and bullet type');
-        // await expect(frame).toClick('span', {text: 'ADD'});
-    }, 20000);
+    // it('test 11: migration page, select a bullet continue', async () => {
+    //     // await page.waitForSelector("iframe");
+    //     // const elementHandle = await page.$('#journal-frame');
+    //     // const frame = await elementHandle.contentFrame();
+    //     // await frame.select('#signifier', '*')
+    //     // await frame.$eval('input[id=myInput]', el => el.value = 'test 6: fill text box and add entry with signifier and bullet type');
+    //     // await expect(frame).toClick('span', {text: 'ADD'});
+    // }, 20000);
 
     // Last test
     it('test 11: press save and refresh', async () => {
@@ -233,11 +292,28 @@ describe ('Basic user flow for login page', () => {
     //     expect(greeting).toBe('Hello ' + newUser.username + '!');
     //   })
 
+  
 
+
+    it('Test 12: delete user', async () => {
+        page.waitForSelector('#nav-frame');
+        const elementHandle = await page.$('#nav-frame');
+        frame = await elementHandle.contentFrame();
+        const button = await frame.$('label[for=hamburger]');
+        await button.click();
+        await expect(frame).toClick('label', {text: 'Settings v'});
+        page.on('dialog', async (dialog) => {
+          await dialog.accept();
+        });
+        await expect(frame).toClick('button', {text: 'Delete Account'});
+        await page.waitForNavigation({waitUntil: 'networkidle2'});
+        expect(page.url()).toBe('https://journalbullet.herokuapp.com/index.html');
+      });
 
 
     afterAll(async () => {
         browser.close();
+
     });
 
    
