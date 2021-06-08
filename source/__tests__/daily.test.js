@@ -41,6 +41,7 @@ describe ('Basic user flow for login page', () => {
             await page.waitForNavigation({waitUntil: 'networkidle2'});
             expect(page.url().includes('daily.html')).toBe(true);
         };
+
         await page.waitForSelector("iframe");
         expect(page.url().includes('daily.html')).toBe(true);
 
@@ -112,40 +113,88 @@ describe ('Basic user flow for login page', () => {
         await expect(frame).toClick('span', {text: 'ADD'});
     }, 20000);
 
-
-    it('test 7: delete bullet', async () => {
-        // await page.waitForSelector("iframe");
+    it('test 7: add sub-bullet', async () => {
         const elementHandle = await page.$('#journal-frame');
         const frame = await elementHandle.contentFrame();
-        
-        // await frame.hover('button[text=-]')
-        // const element = await frame.$(".bulletContainer");
-        await frame.hover("#bulletContainer");
-        await frame.waitForSelector("#bulletContainer");
-        // await expect(frame).toClick('button', {value: '-'});
-        // await frame.select('#signifier', '*')
-        // await frame.$eval('input[id=myInput]', el => el.value = 'test 6: fill text box and add entry with signifier and bullet type');
-        // await expect(frame).toClick('button', {value: '-'});
-        // const selector = '#sub-bullet-button';
-        // await frame.click("button[value=-]");
-        // let selector = 'button[innerHTML="-"]';
-        // await frame.evaluate((selector) => document.querySelector(selector).click(), selector); 
-        // await expect(frame).toClick('sub-bullet-delete-button');
+  
+        await frame.evaluate(_ => {
+            // this will be executed within the page, that was loaded before
+            const addSubButton = document.getElementsByClassName('sub-bullet-button');
+            var i;
+            for (i = 0; i < addSubButton.length; i++) {
+                addSubButton[i].hidden = false;
+            }
+
+            
+        });
+   
+        await expect(frame).toClick('button', {text: '+'});
+
+        await frame.select('#sub-bullet-type', '-')
+        await frame.$eval('input[id=mySubInput]', el => el.value = 'Testing add a sub bullet');
+        let subAdd = await frame.$('.addSubBtn');
+        await subAdd.click();
+        // await expect(frame).toClick('span', {class: 'ADD '});
+
     }, 20000);
 
 
-    it('test 8: add sub-bullet', async () => {
+    it('test 8: delete bullet', async () => {
         // await page.waitForSelector("iframe");
-        // const elementHandle = await page.$('#journal-frame');
-        // const frame = await elementHandle.contentFrame();
-        // await frame.select('#signifier', '*')
-        // await frame.$eval('input[id=myInput]', el => el.value = 'test 6: fill text box and add entry with signifier and bullet type');
-        // await expect(frame).toClick('span', {text: 'ADD'});
+        const elementHandle = await page.$('#journal-frame');
+        const frame = await elementHandle.contentFrame();
+  
+        await frame.evaluate(_ => {
+            // this will be executed within the page, that was loaded before
+            const deleteButton = document.getElementsByClassName('sub-bullet-button')[0];
+            deleteButton.hidden = false;
+        });
+        await expect(frame).toClick('button', {text: '-'});
+
     }, 20000);
 
 
     it('test 9: click prev button to see previous days bullets', async () => {
         // await page.waitForSelector("iframe");
+        const elementHandle = await page.$('#journal-frame');
+        const frame = await elementHandle.contentFrame();
+
+        const titleDate = await frame.$eval("h2", (headers) => headers.innerHTML);
+
+        await expect(page).toClick('span', {class: 'previousBtn'});
+        await page.waitForNavigation({waitUntil: 'networkidle2'});
+
+        const dateYesterday = await page.evaluate(() => {
+
+            const monthName = function(dt) {
+                mlist = ['January', 'February', 'March', 'April', 'May', 'June',
+                    'July', 'August', 'September', 'October', 'November', 'December'];
+                return mlist[dt];
+            };
+            let n = new Date(params.get('date') + ' 00:00:00');
+            const yesterday = new Date(n)
+            yesterday.setDate(yesterday.getDate() - 1)
+
+
+            yesterday.toLocaleString('default', {month: 'short'});
+            let y = n.getFullYear();
+            let m = n.getMonth();
+            let d = n.getDate();
+            const dateHeader = monthName(m) + ' ' + d + ', ' + y;
+
+            
+
+            return dateHeader;
+            
+          });
+        
+          expect(titleDate).toBe(dateYesterday);
+        
+
+    }, 20000);
+
+    it('test 10: click next', async () => {
+        // await page.waitForSelector("iframe");
         // const elementHandle = await page.$('#journal-frame');
         // const frame = await elementHandle.contentFrame();
         // await frame.select('#signifier', '*')
@@ -153,7 +202,8 @@ describe ('Basic user flow for login page', () => {
         // await expect(frame).toClick('span', {text: 'ADD'});
     }, 20000);
 
-    it('test 10: click next', async () => {
+    // Migration check
+    it('test 11: migration page, select a bullet continue', async () => {
         // await page.waitForSelector("iframe");
         // const elementHandle = await page.$('#journal-frame');
         // const frame = await elementHandle.contentFrame();
