@@ -180,8 +180,76 @@ describe('Basic user flow for monthly page', () => {
     await expect(frame).toClick('button', {text: '-'});
   }, 20000);
 
+  it('test 14: go to previous month', async () => {
+    let elementHandle = await page.$('#journal-frame');
+    frame = await elementHandle.contentFrame();
+    const previousBtn = await page.$('.previousBtn');
+    await previousBtn.click();
+
+    // get current date
+    const d = new Date();
+    d.toLocaleString('default', {month: 'short'});
+    d.setMonth(d.getMonth() - 1);
+    const y = d.getFullYear();
+    const m = d.getMonth();
+
+    // check date heading
+    elementHandle = await page.$('#journal-frame');
+    frame = await elementHandle.contentFrame();
+    const date = await frame.$eval('#date',
+        (date) => {
+          return date.innerText;
+        });
+    expect(date).toBe(`${monthName(m)} ${y}`);
+  }, 20000);
+
+  it('test 15: go back to current month', async () => {
+    let elementHandle = await page.$('#journal-frame');
+    frame = await elementHandle.contentFrame();
+    const nextBtn = await page.$('.nextBtn');
+    await nextBtn.click();
+
+    // get current date
+    const d = new Date();
+    d.toLocaleString('default', {month: 'short'});
+    const y = d.getFullYear();
+    const m = d.getMonth();
+
+    // check date heading
+    elementHandle = await page.$('#journal-frame');
+    frame = await elementHandle.contentFrame();
+    const date = await frame.$eval('#date',
+        (date) => {
+          return date.innerText;
+        });
+    expect(date).toBe(`${monthName(m)} ${y}`);
+  }, 20000);
+
+  it('test 16: go to future month', async () => {
+    let elementHandle = await page.$('#journal-frame');
+    frame = await elementHandle.contentFrame();
+    const nextBtn = await page.$('.nextBtn');
+    await nextBtn.click();
+
+    // get current date
+    const d = new Date();
+    d.toLocaleString('default', {month: 'short'});
+    d.setMonth(d.getMonth() + 1, 1);
+    const y = d.getFullYear();
+    const m = d.getMonth();
+
+    // check date heading
+    elementHandle = await page.$('#journal-frame');
+    frame = await elementHandle.contentFrame();
+    const date = await frame.$eval('#date',
+        (date) => {
+          return date.innerText;
+        });
+    expect(date).toBe(`${monthName(m)} ${y}`);
+  }, 20000);
+
   // enable successful run next time
-  it('Test 15: delete user', async () => {
+  it('Test 17: delete user', async () => {
     page.waitForSelector('#nav-frame');
     const elementHandle = await page.$('#nav-frame');
     frame = await elementHandle.contentFrame();
