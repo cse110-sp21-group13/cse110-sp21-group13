@@ -15,7 +15,7 @@ describe('Basic user flow for monthly page', () => {
   });
 
   const newUser = {
-    'username': 'testMonthly',
+    'username': 'testFuture',
     'password': '12345',
   };
 
