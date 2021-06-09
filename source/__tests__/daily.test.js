@@ -3,9 +3,9 @@ const puppeteer = require('puppeteer');
 let page;
 let browser;
 
-describe ('Basic user flow for login page', () => {
+describe('Basic user flow for login page', () => {
     beforeAll(async () => {
-        browser = await puppeteer.launch({headless: true, slowMo: 100, testTimeout: 30000,});
+        browser = await puppeteer.launch({ headless: true, slowMo: 100, testTimeout: 30000, });
         page = await browser.newPage();
         await page.goto('https://journalbullet.herokuapp.com');
     });
@@ -16,22 +16,22 @@ describe ('Basic user flow for login page', () => {
     };
 
     it('Test 1: click get started button and get to login', async () => {
-        page.click('button', {text: 'get started'})
-        let name = await page.$eval('#loginform > label', (username) => {return username.textContent;});
-        let password = await page.$eval('#loginform input+label', (key) => {return key.textContent;});
+        page.click('button', { text: 'get started' })
+        let name = await page.$eval('#loginform > label', (username) => { return username.textContent; });
+        let password = await page.$eval('#loginform input+label', (key) => { return key.textContent; });
         expect(name).toBe('Name');
         expect(password).toBe('Password');
     }, 100000);
 
 
     it('test 2: sign up with new user or log in with existing user', async () => {
-        await expect(page).toFillForm('form[id=loginform]',{
+        await expect(page).toFillForm('form[id=loginform]', {
             username: user.username,
             password: user.password,
         });
-        await expect(page).toClick('button', {text: 'sign up'});
+        await expect(page).toClick('button', { text: 'sign up' });
 
-        await page.waitForNavigation({waitUntil: 'networkidle2'});
+        await page.waitForNavigation({ waitUntil: 'networkidle2' });
 
         await page.waitForSelector("#journal-frame");
         expect(page.url().includes('daily.html')).toBe(true);
@@ -41,20 +41,20 @@ describe ('Basic user flow for login page', () => {
         const titleDate = await frame.$eval("h2", (headers) => headers.innerHTML);
         const date = await page.evaluate(() => {
 
-            const monthName = function(dt) {
+            const monthName = function (dt) {
                 mlist = ['January', 'February', 'March', 'April', 'May', 'June',
                     'July', 'August', 'September', 'October', 'November', 'December'];
                 return mlist[dt];
             };
             let n = new Date(params.get('date') + ' 00:00:00');
-            n.toLocaleString('default', {month: 'short'});
+            n.toLocaleString('default', { month: 'short' });
             let y = n.getFullYear();
             let m = n.getMonth();
             let d = n.getDate();
             const dateHeader = monthName(m) + ' ' + d + ', ' + y;
             return dateHeader;
-            
-          });
+
+        });
         expect(titleDate).toBe(date);
 
     }, 20000);
@@ -62,10 +62,10 @@ describe ('Basic user flow for login page', () => {
     it('test 3: click add button', async () => {
         const elementHandle = await page.$('#journal-frame');
         const frame = await elementHandle.contentFrame();
-        await expect(frame).toClick('span', {text: 'ADD'});
+        await expect(frame).toClick('span', { text: 'ADD' });
     }, 20000);
 
-    
+
     it('test 4: check bullet length', async () => {
         const elementHandle = await page.$('#journal-frame');
         const frame = await elementHandle.contentFrame();
@@ -80,7 +80,7 @@ describe ('Basic user flow for login page', () => {
         const elementHandle = await page.$('#journal-frame');
         const frame = await elementHandle.contentFrame();
         await frame.$eval('input[id=myInput]', el => el.value = 'Testing add a bullet');
-        await expect(frame).toClick('span', {text: 'ADD'});
+        await expect(frame).toClick('span', { text: 'ADD' });
     }, 20000);
 
     it('test 6: check bullet length', async () => {
@@ -98,7 +98,7 @@ describe ('Basic user flow for login page', () => {
         const frame = await elementHandle.contentFrame();
         await frame.select('#signifier', '*')
         await frame.$eval('input[id=myInput]', el => el.value = 'Testing add a bullet with signifier');
-        await expect(frame).toClick('span', {text: 'ADD'});
+        await expect(frame).toClick('span', { text: 'ADD' });
     }, 20000);
 
     it('test 8: check bullet length', async () => {
@@ -117,7 +117,7 @@ describe ('Basic user flow for login page', () => {
         await frame.select('#signifier', '!')
         await frame.select('#bullet-type', '-')
         await frame.$eval('input[id=myInput]', el => el.value = 'Testing add a bullet with signifier and bullet type');
-        await expect(frame).toClick('span', {text: 'ADD'});
+        await expect(frame).toClick('span', { text: 'ADD' });
     }, 20000);
 
     it('test 10: check bullet length', async () => {
@@ -133,7 +133,7 @@ describe ('Basic user flow for login page', () => {
     it('test 11: add sub-bullet', async () => {
         const elementHandle = await page.$('#journal-frame');
         const frame = await elementHandle.contentFrame();
-  
+
         await frame.evaluate(_ => {
             // this will be executed within the page, that was loaded before
             const addSubButton = document.getElementsByClassName('sub-bullet-button');
@@ -142,8 +142,8 @@ describe ('Basic user flow for login page', () => {
                 addSubButton[i].hidden = false;
             }
         });
-   
-        await expect(frame).toClick('button', {text: '+'});
+
+        await expect(frame).toClick('button', { text: '+' });
 
         await frame.select('#sub-bullet-type', '-')
         await frame.$eval('input[id=mySubInput]', el => el.value = 'Testing add a sub bullet');
@@ -166,26 +166,26 @@ describe ('Basic user flow for login page', () => {
     it('test 13: delete bullet', async () => {
         const elementHandle = await page.$('#journal-frame');
         const frame = await elementHandle.contentFrame();
-  
+
         await frame.evaluate(_ => {
             // this will be executed within the page, that was loaded before
             const deleteButton = document.getElementsByClassName('sub-bullet-button')[0];
             deleteButton.hidden = false;
         });
-        await expect(frame).toClick('button', {text: '-'});
+        await expect(frame).toClick('button', { text: '-' });
 
     }, 20000);
 
-  
+
     it('test 14: click prev button to see previous days bullets', async () => {
         let elementHandle = await page.$('#journal-frame');
         let frame = await elementHandle.contentFrame();
         let previousBtn = await page.$('.previousBtn');
         await previousBtn.click();
-        await page.waitForNavigation({waitUntil: 'networkidle2'});
+        await page.waitForNavigation({ waitUntil: 'networkidle2' });
 
         const dateYesterday = await page.evaluate(() => {
-            const monthName = function(dt) {
+            const monthName = function (dt) {
                 mlist = ['January', 'February', 'March', 'April', 'May', 'June',
                     'July', 'August', 'September', 'October', 'November', 'December'];
                 return mlist[dt];
@@ -195,21 +195,21 @@ describe ('Basic user flow for login page', () => {
             yesterday.setDate(yesterday.getDate() - 1)
 
 
-            yesterday.toLocaleString('default', {month: 'short'});
+            yesterday.toLocaleString('default', { month: 'short' });
             let y = n.getFullYear();
             let m = n.getMonth();
             let d = n.getDate();
             const dateHeader = monthName(m) + ' ' + d + ', ' + y;
 
             return dateHeader;
-          });
+        });
 
-          elementHandle = await page.$('#journal-frame');
-          frame = await elementHandle.contentFrame();
+        elementHandle = await page.$('#journal-frame');
+        frame = await elementHandle.contentFrame();
 
-          const titleDate = await frame.$eval("h2", (headers) => headers.innerHTML);
-          await expect(titleDate).toBe(dateYesterday);
-        
+        const titleDate = await frame.$eval("h2", (headers) => headers.innerHTML);
+        await expect(titleDate).toBe(dateYesterday);
+
 
     }, 20000);
 
@@ -219,22 +219,22 @@ describe ('Basic user flow for login page', () => {
         let frame = await elementHandle.contentFrame();
         let previousBtn = await page.$('.nextBtn');
         await previousBtn.click();
-        await page.waitForNavigation({waitUntil: 'networkidle2'});
+        await page.waitForNavigation({ waitUntil: 'networkidle2' });
 
         const date = await page.evaluate(() => {
-            const monthName = function(dt) {
+            const monthName = function (dt) {
                 mlist = ['January', 'February', 'March', 'April', 'May', 'June',
                     'July', 'August', 'September', 'October', 'November', 'December'];
                 return mlist[dt];
             };
             let n = new Date(params.get('date') + ' 00:00:00');
-            n.toLocaleString('default', {month: 'short'});
+            n.toLocaleString('default', { month: 'short' });
             let y = n.getFullYear();
             let m = n.getMonth();
             let d = n.getDate();
             const dateHeader = monthName(m) + ' ' + d + ', ' + y;
             return dateHeader;
-            
+
         });
         elementHandle = await page.$('#journal-frame');
         frame = await elementHandle.contentFrame();
@@ -243,10 +243,10 @@ describe ('Basic user flow for login page', () => {
         expect(titleDate).toBe(date);
     }, 20000);
 
-    
+
     it('test 16: refresh page', async () => {
         await page.reload({ waitUntil: ["networkidle0", "domcontentloaded"] });
-        
+
     }, 20000);
 
     it('test 17: check bullet length', async () => {
@@ -268,14 +268,14 @@ describe ('Basic user flow for login page', () => {
         frame = await elementHandle.contentFrame();
         const button = await frame.$('label[for=hamburger]');
         await button.click();
-        await expect(frame).toClick('label', {text: 'Settings v'});
+        await expect(frame).toClick('label', { text: 'Settings v' });
         page.on('dialog', async (dialog) => {
-          await dialog.accept();
+            await dialog.accept();
         });
-        await expect(frame).toClick('button', {text: 'Delete Account'});
-        await page.waitForNavigation({waitUntil: 'networkidle2'});
+        await expect(frame).toClick('button', { text: 'Delete Account' });
+        await page.waitForNavigation({ waitUntil: 'networkidle2' });
         expect(page.url()).toBe('https://journalbullet.herokuapp.com/index.html');
-      });
+    });
 
     afterAll(async () => {
         browser.close();
