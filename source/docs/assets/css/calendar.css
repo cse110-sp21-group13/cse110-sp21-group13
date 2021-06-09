@@ -27,10 +27,11 @@ body {
 }
 
 /* header for the date title */
-h3 {
+h2 {
     font-size: 5ch;
     position: relative;
     align-self: center;
+    height: 1ch;
 }
 
 /* Style the header */
@@ -340,6 +341,24 @@ ul li ul {
     text-align: center;
     font-size: 4.5ch;
 }
+
+/* round calendar corners */
+.grid-item-days:nth-child(1) { 
+    border-radius: 10px 0px 0px 0px;
+}
+
+.grid-item-days:nth-child(7){
+    border-radius: 0px 10px 0px 0px;
+}
+
+.grid-item-dates:nth-last-child(1){
+    border-radius: 0px 0px 10px 0px;
+}
+
+.grid-item-dates:nth-last-child(7){
+    border-radius: 0px 0px 0px 10px;
+}
+
 /* if the dates are clickable, make them not ugly */
 .grid-item-dates a {
     text-decoration: none;
