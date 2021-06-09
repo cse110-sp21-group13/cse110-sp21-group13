@@ -5,7 +5,7 @@ let browser;
 describe('Basic user flow for monthly page', () => {
   beforeAll(async () => {
     browser = await puppeteer.launch({headless: false,
-      slowMo: 0, testTimeout: 50000});
+      slowMo: 100, testTimeout: 50000});
     page = await browser.newPage();
     await page.setViewport({
       width: 800,
@@ -181,7 +181,7 @@ describe('Basic user flow for monthly page', () => {
   }, 20000);
 
   // enable successful run next time
-  it('Test x: delete user', async () => {
+  it('Test 15: delete user', async () => {
     page.waitForSelector('#nav-frame');
     const elementHandle = await page.$('#nav-frame');
     frame = await elementHandle.contentFrame();
