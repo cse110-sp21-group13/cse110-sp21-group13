@@ -4,7 +4,7 @@ let browser;
 
 describe('Basic user flow for monthly page', () => {
   beforeAll(async () => {
-    browser = await puppeteer.launch({headless: false,
+    browser = await puppeteer.launch({headless: true,
       slowMo: 100, testTimeout: 50000});
     page = await browser.newPage();
     await page.setViewport({
