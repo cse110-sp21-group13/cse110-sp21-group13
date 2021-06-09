@@ -1,11 +1,12 @@
-const {puppeteerErrors} = require('puppeteer');
+// const {puppeteerErrors} = require('puppeteer');
 const puppeteer = require('puppeteer');
 let page;
 let browser;
 
 describe('Basic user flow for login page', () => {
   beforeAll(async () => {
-    browser = await puppeteer.launch({headless: true, slowMo: 100, testTimeout: 30000});
+    browser = await puppeteer.launch({headless: true, slowMo: 100,
+      testTimeout: 30000});
     page = await browser.newPage();
     await page.goto('https://journalbullet.herokuapp.com');
   });
@@ -80,7 +81,8 @@ describe('Basic user flow for login page', () => {
   it('test 5: fill text box and add entry', async () => {
     const elementHandle = await page.$('#journal-frame');
     const frame = await elementHandle.contentFrame();
-    await frame.$eval('input[id=myInput]', (el) => el.value = 'Testing add a bullet');
+    await frame.$eval('input[id=myInput]',
+        (el) => el.value = 'Testing add a bullet');
     await expect(frame).toClick('span', {text: 'ADD'});
   }, 20000);
 
@@ -98,7 +100,8 @@ describe('Basic user flow for login page', () => {
     const elementHandle = await page.$('#journal-frame');
     const frame = await elementHandle.contentFrame();
     await frame.select('#signifier', '*');
-    await frame.$eval('input[id=myInput]', (el) => el.value = 'Testing add a bullet with signifier');
+    await frame.$eval('input[id=myInput]',
+        (el) => el.value = 'Testing add a bullet with signifier');
     await expect(frame).toClick('span', {text: 'ADD'});
   }, 20000);
 
@@ -112,14 +115,18 @@ describe('Basic user flow for login page', () => {
     await expect(bulletLength).toBe(2);
   }, 20000);
 
-  it('test 9: fill text box and add entry with signifier and bullet type', async () => {
-    const elementHandle = await page.$('#journal-frame');
-    const frame = await elementHandle.contentFrame();
-    await frame.select('#signifier', '!');
-    await frame.select('#bullet-type', '-');
-    await frame.$eval('input[id=myInput]', (el) => el.value = 'Testing add a bullet with signifier and bullet type');
-    await expect(frame).toClick('span', {text: 'ADD'});
-  }, 20000);
+  it('test 9: fill text box and add entry with signifier and bullet type',
+      async () => {
+        const elementHandle = await page.$('#journal-frame');
+        const frame = await elementHandle.contentFrame();
+        await frame.select('#signifier', '!');
+        await frame.select('#bullet-type', '-');
+        await frame.$eval(
+            'input[id=myInput]',
+            (el) => el.value =
+            'Testing add a bullet with signifier and bullet type');
+        await expect(frame).toClick('span', {text: 'ADD'});
+      }, 20000);
 
   it('test 10: check bullet length', async () => {
     const elementHandle = await page.$('#journal-frame');
@@ -147,7 +154,8 @@ describe('Basic user flow for login page', () => {
     await expect(frame).toClick('button', {text: '+'});
 
     await frame.select('#sub-bullet-type', '-');
-    await frame.$eval('input[id=mySubInput]', (el) => el.value = 'Testing add a sub bullet');
+    await frame.$eval('input[id=mySubInput]',
+        (el) => el.value = 'Testing add a sub bullet');
     const subAdd = await frame.$('.addSubBtn');
     await subAdd.click();
   }, 20000);
@@ -169,7 +177,8 @@ describe('Basic user flow for login page', () => {
 
     await frame.evaluate((_) => {
       // this will be executed within the page, that was loaded before
-      const deleteButton = document.getElementsByClassName('sub-bullet-button')[0];
+      const deleteButton =
+      document.getElementsByClassName('sub-bullet-button')[0];
       deleteButton.hidden = false;
     });
     await expect(frame).toClick('button', {text: '-'});
