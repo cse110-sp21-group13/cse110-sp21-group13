@@ -17,7 +17,7 @@ jobs:
           uses: actions/checkout@v2
           with:
             repository: cse110-sp21-group13/jsdocs-cse110-sp21-group13
-            token: ${{secrets.PUSH_TOKEN}}
+            token: ${{ secrets.GITHUB_TOKEN }}
         - name: list
           working-directory: ./source
           run: |
