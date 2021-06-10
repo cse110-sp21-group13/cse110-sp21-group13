@@ -25,4 +25,4 @@ jobs:
             git stash pop
             git add jsdocs/
             git commit -m 'jsodcs update'
-            git push jsdocs HEAD
+            git push -f jsdocs HEAD
