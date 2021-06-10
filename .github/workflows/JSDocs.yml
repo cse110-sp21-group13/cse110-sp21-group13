@@ -22,8 +22,5 @@ jobs:
             git fetch jsdocs
             git stash
             git checkout -b main jsdocs/main
-            # git stash pop
-            # git add -f jsdocs/
-            # git commit -m 'jsodcs update'
             git merge --squash --strategy-option=ours stash --allow-unrelated-histories
             git push -f jsdocs HEAD
