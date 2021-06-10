@@ -19,8 +19,8 @@ jobs:
             API_TOKEN_GITHUB: ${{ secrets.PUSH_TOKEN }}
           with:
             source-directory: './source/jsdocs'
-            destination-github-username: 'GitHub-Action'
-            destination-repository-name: './source/jsdocs'
+            destination-github-username: 'cse110-sp21-group13'
+            destination-repository-name: 'jsdocs-cse110-sp21-group13'
             user-email: ''
             target-branch: main
         #- name: list
