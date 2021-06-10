@@ -25,5 +25,5 @@ jobs:
             # git stash pop
             # git add -f jsdocs/
             # git commit -m 'jsodcs update'
-            git merge --squash --strategy-option=ours stash
+            git merge --squash --strategy-option=ours stash --allow-unrelated-histories
             git push -f jsdocs HEAD
