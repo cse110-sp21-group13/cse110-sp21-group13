@@ -19,8 +19,8 @@ jobs:
             git config user.name "GitHub Actions Bot"
             git config user.email "<>"
             git remote add jsdocs https://github.com/cse110-sp21-group13/jsdocs-cse110-sp21-group13.git
-            git fetch
-            git checkout main
+            git fetch jsdocs
+            git checkout -b main jsdocs/main
             git add jsdocs/
             git commit -m 'jsodcs update'
             git push jsdocs HEAD
