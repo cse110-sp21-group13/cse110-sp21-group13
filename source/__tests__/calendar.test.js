@@ -36,15 +36,80 @@ describe('Basic user flow for monthly page', () => {
     await page.reload({waitUntil: ['networkidle0', 'domcontentloaded']});
   }, 20000);
 
-  it('test 3: check if ', async () => {
-    const length = await page.evaluate(() => {
-      return document.querySelectorAll('grid-item-dates');
-    });
-    expect(length).toBe(31);
+  it('test 3: check if current day has a daily', async () => {
+    // current day
+    const n = new Date();
+    const day = n.getDate();
+
+    page.waitForSelector('#calendar');
+    const gridHandle = await page.$('.grid-container');
+    const dailyDate =
+      await gridHandle.$$eval('.grid-item-dates', (nodes) => {
+        return nodes.filter((n) => n.hasAttribute('data-contains-daily'))
+            .map((n) => n.innerText);
+      });
+    expect(parseInt(dailyDate[0])).toBe(day);
+  }, 20000);
+
+  it('test 4: clicking current day should navigate to daily', async () => {
+    page.waitForSelector('#calendar');
+    const gridHandle = await page.$('.grid-container');
+    const dailyDate =
+      await gridHandle.$$eval('.grid-item-dates', (nodes) => {
+        return nodes.filter((n) => n.hasAttribute('data-contains-daily'))
+            .map((n) => n.firstChild)
+            .map((n) => n.href);
+      });
+
+    await expect(page).toClick('a', {href: dailyDate[0]});
+    await page.waitForNavigation({waitUntil: 'networkidle2'});
+    expect(page.url().includes('daily.html')).toBe(true);
+  }, 20000);
+
+  it('test 5: go back to calendar page', async () => {
+    await page.goBack();
+    expect(page.url().includes('calendar.html')).toBe(true);
+  }, 20000);
+
+  it('test 6: should only be 1 date with daily', async () => {
+    page.waitForSelector('#calendar');
+    const gridHandle = await page.$('.grid-container');
+    const dailyDates =
+      await gridHandle.$$eval('.grid-item-dates', (nodes) => {
+        return nodes.filter((n) => n.hasAttribute('data-contains-daily'));
+      });
+    expect(dailyDates.length).toBe(1);
+  }, 20000);
+
+  it('test 7: should only be 1 date with daily', async () => {
+    page.waitForSelector('#calendar');
+    const gridHandle = await page.$('.grid-container');
+    const dailyDates =
+      await gridHandle.$$eval('.grid-item-dates', (nodes) => {
+        return nodes.filter((n) => n.hasAttribute('data-contains-daily'));
+      });
+    expect(dailyDates.length).toBe(1);
+  }, 20000);
+
+  it('test 8: next month should have zero dailies', async () => {
+    // navigate to next month
+    const elementHandle = await page.$('#journal-frame');
+    frame = await elementHandle.contentFrame();
+    const nextBtn = await page.$('.nextBtn');
+    await nextBtn.click();
+
+    // check number of dailies in calendar
+    page.waitForSelector('#calendar');
+    const gridHandle = await page.$('.grid-container');
+    const dailyDates =
+      await gridHandle.$$eval('.grid-item-dates', (nodes) => {
+        return nodes.filter((n) => n.hasAttribute('data-contains-daily'));
+      });
+    expect(dailyDates.length).toBe(0);
   }, 20000);
 
   // enable successful run next time
-  it('Test 17: delete user', async () => {
+  it('Test 9: delete user', async () => {
     page.waitForSelector('#nav-frame');
     const elementHandle = await page.$('#nav-frame');
     frame = await elementHandle.contentFrame();
@@ -63,9 +128,3 @@ describe('Basic user flow for monthly page', () => {
     browser.close();
   });
 });
-
-const monthName = function(dt) {
-  mlist = ['January', 'February', 'March', 'April', 'May', 'June',
-    'July', 'August', 'September', 'October', 'November', 'December'];
-  return mlist[dt];
-};
