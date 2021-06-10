@@ -43,30 +43,11 @@ function updateCalendar(month, year, date) {
 
   let monthData;
 
-  $.ajax({
-    url: '/read/month/' + date.getFullYear() + '-' + (date.getMonth() + 1),
-    type: 'GET',
-    async: false,
-    success: function(retData) {
-      monthData = retData;
-    },
-    error: function() {
-      console.log('error');
-    },
-  });
-
-  if (monthData === 'error') {
-    const newMonthData = {
-      month: (date.getFullYear() + '-' + (date.getMonth() + 1)),
-      bullets: [],
-    };
-
+  do {
     $.ajax({
-      url: '/create/month/',
-      type: 'POST',
+      url: '/read/month/' + date.getFullYear() + '-' + (date.getMonth() + 1),
+      type: 'GET',
       async: false,
-      contentType: 'application/json',
-      data: JSON.stringify(newMonthData),
       success: function(retData) {
         monthData = retData;
       },
@@ -74,7 +55,25 @@ function updateCalendar(month, year, date) {
         console.log('error');
       },
     });
-  }
+
+    if (monthData === 'error') {
+      const newMonthData = {
+        month: (date.getFullYear() + '-' + (date.getMonth() + 1)),
+        bullets: [],
+      };
+
+      $.ajax({
+        url: '/create/month/',
+        type: 'POST',
+        async: false,
+        contentType: 'application/json',
+        data: JSON.stringify(newMonthData),
+        error: function() {
+          console.log('error');
+        },
+      });
+    }
+  } while(monthData === 'error');
 
   for (let i = 0; i < currMonth.getDay(); i++) { // Put in empty days for month
     const cell = document.createElement('div');
