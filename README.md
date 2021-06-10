@@ -10,6 +10,6 @@
 - [/source](https://github.com/cse110-sp21-group13/cse110-sp21-group13/tree/main/source) contains all of the source code that makes 13ullet run.
 - [/specs](https://github.com/cse110-sp21-group13/cse110-sp21-group13/tree/main/specs) contains documentation of the development process, including brainstorming, planning, wireframes and user stories.
 ## More about the project
-To learn more, visit our proect wiki [here](https://github.com/cse110-sp21-group13/cse110-sp21-group13/wiki)
+To learn more, visit our project wiki [here](https://github.com/cse110-sp21-group13/cse110-sp21-group13/wiki)
 ## About Us
 Want to know about the people behind 13ullet? Learn more about our team members [here](https://github.com/cse110-sp21-group13/cse110-sp21-group13/wiki/Team-Page)
