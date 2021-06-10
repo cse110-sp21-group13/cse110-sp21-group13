@@ -73,7 +73,7 @@ function updateCalendar(month, year, date) {
         },
       });
     }
-  } while(monthData === 'error');
+  } while (monthData === 'error');
 
   for (let i = 0; i < currMonth.getDay(); i++) { // Put in empty days for month
     const cell = document.createElement('div');
