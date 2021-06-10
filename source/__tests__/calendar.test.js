@@ -81,17 +81,7 @@ describe('Basic user flow for monthly page', () => {
     expect(dailyDates.length).toBe(1);
   }, 20000);
 
-  it('test 7: should only be 1 date with daily', async () => {
-    page.waitForSelector('#calendar');
-    const gridHandle = await page.$('.grid-container');
-    const dailyDates =
-      await gridHandle.$$eval('.grid-item-dates', (nodes) => {
-        return nodes.filter((n) => n.hasAttribute('data-contains-daily'));
-      });
-    expect(dailyDates.length).toBe(1);
-  }, 20000);
-
-  it('test 8: next month should have zero dailies', async () => {
+  it('test 7: next month should have zero dailies', async () => {
     // navigate to next month
     const elementHandle = await page.$('#journal-frame');
     frame = await elementHandle.contentFrame();
@@ -109,7 +99,7 @@ describe('Basic user flow for monthly page', () => {
   }, 20000);
 
   // enable successful run next time
-  it('Test 9: delete user', async () => {
+  it('Test 8: delete user', async () => {
     page.waitForSelector('#nav-frame');
     const elementHandle = await page.$('#nav-frame');
     frame = await elementHandle.contentFrame();
