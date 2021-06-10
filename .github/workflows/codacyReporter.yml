@@ -14,7 +14,7 @@ jobs:
           project-token: e04fbce992e34cc1b6787dd0aa0a0242
           # or
           # api-token: ${{ secrets.CODACY_API_TOKEN }}
-          coverage-reports: ./source/coverage/clover.xml
+          coverage-reports: clover.xml
           
       - name: upload to codacy
         run: export CODACY_PROJECT_TOKEN=e04fbce992e34cc1b6787dd0aa0a0242  
