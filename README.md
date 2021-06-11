@@ -11,7 +11,7 @@
 - [/.github](.github) has all of our issue templates and pipeline workflows 
 - [/admin](admin) contains our branding assets, CI pipeline documentation, meeting notes, videos, and other administrative resources
 - [/source](source) contains all of the source code that makes 13ullet run.
-- [/specs](specs) contains documentation of the development process, including brainstorming, planning, wireframes and user stories.
+- [/specs](specs) contains documentation of the development process, including brainstorming, planning, wireframes and user stories. We used [Figma](https://www.figma.com/) to plan out most of our design components and prototypes. You can view all our designs and scratch work [here](https://www.figma.com/file/rBvPNM29Ky8aheFgfJydkj/CSE-110).
 ## Onboarding
 Follow these steps to host your own instance of 13ullet
 1. Fork the repository on github
