@@ -5,8 +5,8 @@
 ## Check it out!
 13ullet is [up and running](https://journalbullet.herokuapp.com/)
 ## Videos
-- To learn about the app, watch our [short public demo video]
-- To learn about the project itself, watch our [longer private video]
+- To learn about the app, watch our [short public demo video](https://youtu.be/0NcQkKlmB5g)
+- To learn about the project itself, watch our [longer private video](https://youtu.be/06V63VCCyPQ)
 ## Navigating the repo
 - [/.github](https://github.com/cse110-sp21-group13/cse110-sp21-group13/tree/main/.github) has all of our issue templates and pipeline workflows 
 - [/admin](https://github.com/cse110-sp21-group13/cse110-sp21-group13/tree/main/admin) contains our branding assets, CI pipeline documentation, meeting notes, videos, and other administrative resources
