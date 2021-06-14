@@ -3,7 +3,7 @@ currDate.setDate(1); // Always set to first day of the month
 const backButton = document.getElementById('back');
 const forwardButton = document.getElementById('forward');
 const iframe = document.getElementById('journal-frame');
-
+console.log('Testing Build');
 // Go back a month
 backButton.addEventListener('click', () => {
   currDate.setMonth(currDate.getMonth()-1); // Decrement Month
