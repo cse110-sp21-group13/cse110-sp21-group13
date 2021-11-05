@@ -17,6 +17,7 @@ function updateFields(res, req) {
       .then((response) => {
         // Iterate through the provided update fields in the request body
         // and set them to the new value in the update field
+        // new comment
         for (const updatedField in req.documents[0].body.updateField) {
           if (updatedField in response) {
             response[updatedField] =
